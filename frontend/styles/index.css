@@ -1,0 +1,51 @@
+@font-face {
+  font-display: swap;
+  font-family: "Graphik LC";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Graphik LC"),
+    url(/fonts/Graphik-Medium-Web.woff2) format("woff2"),
+    url(/fonts/Graphik-Medium-Web.ttf) format("ttf"),
+    url(/fonts/Graphik-Medium-Web.eot) format("eot"),
+    url(/fonts/Graphik-Medium-Web.woff) format("woff");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Graphik LC";
+  font-style: normal;
+  src: local("Graphik LC"),
+    url(/fonts/Graphik-Regular-Web.woff2) format("woff2"),
+    url(/fonts/Graphik-Regular-Web.ttf) format("ttf"),
+    url(/fonts/Graphik-Regular-Web.eot) format("eot"),
+    url(/fonts/Graphik-Regular-Web.woff) format("woff");
+}
+
+@font-face {
+    font-family: 'New York Extra Large';
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/NewYorkExtraLarge-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'New York Extra Large';
+    font-style: italic;
+    font-display: swap;
+    src: url('/fonts/NewYorkExtraLarge-RegularItalic.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'New York Extra Large';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/NewYorkExtraLarge-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'New York Extra Large';
+    font-style: italic;
+    font-display: swap;
+    src: url('/fonts/NewYorkExtraLarge-MediumItalic.otf') format('opentype');
+}
