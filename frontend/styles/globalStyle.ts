@@ -1,7 +1,7 @@
-import { createGlobalStyle } from "styled-components"
-import { device } from "./constants"
-import { Container } from "./layout"
-import { subtitle } from "./typography"
+import { createGlobalStyle } from "styled-components";
+import { device } from "./constants";
+import { Container } from "./layout";
+import { subtitle } from "./typography";
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -23,6 +23,10 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-size: 8px;
   }
+  button {
+    font-family: 'Graphik LC', sans-serif;
+    font-style: normal;
+  }
   h1, .h1 {
     font-weight: 500;
     font-size: 12.9rem;
@@ -40,7 +44,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 4.8rem;
     line-height: 140%;
     letter-spacing: 0.03em;
-    text-transform: uppercase;
   }
   h4, .h4 {
     font-weight: 500;
@@ -82,4 +85,4 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 10px;
     }
   }
-`
+`;

@@ -14,10 +14,16 @@ export const FooterRoot = styled.footer`
   & > div {
     padding: 0 6rem;
   }
+
+  address {
+    line-height: 150%;
+    font-style: normal;
+    flex-grow: 1;
+  }
 `
 
-export const FooterEmail = styled.p`
-  font-family: New York Extra Large, sans-serif;
+export const FooterEmail = styled.div`
+  font-family: 'New York Extra Large', sans-serif;
   font-size: 4.8rem;
   line-height: 140%;
   font-style: italic;
@@ -32,7 +38,6 @@ export const FooterBottom = styled.div`
 
 export const FooterTop = styled.div`
   display: flex;
-  justify-content: space-between;
 `
 
 export const FooterLink = styled.a`
@@ -73,4 +78,10 @@ export const Copyright = styled.span`
   font-weight: 500;
   font-size: 2.4rem;
   line-height: 140%;
+  margin-left: auto;
+`
+
+export const InfoBlock = styled.div`
+  flex-basis: 46rem;
+  margin-right: 6rem;
 `

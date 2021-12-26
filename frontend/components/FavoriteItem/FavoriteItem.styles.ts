@@ -1,32 +1,32 @@
 import styled from "styled-components";
 import { subtitle } from "../../styles/typography";
+import { PurchaseButtons } from "../PurchaseButtons/";
 
-export const ItemRoot = styled.div`
-  width: 43.5rem;
-  height: 63rem;
-  border: 1px solid #1d1d1b;
-  box-sizing: border-box;
+export const HidingPurchaseButtons = styled(PurchaseButtons)`
+  display: none;
+`
+
+export const FavoriteRoot = styled.div`
+  width: 67rem;
+  height: 67rem;
+  border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 3.6rem;
-  padding: 1.5rem 1.5rem 4.2rem;
-  position: relative;
-`;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-items: space-between;
 
-export const Discount = styled.div`
-  position: absolute;
-  top: 3rem;
-  left: 2.5rem;
-  background-color: ${({ theme }) => theme.colors.pink};
-  color: ${({ theme }) => theme.colors.green};
-  font-style: italic;
-  ${subtitle}
-  font-family: New York Extra Large, serif;
-  width: 6rem;
-  height: 6rem;
-  border-radius: 50%;
+  &:hover {
+    border-color: ${({ theme }) => theme.colors.black};
+
+    ${HidingPurchaseButtons} {
+      display: grid;
+    }
+  }
 `;
 
 export const NameBlock = styled.div`
-  margin: 3.6rem 1.1rem 0;
+  margin: 3.6rem 1.1rem 2rem;
 
   & > div {
     display: flex;

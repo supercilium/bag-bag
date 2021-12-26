@@ -1,14 +1,27 @@
 import styled from "styled-components"
 import { TRANSITION } from "../../styles/constants"
+import { ButtonProps } from "./Button.component"
 
-export const StyledButton = styled.button<{ $round?: boolean }>`
+const BUTTON_SIZE: Record<ButtonProps['$size'], string> = {
+  l: '26.6rem',
+  s: '5.4rem',
+  m: '8.6rem'
+}
+
+const FONT_SIZES: Record<ButtonProps['$size'], string> = {
+  s: '3.6rem',
+  m: '5.7rem',
+  l: '5.7rem'
+}
+
+export const StyledButton = styled.button<{ $round?: boolean, $size?: ButtonProps['$size'] }>`
   padding: ${({ $round }) => ($round ? 0 : ".7rem 6.9rem 1.1rem")};
-  min-width: 8.6rem;
-  height: 8.6rem;
+  min-width: ${({ $size }) => BUTTON_SIZE[$size]};
+  height: ${({ $size }) => BUTTON_SIZE[$size]};
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 9.4rem;
   font-weight: 500;
-  font-size: 5.7rem;
+  font-size: ${({ $size }) => FONT_SIZES[$size]};
   line-height: 6.8rem;
   color: ${({ theme }) => theme.colors.black};
   display: flex;

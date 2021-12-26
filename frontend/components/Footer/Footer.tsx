@@ -6,20 +6,21 @@ import {
   FooterEmail,
   FooterTop,
   SocialLink,
-} from "./Footer.style"
-import Link from "next/link"
-import Instagram from "../icons/insta.svg"
-import Facebook from "../icons/fb.svg"
+  InfoBlock,
+} from "./Footer.style";
+import Link from "next/link";
+import Instagram from "../icons/insta.svg";
+import Facebook from "../icons/fb.svg";
 
 export const Footer = () => {
   return (
     <FooterRoot>
       <FooterTop>
-        <div>
-          <h3>+7 999 355-35-35</h3>
+        <InfoBlock>
+          <div className="h3">+7 999 355-35-35</div>
           <FooterEmail>hello@exbags.ru</FooterEmail>
-        </div>
-        <address>
+        </InfoBlock>
+        <address className="h4">
           198735 Москва,
           <br />
           Коломяжский пр., 17к2,
@@ -32,7 +33,7 @@ export const Footer = () => {
             </SocialLink>
           </Link>
           <Link href="/">
-            <SocialLink>
+            <SocialLink style={{ marginLeft: "3.6rem" }}>
               <Facebook height="60" width="60" />
             </SocialLink>
           </Link>
@@ -63,5 +64,5 @@ export const Footer = () => {
         <Copyright>© (ex)bags 2021</Copyright>
       </FooterBottom>
     </FooterRoot>
-  )
-}
+  );
+};

@@ -1,17 +1,19 @@
 /* eslint-disable react/display-name */
-import React, { forwardRef } from "react"
-import { StyledButton } from "./Button.styles"
+import React, { forwardRef } from "react";
+import { StyledButton } from "./Button.styles";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  $round?: boolean
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  $round?: boolean;
+  $size?: "s" | "m" | "l";
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, $size = "m", ...rest }, ref) => {
     return (
-      <StyledButton ref={ref} {...rest}>
+      <StyledButton ref={ref} $size={$size} {...rest}>
         {children}
       </StyledButton>
-    )
+    );
   }
-)
+);

@@ -1,20 +1,20 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-import { useState } from "react"
-import { Input } from "../../components/Input"
-import Info from "../../components/icons/info.svg"
-import Order from "../../components/icons/order.svg"
-import Like from "../../components/icons/like.svg"
-import { Box, InfoTab, ProfileRoot, Tab, Tabs } from "./Profile.styles"
-import { Item } from "../../components/Item"
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Input } from "../../components/Input";
+import Info from "../../components/icons/info.svg";
+import Order from "../../components/icons/order.svg";
+import Like from "../../components/icons/like.svg";
+import { Box, InfoTab, ProfileRoot, Tab, Tabs } from "./Profile.styles";
+import { FavoriteItem } from "../../components/FavoriteItem";
 
-export type ActiveTab = "info" | "orders" | "favorite"
+export type ActiveTab = "info" | "orders" | "favorite";
 
 const Profile = () => {
-  const [activeTab, setActiveTab] = useState<ActiveTab>("info")
-  const router = useRouter()
+  const [activeTab, setActiveTab] = useState<ActiveTab>("info");
+  const router = useRouter();
   if (router.isFallback) {
-    return <div>Loading category...</div>
+    return <div>Loading category...</div>;
   }
 
   return (
@@ -102,15 +102,15 @@ const Profile = () => {
           )}
           {activeTab === "favorite" && (
             <InfoTab>
-              <Item />
-              <Item />
-              <Item />
+              <FavoriteItem />
+              <FavoriteItem />
+              <FavoriteItem />
             </InfoTab>
           )}
         </ProfileRoot>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

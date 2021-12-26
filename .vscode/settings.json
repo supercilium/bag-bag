@@ -1,0 +1,44 @@
+{
+  "folderTemplates.structures": [
+    {
+      "name": "React Component",
+      "structure": [
+        {
+          "fileName": "<FTName | pascalcase>.component.tsx",
+          "template": "Component"
+        },
+        {
+          "fileName": "<FTName | pascalcase>.styles.ts",
+          "template": "Component Styles"
+        },
+        {
+          "fileName": "index.ts",
+          "template": "IndexFile"
+        }
+      ]
+    }
+  ],
+  "folderTemplates.fileTemplates": {
+    "Component": [
+      "export interface <FTName | pascalcase>Props {}",
+      "",
+      "export const <FTName | pascalcase>: React.FC<<FTName | pascalcase>Props> = (props) => {",
+      "",
+      "    return <></>",
+      "}",
+      ""
+    ],
+    "IndexFile": [
+      "export { <FTName | pascalcase> } from \"./<FTName | pascalcase>.component\"",
+      ""
+    ],
+    "Component Styles": [
+      "import styled from \"styled-components\"",
+      ""
+    ]
+  },
+  "emmet.includeLanguages": {
+    "typescript": "typescriptreact"
+  },
+  "emmet.showSuggestionsAsSnippets": true
+}

@@ -1,9 +1,8 @@
-import React from "react"
-import { Button } from "../../Button"
-import { CollectionItem } from "../../CollectionItem"
-import { ContentBlock } from "../content.styles"
-import { BigButton, CollectionList, RightColumn } from "./Collections.styles"
-import Arrow from "../../icons/arrow-simple-right.svg"
+import React from "react";
+import { CollectionItem } from "../../CollectionItem";
+import { ContentBlock } from "../content.styles";
+import { BigButton, CollectionList, RightColumn } from "./Collections.styles";
+import Arrow from "../../icons/arrow-simple-right.svg";
 // export interface CollectionsProps {};
 
 export const Collections: React.FC = () => {
@@ -19,7 +18,7 @@ export const Collections: React.FC = () => {
           ))}
           <RightColumn>
             <CollectionItem halfHeight />
-            <BigButton $round>
+            <BigButton $round $size="l">
               еще
               <Arrow width="36" height="36" />
             </BigButton>
@@ -27,5 +26,5 @@ export const Collections: React.FC = () => {
         </CollectionList>
       </div>
     </ContentBlock>
-  )
-}
+  );
+};
