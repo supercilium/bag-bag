@@ -4,6 +4,9 @@ import { Container } from "./layout";
 import { subtitle } from "./typography";
 
 export const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
   body {
     margin: 0;
     font-display: swap;
@@ -78,6 +81,10 @@ export const GlobalStyle = createGlobalStyle`
     background: linear-gradient(0deg, rgba(167, 213, 239, 0.06), rgba(167, 213, 239, 0.06));
     background-blend-mode: color, normal;
     border-radius: 60px;
+  }
+  .m32 {
+    padding-left: 3.2rem;
+    padding-right: 3.2rem;
   }
   
   @media screen and ${device.wide} {

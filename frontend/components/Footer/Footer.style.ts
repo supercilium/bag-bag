@@ -19,6 +19,7 @@ export const FooterRoot = styled.footer`
     line-height: 150%;
     font-style: normal;
     flex-grow: 1;
+    white-space: pre-line;
   }
 `
 

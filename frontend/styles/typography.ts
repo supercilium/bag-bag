@@ -1,4 +1,4 @@
-import { css } from "styled-components"
+import styled, { css } from "styled-components"
 
 export const buttonText = css`
   font-weight: 500;
@@ -34,4 +34,9 @@ export const signatureText = css`
   line-height: 80%;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+`
+
+export const PreviousPrice = styled.span`
+  color: ${({ theme }) => theme.colors.pink};
+  text-decoration-line: line-through;
 `

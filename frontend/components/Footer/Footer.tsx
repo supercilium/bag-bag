@@ -11,8 +11,11 @@ import {
 import Link from "next/link";
 import Instagram from "../icons/insta.svg";
 import Facebook from "../icons/fb.svg";
+import { useTranslation } from "next-i18next";
 
 export const Footer = () => {
+  const { t } = useTranslation("footer");
+
   return (
     <FooterRoot>
       <FooterTop>
@@ -20,12 +23,7 @@ export const Footer = () => {
           <div className="h3">+7 999 355-35-35</div>
           <FooterEmail>hello@exbags.ru</FooterEmail>
         </InfoBlock>
-        <address className="h4">
-          198735 Москва,
-          <br />
-          Коломяжский пр., 17к2,
-          <br />2 этаж, 304 бутик
-        </address>
+        <address className="h4">{t("address")}</address>
         <FooterTop>
           <Link href="/">
             <SocialLink>
@@ -41,19 +39,19 @@ export const Footer = () => {
       </FooterTop>
       <FooterBottom>
         <Link href="/">
-          <FooterLink>Каталог</FooterLink>
+          <FooterLink>{t("catalogue")}</FooterLink>
         </Link>
         <Link href="/">
-          <FooterLink>продать</FooterLink>
+          <FooterLink>{t("sell")}</FooterLink>
         </Link>
         <Link href="/">
-          <FooterLink>оплата</FooterLink>
+          <FooterLink>{t("payment")}</FooterLink>
         </Link>
         <Link href="/">
-          <FooterLink>доставка</FooterLink>
+          <FooterLink>{t("shipping")}</FooterLink>
         </Link>
         <Link href="/">
-          <FooterLink>служба поддержки</FooterLink>
+          <FooterLink>{t("support")}</FooterLink>
         </Link>
         <Link href="/">
           <FooterLink>visa</FooterLink>

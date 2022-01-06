@@ -1,18 +1,18 @@
-import Link from "next/link"
-import React from "react"
-import NextImage from "../Image"
+import Link from "next/link";
+import React from "react";
+import NextImage from "../Image";
 import {
   NavbarActions,
   NavbarContainer,
   NavbarLinks,
   NavbarRoot,
-} from "./Navbar.styles"
-import Search from "../icons/search.svg"
-import Profile from "../icons/profile.svg"
-import Bag from "../icons/bag.svg"
+} from "./Navbar.styles";
+import Search from "../icons/search.svg";
+import Profile from "../icons/profile.svg";
+import Bag from "../icons/bag.svg";
 
 export interface NavbarProps {
-  categories: any[]
+  categories: any[];
 }
 
 export const Navbar = () => {
@@ -49,7 +49,7 @@ export const Navbar = () => {
               <Profile height="36" width="36" />
             </a>
           </Link>
-          <Link href="/">
+          <Link href="/cart">
             <a>
               <Bag height="40" width="40" />
             </a>
@@ -57,5 +57,5 @@ export const Navbar = () => {
         </NavbarActions>
       </NavbarContainer>
     </NavbarRoot>
-  )
-}
+  );
+};
