@@ -5,8 +5,19 @@ import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
 import Like from "../../components/icons/like.svg";
-import { Box, InfoTab, ProfileRoot, Tab, Tabs } from "./Profile.styles";
+import {
+  Box,
+  DetailsButton,
+  InfoTab,
+  OrderDetails,
+  OrderRow,
+  ProfileRoot,
+  Tab,
+  Tabs,
+  TitleRow,
+} from "./Profile.styles";
 import { FavoriteItem } from "../../components/FavoriteItem";
+import { InfoBlock } from "../../components/InfoBlock";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
@@ -64,40 +75,38 @@ const Profile = () => {
           {activeTab === "orders" && (
             <Box>
               <h4 className="subtitle">мои заказы</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>№</th>
-                    <th>Дата</th>
-                    <th>Способ доставки</th>
-                    <th>Сумма</th>
-                    <th>Статус</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>11</td>
-                    <td>21</td>
-                    <td>31</td>
-                    <td>41</td>
-                    <td>51</td>
-                  </tr>
-                  <tr>
-                    <td>11</td>
-                    <td>21</td>
-                    <td>31</td>
-                    <td>41</td>
-                    <td>51</td>
-                  </tr>
-                  <tr>
-                    <td>11</td>
-                    <td>21</td>
-                    <td>31</td>
-                    <td>41</td>
-                    <td>51</td>
-                  </tr>
-                </tbody>
-              </table>
+              <TitleRow>
+                <div>№</div>
+                <div>Дата</div>
+                <div>Способ доставки</div>
+                <div>Сумма</div>
+                <div>Статус</div>
+                <div />
+              </TitleRow>
+              <InfoBlock
+                title={
+                  <OrderRow>
+                    <div>11</div>
+                    <div>21</div>
+                    <div>31</div>
+                    <div>41</div>
+                    <div>51</div>
+                    <DetailsButton>Подробнее</DetailsButton>
+                  </OrderRow>
+                }
+                content={
+                  <OrderDetails>
+                    <div />
+                    <div />
+                    <div>0</div>
+                    <div>0</div>
+                    <div>
+                      15.01.2021 - 15:00 доставлен по адресу:г.Москва,
+                      ул.Королева 20 к1, 20 кв.
+                    </div>
+                  </OrderDetails>
+                }
+              />
             </Box>
           )}
           {activeTab === "favorite" && (

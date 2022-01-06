@@ -15,14 +15,24 @@ export const Title = styled.button`
     cursor: pointer;
     padding: 0;
     width: 100%;
+    position: relative;
 `
 
 export const Icon = styled.span<{ $isOpen: boolean }>`
-    width: 2.2rem;
-    height: 2.2rem;
-    transform: ${({ $isOpen }) => $isOpen ? 'rotate(-90deg)' : 'rotate(90deg)'};
     margin-left: auto;
     ${({ theme }) => theme.colors.black};
+    text-transform: none;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    
+    & > svg {
+        width: 2.2rem;
+        height: 2.2rem;
+        transform: ${({ $isOpen }) => $isOpen ? 'rotate(-90deg)' : 'rotate(90deg)'};
+    }
 `
 
 export const Content = styled.div`
