@@ -1,20 +1,29 @@
 import styled from 'styled-components'
 import { device } from '../../styles/constants';
 import { Container } from '../../styles/layout'
-import { primaryText, subtitle } from '../../styles/typography';
+import { PreviousPrice, primaryText, subtitle } from '../../styles/typography';
 
 export const ProductsRoot = styled.div`
     ${Container}
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-content: space-between;
-    padding-top: 9rem;
     align-items: flex-start;
+    padding: 9rem 3.6rem 0;
 
     h2 {
       color: ${({ theme }) => theme.colors.green};
       margin-bottom: 2.6rem;
     }
+`
+
+export const ImageContainer = styled.div`
+  display: grid;
+  grid-gap: 3.6rem;
+
+  & > div {
+    border-radius: 3.6rem;
+  }
 `
 
 export const ItemDescriptionContainer = styled.div`
@@ -41,7 +50,13 @@ export const Description = styled.div`
 
 export const PriceRow = styled.div`
   ${subtitle};
+  font-size: 2.4rem;
   padding-bottom: 3.6rem;
+
+  & ${PreviousPrice} {
+    font-size: 1.8rem;
+    margin-left: 2.4rem;
+  }
 `
 
 
@@ -49,7 +64,7 @@ export const DescriptionBlock = styled.div`
     margin: 3.6rem 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    `
+`
 
 export const DescriptionRow = styled.div`
     ${primaryText};

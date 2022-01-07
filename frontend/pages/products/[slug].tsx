@@ -24,6 +24,7 @@ import {
   DescriptionBlock,
   DescriptionRow,
   DescriptionTitle,
+  ImageContainer,
   ItemDescriptionContainer,
   PriceRow,
   ProductsRoot,
@@ -48,17 +49,29 @@ const ProductPage = ({ product }) => {
         <title>{product.title} product</title>
       </Head>
       <ProductsRoot>
-        <div>
-          <NextImage media={product.image} />
-        </div>
+        <ImageContainer>
+          {product.images &&
+            product.images.map((image) => (
+              <NextImage key={image.id} media={image} />
+            ))}
+        </ImageContainer>
         <ItemDescriptionContainer>
           <div>
-            <h2>{product.title}</h2>
-            <DescriptionTitle>{product.description}</DescriptionTitle>
+            <h2>{product.brand.name}</h2>
+            <DescriptionTitle>{product.title}</DescriptionTitle>
             <Description>{product.description}</Description>
             <PriceRow>
-              {formatSum(product.price, "₽")}{" "}
-              <PreviousPrice>{formatSum(220000, "₽")}</PreviousPrice>
+              {product.discount ? (
+                <>
+                  {formatSum(
+                    product.price - product.price * product.discount * 0.01,
+                    "₽"
+                  )}
+                  <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
+                </>
+              ) : (
+                formatSum(product.price, "₽")
+              )}
             </PriceRow>
           </div>
 

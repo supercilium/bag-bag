@@ -28,7 +28,7 @@ export const Navbar = () => {
           <Link href="/catalogue">
             <a>Каталог</a>
           </Link>
-          <Link href="/">
+          <Link href="/offer">
             <a>Продать</a>
           </Link>
           <Link href="/">

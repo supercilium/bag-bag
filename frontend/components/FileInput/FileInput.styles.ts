@@ -43,6 +43,10 @@ export const FileInputRoot = styled.div<{ $state: State }>`
     position: relative;
     border: 1px ${({ $state }) => $state === 'empty' ? 'dashed' : 'solid'} ${({ $state, theme }) => theme.colors[StateToColor[$state]]};
 
+    & input {
+        display: none;
+    }
+
     & label {
         ${primaryText};
         color: ${({ theme }) => theme.colors.grey2};
@@ -66,14 +70,26 @@ export const Placeholder = styled.div`
     height: 100%;
     width: 100%;
     color: ${({ theme }) => theme.colors.black};
-
-    & input {
-        display: none;
-    }
 `
 
 export const Indicator = styled.div<{ $state: State }>`
     ${IndicatorStyle};
     border: 1px solid ${({ theme, $state }) => theme.colors[StateToColor[$state]]};
     color: ${({ theme, $state }) => theme.colors[StateToColor[$state]]};
+`
+
+export const ImagePreview = styled.div`
+    height: 100%;
+    width: 100%;
+    border-radius: 3rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    & > img {
+        width: 100%;
+        height: auto;
+    }
 `
