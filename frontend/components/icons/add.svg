@@ -1,7 +1,7 @@
-<svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 37 37" fill="none">
 <g clip-path="url(#clip0_454_7522)">
-<rect x="36.5002" y="19.5" width="36" height="3" transform="rotate(-180 36.5002 19.5)" fill="#1D1D1B"/>
-<rect x="20" width="36" height="3" transform="rotate(90 20 0)" fill="#1D1D1B"/>
+<rect x="36.5002" y="19.5" width="36" height="3" transform="rotate(-180 36.5002 19.5)" fill="currentColor"/>
+<rect x="20" width="36" height="3" transform="rotate(90 20 0)" fill="currentColor"/>
 </g>
 <defs>
 <clipPath id="clip0_454_7522">
