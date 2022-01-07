@@ -13,6 +13,7 @@ import {
   DescriptionBlock,
   PriceRow,
   Details,
+  FullWidthLabel,
 } from "./Process.styles";
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
@@ -20,6 +21,7 @@ import { PreviousPrice } from "../../styles/typography";
 import { formatSum } from "../../utils/formatters";
 import { PriceSummary } from "../cart/Cart.styles";
 import { Attribute, DescriptionRow } from "../products/Products.styles";
+import { RadioButton } from "../../components/RadioButton";
 
 const Catalogue = () => {
   const router = useRouter();
@@ -42,22 +44,45 @@ const Catalogue = () => {
             <div>
               <Box>
                 <ProcessRow>
-                  <Input />
-                  <Input />
+                  <Input placeholder="Имя фамилия" />
+                  <Input placeholder="Эл. почта" />
                 </ProcessRow>
+                <p className="subtitle">Доставка</p>
                 <ProcessRow>
-                  <Input />
-                  <Input />
+                  <div>
+                    <RadioButton
+                      labelText={
+                        <FullWidthLabel>
+                          <span>Самовывоз</span>
+                          <span>{formatSum(0, "₽")}</span>
+                        </FullWidthLabel>
+                      }
+                    />
+                    <RadioButton
+                      labelText={
+                        <FullWidthLabel>
+                          <span>Курьером</span>
+                          <span>{formatSum(1200, "₽")}</span>
+                        </FullWidthLabel>
+                      }
+                    />
+                  </div>
+                  <Input placeholder="+7 ____ ___-__-__" />
                 </ProcessRow>
                 <div>
-                  <Input />
+                  <Input placeholder="Адрес" />
                 </div>
                 <ProcessRow>
-                  <Input />
-                  <Input />
+                  <Input placeholder="Дата" />
+                  <Input placeholder="Время" />
                 </ProcessRow>
                 <div>
-                  <Input />
+                  <Input placeholder="Комментарий" />
+                </div>
+                <p className="subtitle">Оплата</p>
+                <div>
+                  <RadioButton labelText={<span>Банковской картой</span>} />
+                  <RadioButton labelText="Оплата наличными или при получении в шоуруме" />
                 </div>
               </Box>
               <SummaryRow>

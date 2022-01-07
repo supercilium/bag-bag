@@ -7,7 +7,7 @@ export const ProcessGrid = styled.div`
     grid-template-columns: 1fr 75rem;
     grid-gap: 3.6rem;
     margin-bottom: 43rem;
-    align-items: stretch;
+    align-items: flex-start;
 
     & > ${Box} {
         padding: 1.5rem;
@@ -56,4 +56,10 @@ export const PriceRow = styled.div`
     text-align: right;
     border-bottom: 1px solid ${({ theme }) => theme.colors.grey3};
     padding-bottom: 1.8rem;
+`
+
+export const FullWidthLabel = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 `
