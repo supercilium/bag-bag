@@ -35,14 +35,6 @@ export const Tab = styled.button<{ $active: boolean }>`
   }
 `
 
-export const Box = styled.div`
-  padding: 6rem;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 3.6rem;
-  display: grid;
-  grid-gap: 1.5rem;
-`
-
 export const InfoTab = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;

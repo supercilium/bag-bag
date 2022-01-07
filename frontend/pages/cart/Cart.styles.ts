@@ -1,29 +1,6 @@
 import styled from "styled-components";
 import { buttonText, PreviousPrice, primaryText } from "../../styles/typography";
 
-export const StyledHeader = styled.header`
-    position: relative;
-
-    h1 {
-        display: flex;
-        align-items: flex-end;
-        text-align: center;
-        color: ${({ theme }) => theme.colors.green};
-
-        i {
-            margin-left: 1rem;
-        }
-    }
-
-    button {
-        border: none;
-        background: none;
-        position: absolute;
-        right: 0;
-        top: 50%;
-    }
-`
-
 export const MainContent = styled.main`
     border: 1px solid ${({ theme }) => theme.colors.black};
     border-radius: 3.6rem;
@@ -122,6 +99,8 @@ export const PriceSummary = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-content: space-between;
+    text-transform: uppercase;
+    font-weight: 500;
 
     & > span:nth-child(even) {
         text-align: right;

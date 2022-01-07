@@ -113,7 +113,6 @@ const ProductPage = ({ product }) => {
       <ContentBlock>
         <div className="container">
           <h2>рекомендуем</h2>
-
           <Carousel>
             {[1, 2, 3, 4].map((item) => (
               <Item key={item} />

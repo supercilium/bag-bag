@@ -29,6 +29,7 @@ export const StyledButton = styled.button<{ $round?: boolean, $size?: ButtonProp
   justify-content: center;
   transition: background-color ${TRANSITION}, color ${TRANSITION},
     border-color ${TRANSITION};
+  background-color: ${({ theme }) => theme.colors.white};
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.green};

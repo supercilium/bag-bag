@@ -6,7 +6,6 @@ import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
 import Like from "../../components/icons/like.svg";
 import {
-  Box,
   DetailsButton,
   InfoTab,
   OrderDetails,
@@ -18,6 +17,7 @@ import {
 } from "./Profile.styles";
 import { FavoriteItem } from "../../components/FavoriteItem";
 import { InfoBlock } from "../../components/InfoBlock";
+import { Box } from "../../styles/layout";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 

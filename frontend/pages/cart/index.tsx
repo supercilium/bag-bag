@@ -11,7 +11,6 @@ import {
   Left,
   MainContent,
   PriceSummary,
-  StyledHeader,
   Summary,
   SummaryTop,
   TopBlock,
@@ -20,6 +19,8 @@ import NextImage from "../../components/Image";
 import { PreviousPrice } from "../../styles/typography";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
+import { formatSum } from "../../utils/formatters";
+import { StyledHeader } from "../../styles/layout";
 
 const Login = () => {
   const [items, setItems] = useState([1, 2]);
@@ -34,7 +35,7 @@ const Login = () => {
         <title>Корзина (ex)bags</title>
       </Head>
       <div className="container m32">
-        <StyledHeader>
+        <StyledHeader $buttonPosition="right">
           <h1 className="align-center">
             корзина
             {items?.length > 0 && <i className="h2">({items.length})</i>}
@@ -81,8 +82,8 @@ const Login = () => {
                       </p>
                     </TopBlock>
                     <BottomBlock>
-                      <PreviousPrice>220 000 ₽</PreviousPrice>
-                      <span className="h4">200 000 ₽</span>
+                      <PreviousPrice>{formatSum(220000, "₽")}</PreviousPrice>
+                      <span className="h4">{formatSum(200000, "₽")}</span>
                       <ButtonText onClick={() => setItems([])}>
                         Удалить
                       </ButtonText>
@@ -96,12 +97,14 @@ const Login = () => {
                 <p className="h4">ваш заказ</p>
                 <PriceSummary>
                   <span>сумма скидки</span>
-                  <PreviousPrice>220 000 ₽</PreviousPrice>
+                  <PreviousPrice>{formatSum(220000, "₽")}</PreviousPrice>
                   <span>Итого к оплате </span>
-                  <span>220 000 ₽</span>
+                  <span>{formatSum(200000, "₽")}</span>
                 </PriceSummary>
               </SummaryTop>
-              <Button $size="s">оформить</Button>
+              <Button href="/process" $size="s">
+                оформить
+              </Button>
             </Summary>
           </>
         )}
