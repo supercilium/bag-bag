@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { subtitle } from "../../styles/typography";
+import { PreviousPrice, subtitle } from "../../styles/typography";
 
 export const ItemRoot = styled.div`
-  width: 43.5rem;
+  width: 100%;
   height: 63rem;
   border: 1px solid #1d1d1b;
   box-sizing: border-box;
@@ -39,14 +39,13 @@ export const NameBlock = styled.div`
   & span {
     ${subtitle}
   }
+
+  & ${PreviousPrice} {
+    margin-left: 1.5rem;
+    flex-grow: 1;
+  }
 `;
 
-export const PreviousPrice = styled.span`
-  color: ${({ theme }) => theme.colors.pink};
-  text-decoration-line: line-through;
-  margin-left: 1.5rem;
-  flex-grow: 1;
-`;
 
 export const Ex = styled.span`
   justify-self: flex-end;

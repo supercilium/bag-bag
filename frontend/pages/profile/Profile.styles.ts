@@ -83,4 +83,8 @@ export const OrderDetails = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr) 2fr;
     color: ${({ theme }) => theme.colors.grey2};
+
+    & > div:first-child {
+      grid-column-start: 3;
+    }
 `

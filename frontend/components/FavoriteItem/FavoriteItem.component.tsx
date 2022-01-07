@@ -1,3 +1,4 @@
+import { PreviousPrice } from "../../styles/typography";
 import NextImage from "../Image";
 
 import {
@@ -5,7 +6,6 @@ import {
   FavoriteRoot,
   HidingPurchaseButtons,
   NameBlock,
-  PreviousPrice,
 } from "./FavoriteItem.styles";
 
 export interface FavoriteItemProps {}

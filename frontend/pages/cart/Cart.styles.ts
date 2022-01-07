@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Button } from "../../components/Button";
 import { buttonText, PreviousPrice, primaryText } from "../../styles/typography";
 
 export const StyledHeader = styled.header`

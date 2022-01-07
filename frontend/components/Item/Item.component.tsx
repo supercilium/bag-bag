@@ -1,19 +1,14 @@
 import React from "react";
-import {
-  Discount,
-  Ex,
-  ItemRoot,
-  NameBlock,
-  PreviousPrice,
-} from "./Item.styles";
+import { Discount, Ex, ItemRoot, NameBlock } from "./Item.styles";
 import NextImage from "../Image";
 import Link from "next/link";
+import { PreviousPrice } from "../../styles/typography";
 
 export interface ItemProps {}
 
 export const Item: React.FC<ItemProps> = (props) => {
   return (
-    <Link href="/products/strapi">
+    <Link href="/products/strapi" {...props}>
       <ItemRoot>
         <NextImage
           src="/dummy-item.png"

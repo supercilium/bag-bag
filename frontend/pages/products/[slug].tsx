@@ -11,7 +11,6 @@ import Arrow from "../../components/icons/arrow-big-right.svg";
 import Pay from "../../components/icons/pay-outline.svg";
 import Delivery from "../../components/icons/delivery.svg";
 import Return from "../../components/icons/return-outline.svg";
-import { PreviousPrice } from "../../components/FavoriteItem/FavoriteItem.styles";
 
 import NextImage from "../../components/Image";
 import { Item } from "../../components/Item";
@@ -31,6 +30,7 @@ import {
 } from "./Products.styles";
 import { PurchaseButtons } from "../../components/PurchaseButtons";
 import { InfoBlock } from "../../components/InfoBlock";
+import { PreviousPrice } from "../../styles/typography";
 
 const ProductPage = ({ product }) => {
   const router = useRouter();

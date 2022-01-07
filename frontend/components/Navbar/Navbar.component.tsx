@@ -25,7 +25,7 @@ export const Navbar = () => {
           </a>
         </Link>
         <NavbarLinks>
-          <Link href="/">
+          <Link href="/catalogue">
             <a>Каталог</a>
           </Link>
           <Link href="/">

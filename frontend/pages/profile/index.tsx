@@ -96,8 +96,6 @@ const Profile = () => {
                 }
                 content={
                   <OrderDetails>
-                    <div />
-                    <div />
                     <div>0</div>
                     <div>0</div>
                     <div>
