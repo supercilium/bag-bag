@@ -18,7 +18,7 @@ const HomePage = ({ products }) => {
         <title>(ex)bags</title>
       </Head>
       <Banner />
-      <NewArrivals />
+      <NewArrivals products={products} />
       <Collections />
       <Sell />
       <QualityAssurance />
@@ -30,7 +30,12 @@ const HomePage = ({ products }) => {
 export async function getStaticProps({ locale }) {
   const products = await getProducts();
   const locales = await serverSideTranslations(locale, ["common", "footer"]);
-  return { props: { products, ...locales } };
+  return {
+    props: {
+      products,
+      ...locales,
+    },
+  };
 }
 
 export default HomePage;

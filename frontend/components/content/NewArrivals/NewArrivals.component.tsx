@@ -1,13 +1,16 @@
-import React from "react"
-import { Button } from "../../Button"
-import { Item } from "../../Item"
-import { ContentBlock } from "../content.styles"
-import { ButtonsContainer, Carousel, Count } from "./NewArrivals.styles"
-import Arrow from "../../icons/arrow-big-right.svg"
+import React from "react";
+import { Button } from "../../Button";
+import { Item } from "../../Item";
+import { ContentBlock } from "../content.styles";
+import { ButtonsContainer, Carousel, Count } from "./NewArrivals.styles";
+import Arrow from "../../icons/arrow-big-right.svg";
+import { ItemProps } from "../../Item/Item.component";
 
-// export interface NewArrivalsProps {}
+export interface NewArrivalsProps {
+  products: ItemProps[];
+}
 
-export const NewArrivals: React.FC = () => {
+export const NewArrivals: React.FC<NewArrivalsProps> = ({ products }) => {
   return (
     <ContentBlock>
       <div className="container">
@@ -15,8 +18,8 @@ export const NewArrivals: React.FC = () => {
           новинки <span>new</span>
         </h2>
         <Carousel>
-          {[1, 2, 3, 4].map((item) => (
-            <Item key={item} />
+          {products.map((item) => (
+            <Item {...item} key={item.slug} />
           ))}
         </Carousel>
         <ButtonsContainer>
@@ -33,5 +36,5 @@ export const NewArrivals: React.FC = () => {
         </ButtonsContainer>
       </div>
     </ContentBlock>
-  )
-}
+  );
+};

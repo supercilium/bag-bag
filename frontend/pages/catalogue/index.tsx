@@ -1,7 +1,9 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Item } from "../../components/Item";
+import { ItemProps } from "../../components/Item/Item.component";
+import { getProducts } from "../../utils/api";
 import {
   CatalogueGrid,
   CatalogueItem,
@@ -10,7 +12,7 @@ import {
 } from "./Catalogue.styles";
 import { GRID_TEMPLATES } from "./constants";
 
-const Catalogue = () => {
+const Catalogue: FC<{ products: ItemProps[] }> = ({ products }) => {
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading category...</div>;
@@ -35,9 +37,9 @@ const Catalogue = () => {
             </SortBy>
           </FiltersRow>
           <CatalogueGrid>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((item, i) => (
+            {products.map((item, i) => (
               <CatalogueItem $gridArea={GRID_TEMPLATES[i]}>
-                <Item key={item} />
+                <Item {...item} key={item.id} />
               </CatalogueItem>
             ))}
           </CatalogueGrid>
@@ -46,5 +48,10 @@ const Catalogue = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  const products = await getProducts();
+  return { props: { products } };
+}
 
 export default Catalogue;

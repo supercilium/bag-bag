@@ -32,10 +32,12 @@ import {
 import { PurchaseButtons } from "../../components/PurchaseButtons";
 import { InfoBlock } from "../../components/InfoBlock";
 import { PreviousPrice } from "../../styles/typography";
+import { ItemProps } from "../../components/Item/Item.component";
+import { FC } from "react";
 
-const ProductPage = ({ product }) => {
+const ProductPage: FC<{ product: ItemProps }> = ({ product }) => {
   const router = useRouter();
-  console.log(product);
+
   if (router.isFallback) {
     return <div>Loading product...</div>;
   }
@@ -79,19 +81,19 @@ const ProductPage = ({ product }) => {
           <DescriptionBlock>
             <DescriptionRow>
               <Attribute>Цвет</Attribute>
-              <span>Цвет</span>
+              <span>{product.color.name}</span>
             </DescriptionRow>
             <DescriptionRow>
               <Attribute>Размер</Attribute>
-              <span>27 х 26 х 22</span>
+              <span>{`${product.dimension.lgth} х ${product.dimension.width} х ${product.dimension.height}`}</span>
             </DescriptionRow>
             <DescriptionRow>
               <Attribute>Тип</Attribute>
-              <span>Сумка</span>
+              <span>{product.category.name}</span>
             </DescriptionRow>
             <DescriptionRow>
               <Attribute>Год</Attribute>
-              <span>2021</span>
+              <span>{product.year}</span>
             </DescriptionRow>
           </DescriptionBlock>
           <InfoBlock
@@ -128,7 +130,7 @@ const ProductPage = ({ product }) => {
           <h2>рекомендуем</h2>
           <Carousel>
             {[1, 2, 3, 4].map((item) => (
-              <Item key={item} />
+              <Item {...product} key={item} />
             ))}
           </Carousel>
           <ButtonsContainer>

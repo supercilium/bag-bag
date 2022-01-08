@@ -38,9 +38,8 @@
       "type": "uid",
       "targetField": "title"
     },
-    "categories": {
-      "via": "products",
-      "collection": "category"
+    "category": {
+      "model": "category"
     },
     "Custom_field": {
       "type": "component",
@@ -64,6 +63,31 @@
       "type": "integer",
       "max": 100,
       "min": 0
+    },
+    "condition": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "ex"
+      ],
+      "default": "new",
+      "required": true
+    },
+    "color": {
+      "model": "color"
+    },
+    "dimension": {
+      "type": "component",
+      "repeatable": false,
+      "component": "dimensions.dimension",
+      "required": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true,
+      "min": 1900,
+      "max": 2300,
+      "default": 2020
     }
   }
 }

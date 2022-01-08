@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_dimensions_dimensions",
+  "info": {
+    "name": "dimension",
+    "icon": "cube"
+  },
+  "options": {},
+  "attributes": {
+    "width": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    },
+    "height": {
+      "type": "decimal",
+      "min": 0,
+      "required": true
+    },
+    "lgth": {
+      "type": "decimal",
+      "required": true,
+      "min": 0
+    }
+  }
+}
