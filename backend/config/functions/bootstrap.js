@@ -1,19 +1,14 @@
-'use strict';
+"use strict";
 
 const fs = require("fs");
 const path = require("path");
 
-const {
-  categories,
-  products
-} = require("../../data/data");
+const { categories, products, brands } = require("../../data/data");
 
 const findPublicRole = async () => {
-  const result = await strapi
-    .query("role", "users-permissions")
-    .findOne({
-      type: "public"
-    });
+  const result = await strapi.query("role", "users-permissions").findOne({
+    type: "public",
+  });
   return result;
 };
 
@@ -23,17 +18,18 @@ const setDefaultPermissions = async () => {
     .query("permission", "users-permissions")
     .find({
       type: "application",
-      role: role.id
+      role: role.id,
     });
   await Promise.all(
-    permissions_applications.map(p =>
-      strapi
-      .query("permission", "users-permissions")
-      .update({
-        id: p.id
-      }, {
-        enabled: true
-      })
+    permissions_applications.map((p) =>
+      strapi.query("permission", "users-permissions").update(
+        {
+          id: p.id,
+        },
+        {
+          enabled: true,
+        }
+      )
     )
   );
 };
@@ -42,76 +38,76 @@ const isFirstRun = async () => {
   const pluginStore = strapi.store({
     environment: strapi.config.environment,
     type: "type",
-    name: "setup"
+    name: "setup",
   });
   const initHasRun = await pluginStore.get({
-    key: "initHasRun"
+    key: "initHasRun",
   });
   await pluginStore.set({
     key: "initHasRun",
-    value: true
+    value: true,
   });
   return !initHasRun;
 };
 
-const getFilesizeInBytes = filepath => {
+const getFilesizeInBytes = (filepath) => {
   var stats = fs.statSync(filepath);
   var fileSizeInBytes = stats["size"];
   return fileSizeInBytes;
 };
 
 const createSeedData = async (files) => {
-
   const handleFiles = (data) => {
-
-    var file = files.find(x => x.includes(data.slug));
+    var file = files.find((x) => x.includes(data.slug));
     file = `./data/uploads/${file}`;
 
     const size = getFilesizeInBytes(file);
     const array = file.split(".");
-    const ext = array[array.length - 1]
+    const ext = array[array.length - 1];
     const mimeType = `image/.${ext}`;
     const image = {
       path: file,
       name: `${data.slug}.${ext}`,
       size,
-      type: mimeType
+      type: mimeType,
     };
-    return image
-  }
+    return image;
+  };
 
-
-  const categoriesPromises = categories.map(({
-    ...rest
-  }) => {
+  const categoriesPromises = categories.map(({ ...rest }) => {
     return strapi.services.category.create({
-      ...rest
+      ...rest,
     });
   });
 
+  const brandsPromises = brands.map(({ ...rest }) => {
+    return strapi.services.brand.create({
+      ...rest,
+    });
+  });
 
-  const productsPromises = products.map(async product => {
-    const image = handleFiles(product)
+  const productsPromises = products.map(async (product) => {
+    const image = handleFiles(product);
 
     const files = {
-      image
+      image,
     };
 
     try {
-      const entry = await strapi.query('product').create(product);
+      const entry = await strapi.query("product").create(product);
 
       if (files) {
         await strapi.entityService.uploadFiles(entry, files, {
-          model: 'product'
+          model: "product",
         });
       }
     } catch (e) {
       console.log(e);
     }
-
   });
 
   await Promise.all(categoriesPromises);
+  await Promise.all(brandsPromises);
   await Promise.all(productsPromises);
 };
 
