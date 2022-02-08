@@ -20,7 +20,9 @@
       "required": true
     },
     "price": {
-      "type": "float"
+      "type": "decimal",
+      "required": true,
+      "min": 0
     },
     "images": {
       "collection": "file",
@@ -88,6 +90,16 @@
       "min": 1900,
       "max": 2300,
       "default": 2020
+    },
+    "shopping_bag": {
+      "via": "products",
+      "model": "shopping-bag",
+      "private": true
+    },
+    "orders": {
+      "via": "products",
+      "collection": "order",
+      "private": true
     }
   }
 }

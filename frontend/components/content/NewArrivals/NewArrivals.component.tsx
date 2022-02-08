@@ -4,10 +4,9 @@ import { Item } from "../../Item";
 import { ContentBlock } from "../content.styles";
 import { ButtonsContainer, Carousel, Count } from "./NewArrivals.styles";
 import Arrow from "../../icons/arrow-big-right.svg";
-import { ItemProps } from "../../Item/Item.component";
-
+import { ProductInterface } from "../../../types/product";
 export interface NewArrivalsProps {
-  products: ItemProps[];
+  products: ProductInterface[];
 }
 
 export const NewArrivals: React.FC<NewArrivalsProps> = ({ products }) => {

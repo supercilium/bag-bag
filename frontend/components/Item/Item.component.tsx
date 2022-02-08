@@ -3,26 +3,10 @@ import { Discount, Condition, ItemRoot, NameBlock } from "./Item.styles";
 import NextImage from "../Image";
 import Link from "next/link";
 import { PreviousPrice } from "../../styles/typography";
-import { CommonProps, Dimension } from "../../types/common";
-import { Image } from "../../types/image";
 import { formatSum } from "../../utils/formatters";
+import { ProductInterface } from "../../types/product";
 
-export interface ItemProps extends CommonProps {
-  title: string;
-  brand: CommonProps;
-  category: CommonProps;
-  description: string;
-  discount?: number;
-  images: Image[];
-  price: number;
-  condition: "ex" | "new";
-  status: "published" | "draft";
-  color: CommonProps;
-  dimension: Dimension;
-  year: number;
-}
-
-export const Item: React.FC<ItemProps> = (props) => {
+export const Item: React.FC<ProductInterface> = (props) => {
   const { images, slug, discount, brand, price, condition } = props;
 
   const image = images?.[0];

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/shopping-bags",
+      "handler": "shopping-bag.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/shopping-bags/count",
+      "handler": "shopping-bag.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/shopping-bags/:id",
+      "handler": "shopping-bag.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/shopping-bags",
+      "handler": "shopping-bag.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/shopping-bags/:id",
+      "handler": "shopping-bag.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/shopping-bags/:id",
+      "handler": "shopping-bag.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

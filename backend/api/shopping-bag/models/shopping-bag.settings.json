@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopping_bags",
+  "info": {
+    "name": "ShoppingBag"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "private": true,
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "shopping_bag"
+    },
+    "products": {
+      "via": "shopping_bag",
+      "collection": "product"
+    },
+    "promocode": {
+      "via": "shopping_bags",
+      "model": "promocode"
+    }
+  }
+}
