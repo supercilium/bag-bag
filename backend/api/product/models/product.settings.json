@@ -43,11 +43,6 @@
     "category": {
       "model": "category"
     },
-    "Custom_field": {
-      "type": "component",
-      "repeatable": true,
-      "component": "custom.custom-field"
-    },
     "status": {
       "type": "enumeration",
       "enum": [
