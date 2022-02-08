@@ -50,13 +50,13 @@ module.exports = {
       dimension: { id: 1, width: 10, height: 12, lgth: 15 },
       discount: 20,
       id: 1,
-      images: [],
       price: 200000,
       slug: "sumka-onthego-gm-s-monogrammoj-empreinte-giant-2021-mm",
       status: "published",
       title: "Сумка onthego gm с монограммой empreinte giant 2021 mm",
       updated_at: "2022-01-08T09:49:47.616Z",
       year: 2021,
+      images: null,
     },
     {
       brand: {
@@ -74,13 +74,13 @@ module.exports = {
       dimension: { id: 1, width: 10, height: 12, lgth: 15 },
       discount: 20,
       id: 2,
-      images: [],
       price: 200000,
       slug: "test-sumka",
       status: "published",
       title: "Test sumka",
       updated_at: "2022-01-08T09:49:47.616Z",
       year: 2021,
+      images: null,
     },
     {
       brand: {
@@ -98,13 +98,13 @@ module.exports = {
       dimension: { id: 1, width: 10, height: 12, lgth: 15 },
       discount: 20,
       id: 2,
-      images: [],
       price: 200000,
       slug: "omg-sumka",
       status: "published",
       title: "omg sumka",
       updated_at: "2022-01-08T09:49:47.616Z",
       year: 2021,
+      images: null,
     },
   ],
   brands: [
@@ -137,11 +137,6 @@ module.exports = {
       id: 6,
       name: "Balmain",
       slug: "balmain",
-    },
-    {
-      id: 7,
-      name: "BOSS",
-      slug: "boss",
     },
     {
       id: 7,
