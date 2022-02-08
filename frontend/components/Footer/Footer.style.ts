@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import { TRANSITION } from "../../styles/constants"
-import { subtitle } from "../../styles/typography"
+import styled from "styled-components";
+import { TRANSITION } from "../../styles/constants";
+import { subtitle } from "../../styles/typography";
 
 export const FooterRoot = styled.footer`
   height: 50.4rem;
@@ -21,25 +21,25 @@ export const FooterRoot = styled.footer`
     flex-grow: 1;
     white-space: pre-line;
   }
-`
+`;
 
 export const FooterEmail = styled.div`
-  font-family: 'New York Extra Large', sans-serif;
+  font-family: "New York Extra Large", sans-serif;
   font-size: 4.8rem;
   line-height: 140%;
   font-style: italic;
-`
+`;
 
 export const FooterBottom = styled.div`
   height: 8.9rem;
   border-top: 1px solid ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
-`
+`;
 
 export const FooterTop = styled.div`
   display: flex;
-`
+`;
 
 export const FooterLink = styled.a`
   ${subtitle}
@@ -49,7 +49,7 @@ export const FooterLink = styled.a`
   &:hover {
     color: ${({ theme }) => theme.colors.grey3};
   }
-`
+`;
 
 export const SocialLink = styled.a`
   width: 12.9rem;
@@ -71,7 +71,7 @@ export const SocialLink = styled.a`
       fill: ${({ theme }) => theme.colors.black};
     }
   }
-`
+`;
 
 export const Copyright = styled.span`
   color: ${({ theme }) => theme.colors.grey};
@@ -80,9 +80,9 @@ export const Copyright = styled.span`
   font-size: 2.4rem;
   line-height: 140%;
   margin-left: auto;
-`
+`;
 
 export const InfoBlock = styled.div`
   flex-basis: 46rem;
   margin-right: 6rem;
-`
+`;

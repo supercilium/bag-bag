@@ -1,7 +1,7 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-import { useState } from "react"
-import { Input } from "../../components/Input"
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { Input } from "../../components/Input";
 import {
   FormBlock,
   FormRoot,
@@ -9,13 +9,13 @@ import {
   SmallButton,
   Tab,
   Tabs,
-} from "./Login.styles"
+} from "./Login.styles";
 
 const Login = () => {
-  const [activeTabLogin, setActiveTab] = useState(true)
-  const router = useRouter()
+  const [activeTabLogin, setActiveTab] = useState(true);
+  const router = useRouter();
   if (router.isFallback) {
-    return <div>Loading category...</div>
+    return <div>Loading category...</div>;
   }
 
   return (
@@ -53,7 +53,7 @@ const Login = () => {
         </FormBlock>
       </LoginRoot>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

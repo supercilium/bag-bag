@@ -1,1 +1,1 @@
-export { QualityAssurance } from './QualityAssurance.component';
+export { QualityAssurance } from "./QualityAssurance.component";

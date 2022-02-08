@@ -1,9 +1,9 @@
-import React from "react"
-import { CollectionItemRoot, Tag } from "./CollectionItem.styles"
-import NextImage from "../Image"
+import React from "react";
+import { CollectionItemRoot, Tag } from "./CollectionItem.styles";
+import NextImage from "../Image";
 
 export interface CollectionItemProps {
-  halfHeight?: boolean
+  halfHeight?: boolean;
 }
 
 export const CollectionItem: React.FC<CollectionItemProps> = ({
@@ -25,5 +25,5 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
       </h4>
       <Tag>ЗИМА</Tag>
     </CollectionItemRoot>
-  )
-}
+  );
+};

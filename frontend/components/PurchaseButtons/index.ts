@@ -1,1 +1,1 @@
-export { PurchaseButtons } from "./PurchaseButtons.component"
+export { PurchaseButtons } from "./PurchaseButtons.component";

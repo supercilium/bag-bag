@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import { TRANSITION } from "../../styles/constants";
 import { primaryText } from "../../styles/typography";
 

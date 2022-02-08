@@ -1,21 +1,21 @@
-import styled from "styled-components"
-import { Container } from "../../styles/layout"
+import styled from "styled-components";
+import { Container } from "../../styles/layout";
 
 export const BannerRoot = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-`
+`;
 
 export const BannerContainer = styled.div`
   height: 89.8rem;
   display: flex;
   ${Container}
-`
+`;
 
 export const BannerImageContainer = styled.div`
   padding: 1.4rem;
   border-right: 1px solid ${({ theme }) => theme.colors.black};
   display: flex;
-`
+`;
 
 export const BannerImage = styled.div<{ $url: string }>`
   border-radius: 6rem;
@@ -38,7 +38,7 @@ export const BannerImage = styled.div<{ $url: string }>`
     justify-content: space-between;
     align-items: flex-end;
   }
-`
+`;
 
 export const BannerActions = styled.div`
   display: flex;
@@ -46,19 +46,19 @@ export const BannerActions = styled.div`
   & button + button {
     margin-left: 3rem;
   }
-`
+`;
 
 export const BannerAside = styled.div`
   width: 8.8rem;
   flex-shrink: 0;
-`
+`;
 
 export const BrandsBlock = styled.div`
   position: relative;
   height: 66.3rem;
   padding: 19rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-`
+`;
 
 export const BrandsLine = styled.div`
   text-transform: uppercase;
@@ -77,7 +77,7 @@ export const BrandsLine = styled.div`
     font-size: 7.2rem;
     line-height: 140.5%;
   }
-`
+`;
 
 export const FloatingImage = styled.div`
   position: absolute;
@@ -91,4 +91,4 @@ export const FloatingImage = styled.div`
   box-sizing: border-box;
   border-radius: 36px;
   padding: 1.5rem;
-`
+`;

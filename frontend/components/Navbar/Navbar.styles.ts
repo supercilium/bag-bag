@@ -1,7 +1,7 @@
-import styled from "styled-components"
-import { TRANSITION } from "../../styles/constants"
-import { Container } from "../../styles/layout"
-import { subtitle } from "../../styles/typography"
+import styled from "styled-components";
+import { TRANSITION } from "../../styles/constants";
+import { Container } from "../../styles/layout";
+import { subtitle } from "../../styles/typography";
 
 export const NavbarRoot = styled.div`
   height: 9rem;
@@ -12,14 +12,14 @@ export const NavbarRoot = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   z-index: 1;
-`
+`;
 
 export const NavbarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   ${Container}
-`
+`;
 
 export const NavbarActions = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ export const NavbarActions = styled.div`
       color: ${({ theme }) => theme.colors.green};
     }
   }
-`
+`;
 
 export const NavbarLinks = styled.div`
   display: flex;
@@ -57,4 +57,4 @@ export const NavbarLinks = styled.div`
       color: ${({ theme }) => theme.colors.green};
     }
   }
-`
+`;

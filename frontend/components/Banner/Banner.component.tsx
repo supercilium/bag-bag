@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 import {
   BannerActions,
   BannerAside,
@@ -9,11 +9,11 @@ import {
   BrandsBlock,
   BrandsLine,
   FloatingImage,
-} from "./Banner.styles"
-import { Button } from "../Button"
-import Star from "../icons/star2.svg"
-import Arrow from "../icons/arrow-big-right.svg"
-import NextImage from "../Image"
+} from "./Banner.styles";
+import { Button } from "../Button";
+import Star from "../icons/star2.svg";
+import Arrow from "../icons/arrow-big-right.svg";
+import NextImage from "../Image";
 
 export interface BannerProps {}
 
@@ -74,5 +74,5 @@ export const Banner: React.FC<BannerProps> = (props) => {
         </BrandsLine>
       </BrandsBlock>
     </>
-  )
-}
+  );
+};

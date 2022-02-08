@@ -1,1 +1,1 @@
-export { Sell } from './Sell.component';
+export { Sell } from "./Sell.component";

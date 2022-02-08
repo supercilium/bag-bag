@@ -1,0 +1,15 @@
+{
+  "extends": [
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "rules": {
+    "react/display-name": 0,
+    "@typescript-eslint/no-empty-interface": 0
+  }
+}

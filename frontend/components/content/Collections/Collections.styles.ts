@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { Button } from "../../Button"
+import styled from "styled-components";
+import { Button } from "../../Button";
 
 export const CollectionList = styled.div`
   display: grid;
@@ -7,7 +7,7 @@ export const CollectionList = styled.div`
   align-items: flex-start;
   grid-gap: 3.6rem;
   margin-top: 5rem;
-`
+`;
 
 export const BigButton = styled(Button)`
   width: 26.6rem;
@@ -19,7 +19,7 @@ export const BigButton = styled(Button)`
   & > svg {
     margin-top: 7px;
   }
-`
+`;
 
 export const RightColumn = styled.div`
   display: flex;
@@ -27,4 +27,4 @@ export const RightColumn = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 100%;
-`
+`;

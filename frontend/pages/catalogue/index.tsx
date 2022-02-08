@@ -2,7 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { Item } from "../../components/Item";
-import { ItemProps } from "../../components/Item/Item.component";
+import { ProductInterface } from "../../types/product";
 import { getProducts } from "../../utils/api";
 import {
   CatalogueGrid,
@@ -12,7 +12,7 @@ import {
 } from "./Catalogue.styles";
 import { GRID_TEMPLATES } from "./constants";
 
-const Catalogue: FC<{ products: ItemProps[] }> = ({ products }) => {
+const Catalogue: FC<{ products: ProductInterface[] }> = ({ products }) => {
   const router = useRouter();
   if (router.isFallback) {
     return <div>Loading category...</div>;
@@ -38,8 +38,8 @@ const Catalogue: FC<{ products: ItemProps[] }> = ({ products }) => {
           </FiltersRow>
           <CatalogueGrid>
             {products.map((item, i) => (
-              <CatalogueItem $gridArea={GRID_TEMPLATES[i]}>
-                <Item {...item} key={item.id} />
+              <CatalogueItem key={item.id} $gridArea={GRID_TEMPLATES[i]}>
+                <Item {...item} />
               </CatalogueItem>
             ))}
           </CatalogueGrid>

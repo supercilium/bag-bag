@@ -1,1 +1,1 @@
-export { CollectionItem } from "./CollectionItem.component"
+export { CollectionItem } from "./CollectionItem.component";

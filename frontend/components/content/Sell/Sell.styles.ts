@@ -1,9 +1,9 @@
-import styled from "styled-components"
-import { Container } from "../../../styles/layout"
+import styled from "styled-components";
+import { Container } from "../../../styles/layout";
 
 export const SellRoot = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-`
+`;
 
 export const SellBlock = styled.div`
   ${Container}
@@ -34,7 +34,7 @@ export const SellBlock = styled.div`
     justify-content: space-between;
     background-color: ${({ theme }) => theme.colors.greenLight};
   }
-`
+`;
 
 export const SellButtons = styled.div`
   display: grid;
@@ -46,4 +46,4 @@ export const SellButtons = styled.div`
   & > p {
     margin: 0;
   }
-`
+`;

@@ -5,9 +5,9 @@ import {
   QualityAssuranceContent,
   QualityAssuranceTitleImage,
   TitleBlock,
-} from "./QualityAssurance.styles"
-import NextImage from "../../Image"
-import React from "react"
+} from "./QualityAssurance.styles";
+import NextImage from "../../Image";
+import React from "react";
 
 // export interface QualityAssuranceProps {};
 
@@ -46,5 +46,5 @@ export const QualityAssurance: React.FC = (props) => {
         </div>
       </ContentBlock>
     </>
-  )
-}
+  );
+};

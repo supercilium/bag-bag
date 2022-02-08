@@ -1,6 +1,6 @@
-import React from "react"
-import { Button } from "../../Button"
-import { SubscribeBlock } from "./Subscribe.styles"
+import React from "react";
+import { Button } from "../../Button";
+import { SubscribeBlock } from "./Subscribe.styles";
 
 export const Subscribe: React.FC = () => {
   return (
@@ -8,5 +8,5 @@ export const Subscribe: React.FC = () => {
       <input placeholder="введите email для подписки НА выгодные акции" />
       <Button>подписаться</Button>
     </SubscribeBlock>
-  )
-}
+  );
+};

@@ -1,20 +1,23 @@
-import styled from "styled-components"
-import { TRANSITION } from "../../styles/constants"
-import { ButtonProps } from "./Button.component"
+import styled from "styled-components";
+import { TRANSITION } from "../../styles/constants";
+import { ButtonProps } from "./Button.component";
 
-const BUTTON_SIZE: Record<ButtonProps['$size'], string> = {
-  l: '26.6rem',
-  s: '5.4rem',
-  m: '8.6rem'
-}
+const BUTTON_SIZE: Record<ButtonProps["$size"], string> = {
+  l: "26.6rem",
+  s: "5.4rem",
+  m: "8.6rem",
+};
 
-const FONT_SIZES: Record<ButtonProps['$size'], string> = {
-  s: '3.6rem',
-  m: '5.7rem',
-  l: '5.7rem'
-}
+const FONT_SIZES: Record<ButtonProps["$size"], string> = {
+  s: "3.6rem",
+  m: "5.7rem",
+  l: "5.7rem",
+};
 
-export const StyledButton = styled.button<{ $round?: boolean, $size?: ButtonProps['$size'] }>`
+export const StyledButton = styled.button<{
+  $round?: boolean;
+  $size?: ButtonProps["$size"];
+}>`
   padding: ${({ $round }) => ($round ? 0 : ".7rem 6.9rem 1.1rem")};
   min-width: ${({ $size }) => BUTTON_SIZE[$size]};
   height: ${({ $size }) => BUTTON_SIZE[$size]};
@@ -42,4 +45,4 @@ export const StyledButton = styled.button<{ $round?: boolean, $size?: ButtonProp
     border-color: ${({ theme }) => theme.colors.black};
     color: ${({ theme }) => theme.colors.white};
   }
-`
+`;

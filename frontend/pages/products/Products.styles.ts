@@ -1,21 +1,21 @@
-import styled from 'styled-components'
-import { device } from '../../styles/constants';
-import { Container } from '../../styles/layout'
-import { PreviousPrice, primaryText, subtitle } from '../../styles/typography';
+import styled from "styled-components";
+import { device } from "../../styles/constants";
+import { Container } from "../../styles/layout";
+import { PreviousPrice, primaryText, subtitle } from "../../styles/typography";
 
 export const ProductsRoot = styled.div`
-    ${Container}
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 9rem 3.6rem 0;
+  ${Container}
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 9rem 3.6rem 0;
 
-    h2 {
-      color: ${({ theme }) => theme.colors.green};
-      margin-bottom: 2.6rem;
-    }
-`
+  h2 {
+    color: ${({ theme }) => theme.colors.green};
+    margin-bottom: 2.6rem;
+  }
+`;
 
 export const ImageContainer = styled.div`
   display: grid;
@@ -24,7 +24,7 @@ export const ImageContainer = styled.div`
   & > div {
     border-radius: 3.6rem;
   }
-`
+`;
 
 export const ItemDescriptionContainer = styled.div`
   background-color: #fff;
@@ -39,14 +39,14 @@ export const ItemDescriptionContainer = styled.div`
 export const DescriptionTitle = styled.div`
   ${subtitle};
   margin-bottom: 1.5rem;
-`
+`;
 
 export const Description = styled.div`
   ${primaryText};
   padding-bottom: 3.6rem;
   margin-bottom: 3.6rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey3};
-`
+`;
 
 export const PriceRow = styled.div`
   ${subtitle};
@@ -57,24 +57,23 @@ export const PriceRow = styled.div`
     font-size: 1.8rem;
     margin-left: 2.4rem;
   }
-`
-
+`;
 
 export const DescriptionBlock = styled.div`
-    margin: 3.6rem 0;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-`
+  margin: 3.6rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+`;
 
 export const DescriptionRow = styled.div`
-    ${primaryText};
-    display: flex;
-`
+  ${primaryText};
+  display: flex;
+`;
 
 export const Attribute = styled.span`
-    margin-right: 1.6rem;
-    color: ${({ theme }) => theme.colors.grey2};
-`
+  margin-right: 1.6rem;
+  color: ${({ theme }) => theme.colors.grey2};
+`;
 export const AccordionTitle = styled.div`
   display: flex;
   align-items: center;
@@ -84,4 +83,4 @@ export const AccordionTitle = styled.div`
     margin-right: 1.5rem;
     color: ${({ theme }) => theme.colors.grey2};
   }
-`
+`;

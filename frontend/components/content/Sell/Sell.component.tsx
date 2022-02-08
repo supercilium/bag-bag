@@ -1,7 +1,7 @@
-import React from "react"
-import { SellBlock, SellButtons, SellRoot } from "./Sell.styles"
-import NextImage from "../../Image"
-import { Button } from "../../Button"
+import React from "react";
+import { SellBlock, SellButtons, SellRoot } from "./Sell.styles";
+import NextImage from "../../Image";
+import { Button } from "../../Button";
 
 // export interface SellProps {};
 
@@ -45,5 +45,5 @@ export const Sell: React.FC = () => {
         </div>
       </SellBlock>
     </SellRoot>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export { NewArrivals } from './NewArrivals.component';
+export { NewArrivals } from "./NewArrivals.component";

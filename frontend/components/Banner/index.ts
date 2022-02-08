@@ -1,1 +1,1 @@
-export { Banner } from './Banner.component';
+export { Banner } from "./Banner.component";

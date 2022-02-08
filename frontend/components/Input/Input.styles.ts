@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { subtitle } from "../../styles/typography"
+import styled from "styled-components";
+import { subtitle } from "../../styles/typography";
 
 export const InputBlock = styled.div`
   position: relative;
@@ -8,7 +8,7 @@ export const InputBlock = styled.div`
   & > label {
     ${subtitle}
   }
-`
+`;
 
 export const InputRoot = styled.input`
   display: block;
@@ -16,4 +16,4 @@ export const InputRoot = styled.input`
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   height: 6.3rem;
-`
+`;

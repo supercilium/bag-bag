@@ -4,7 +4,7 @@ import { PurchaseButtons } from "../PurchaseButtons/";
 
 export const HidingPurchaseButtons = styled(PurchaseButtons)`
   display: none;
-`
+`;
 
 export const FavoriteRoot = styled.div`
   width: 67rem;

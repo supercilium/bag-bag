@@ -109,8 +109,8 @@ const Catalogue = () => {
               <NameBlock>
                 <NameTitle>Louis Vuitton</NameTitle>
                 <p className="primary-text">
-                  Lorem Ipsum - это текст-"рыба", часто используемый в печати и
-                  вэб-дизайне. Lorem Ipsum является
+                  Lorem Ipsum - это текст-&quot;рыба&quot;, часто используемый в
+                  печати и вэб-дизайне. Lorem Ipsum является
                 </p>
                 <Details>
                   <DescriptionBlock>

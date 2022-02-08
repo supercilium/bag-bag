@@ -77,8 +77,9 @@ const Login = () => {
                         </Description>
                       </div>
                       <p className="primary-text">
-                        Lorem Ipsum - это текст-"рыба", часто используемый в
-                        печати и вэб-дизайне. Lorem Ipsum является{" "}
+                        Lorem Ipsum - это текст-&quot;рыба&quot;, часто
+                        используемый в печати и вэб-дизайне. Lorem Ipsum
+                        является{" "}
                       </p>
                     </TopBlock>
                     <BottomBlock>

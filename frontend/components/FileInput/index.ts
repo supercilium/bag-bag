@@ -1,1 +1,1 @@
-export { FileInput } from "./FileInput.component"
+export { FileInput } from "./FileInput.component";

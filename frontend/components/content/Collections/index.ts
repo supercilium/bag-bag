@@ -1,1 +1,1 @@
-export { Collections } from "./Collections.component"
+export { Collections } from "./Collections.component";
