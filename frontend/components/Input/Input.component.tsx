@@ -1,24 +1,26 @@
+import React from "react";
 import { InputBlock, InputRoot } from "./Input.styles";
 
 export interface InputProps
   extends Omit<React.AllHTMLAttributes<HTMLInputElement>, "label"> {
   label?: React.ReactNode;
-  labelPosition?: "left" | "right";
+  // labelPosition?: "left" | "right";
   error?: string;
 }
 
-export const Input: React.FC<InputProps> = ({
-  value,
-  label,
-  error,
-  placeholder,
-  ...rest
-}) => {
-  return (
-    <InputBlock>
-      {label && <label>{label}</label>}
-      <InputRoot value={value} placeholder={placeholder} />
-      {error && <div>{error}</div>}
-    </InputBlock>
-  );
-};
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ value, label, error, placeholder, as, ...rest }, ref) => {
+    return (
+      <InputBlock>
+        {label && <label>{label}</label>}
+        <InputRoot
+          ref={ref}
+          value={value}
+          placeholder={placeholder}
+          {...rest}
+        />
+        {error && <div>{error}</div>}
+      </InputBlock>
+    );
+  }
+);

@@ -1,7 +1,8 @@
 import App from "next/app";
 import Head from "next/head";
+import { SWRConfig } from "swr";
 import { Layout } from "../components/Layout";
-import { getCategories } from "../utils/api";
+import { fetchJson, getCategories } from "../utils/api";
 import "../styles/index.css";
 import { THEME } from "../styles/theme";
 import { GlobalStyle } from "../styles/globalStyle";
@@ -11,10 +12,19 @@ import { appWithTranslation } from "next-i18next";
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={THEME}>
-      <GlobalStyle />
-      <Layout categories={pageProps.categories}>
-        <Component {...pageProps} />
-      </Layout>
+      <SWRConfig
+        value={{
+          fetcher: fetchJson,
+          onError: (err) => {
+            console.error(err);
+          },
+        }}
+      >
+        <GlobalStyle />
+        <Layout categories={pageProps.categories}>
+          <Component {...pageProps} />
+        </Layout>
+      </SWRConfig>
     </ThemeProvider>
   );
 };

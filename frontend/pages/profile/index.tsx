@@ -1,6 +1,9 @@
 import Head from "next/head";
+import { InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { FC, useState } from "react";
+import { withIronSessionSsr } from "iron-session/next";
+import { sessionOptions } from "../../utils/session";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
@@ -18,12 +21,36 @@ import {
 import { FavoriteItem } from "../../components/FavoriteItem";
 import { InfoBlock } from "../../components/InfoBlock";
 import { Box } from "../../styles/layout";
+import { User } from "../../types/user";
+import { useForm } from "react-hook-form";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
-const Profile = () => {
+const Profile: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
+  user,
+  token,
+}) => {
   const [activeTab, setActiveTab] = useState<ActiveTab>("info");
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+    unregister,
+    getValues,
+    setError,
+  } = useForm<User & { password?: string }>({
+    shouldFocusError: false,
+    defaultValues: {
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      address: user.address,
+    },
+  });
+
   if (router.isFallback) {
     return <div>Loading category...</div>;
   }
@@ -60,10 +87,36 @@ const Profile = () => {
           {activeTab === "info" && (
             <InfoTab>
               <Box>
-                <Input label="Имя фамилия" />
-                <Input label="эл. почта" />
-                <Input label="Телефон" placeholder="+7 _____ ____-__-__" />
-                <Input label="пароль" placeholder="........" />
+                <Input
+                  label="Имя фамилия"
+                  {...register("name", { required: "Name is required" })}
+                  error={errors?.name?.message}
+                />
+                <Input
+                  label="эл. почта"
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "invalid email address",
+                    },
+                  })}
+                  error={errors?.email?.message}
+                />
+                <Input
+                  label="Телефон"
+                  placeholder="+7 _____ ____-__-__"
+                  {...register("phone", { required: "Name is required" })}
+                  error={errors?.phone?.message}
+                />
+                <Input
+                  label="пароль"
+                  placeholder="........"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                  error={errors?.password?.message}
+                />
               </Box>
               <Box>
                 <Input label="адрес" />
@@ -119,5 +172,29 @@ const Profile = () => {
     </div>
   );
 };
+
+export const getServerSideProps = withIronSessionSsr(async function ({
+  req,
+  res,
+}) {
+  const user = req?.session?.user;
+
+  if (user === undefined) {
+    res.setHeader("location", "/login");
+    res.statusCode = 302;
+    res.end();
+    return {
+      props: {
+        user: {} as User,
+        token: undefined,
+      },
+    };
+  }
+
+  return {
+    props: { user: req?.session?.user, token: req?.session?.token },
+  };
+},
+sessionOptions);
 
 export default Profile;

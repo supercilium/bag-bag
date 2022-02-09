@@ -32,10 +32,10 @@ import {
 import { PurchaseButtons } from "../../components/PurchaseButtons";
 import { InfoBlock } from "../../components/InfoBlock";
 import { PreviousPrice } from "../../styles/typography";
-import { ItemProps } from "../../components/Item/Item.component";
 import { FC } from "react";
+import { ProductInterface } from "../../types/product";
 
-const ProductPage: FC<{ product: ItemProps }> = ({ product }) => {
+const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
   const router = useRouter();
 
   if (router.isFallback) {
