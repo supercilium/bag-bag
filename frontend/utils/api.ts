@@ -5,35 +5,23 @@ export function getStrapiURL(path: RequestInfo) {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
     }${path}`;
 }
+export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit, toBack?: boolean) => Promise<JSON>
 
 // Helper to make GET requests to Strapi
-export async function fetchAPI<T>(path: string, method = 'GET'): Promise<T> {
-  const requestUrl = getStrapiURL(path);
-  const response = await fetch(requestUrl, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+export const fetchAPI: FetchType = async (input, init) => {
+  const requestInfo: RequestInfo = typeof input === 'string' ? getStrapiURL(input) : { ...input, url: getStrapiURL(input.url) };
+  const response = await fetch(requestInfo, init);
   const data = await response.json();
   return data;
 }
 
-export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit, toBack?: boolean) => Promise<JSON>
 
 export const fetchJson: FetchType = async (
   input,
-  init,
-  toBack = true
+  init
 ) => {
-  let requestInfo: RequestInfo;
-  if (toBack) {
-    requestInfo = typeof input === 'string' ? getStrapiURL(input) : { ...input, url: getStrapiURL(input) };
-  } else {
-    requestInfo = input
-  }
 
-  const response = await fetch(requestInfo, init)
+  const response = await fetch(input, init)
 
   // if the server replies, there's always some data in json
   // if there's a network error, it will throw at the previous line

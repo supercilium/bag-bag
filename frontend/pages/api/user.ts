@@ -8,18 +8,13 @@ export default withIronSessionApiRoute(loginRoute, sessionOptions)
 
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const {
-            user, jwt
-        } = await fetchAPI<AuthResponse>("/auth/local/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: req.body,
-        });
+        const token = req.session.token;
 
-        req.session.user = user
-        req.session.token = jwt
-        await req.session.save()
-        res.json({ user, jwt })
+        const user = await fetchAPI<AuthResponse>("/users/me", {
+            method: "GET",
+            headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        });
+        res.json(user)
     } catch (error) {
         res.status(500).json({ message: (error as Error).message })
     }

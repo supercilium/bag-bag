@@ -53,7 +53,7 @@ const Login = () => {
         },
         false
       );
-      mutateUser(res, false);
+      mutateUser(res.user, false);
     } catch (error) {
       if (error instanceof FetchError) {
         setErrorMsg(error.data.message);

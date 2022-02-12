@@ -10,12 +10,15 @@ import {
 import Search from "../icons/search.svg";
 import Profile from "../icons/profile.svg";
 import Bag from "../icons/bag.svg";
+import useUser from "../../hooks/useUser";
 
 export interface NavbarProps {
   categories: any[];
 }
 
 export const Navbar = () => {
+  const { user } = useUser();
+
   return (
     <NavbarRoot>
       <NavbarContainer>
@@ -44,7 +47,7 @@ export const Navbar = () => {
               <Search height="36" width="36" />
             </a>
           </Link>
-          <Link href="/login">
+          <Link href="/profile">
             <a>
               <Profile height="36" width="36" />
             </a>
@@ -52,6 +55,7 @@ export const Navbar = () => {
           <Link href="/cart">
             <a>
               <Bag height="40" width="40" />
+              {user?.shopping_bag?.products?.length}
             </a>
           </Link>
         </NavbarActions>
