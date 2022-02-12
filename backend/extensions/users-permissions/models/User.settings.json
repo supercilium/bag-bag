@@ -25,7 +25,8 @@
     },
     "provider": {
       "type": "string",
-      "configurable": false
+      "configurable": false,
+      "private": true
     },
     "password": {
       "type": "password",
@@ -46,31 +47,35 @@
     "confirmed": {
       "type": "boolean",
       "default": false,
-      "configurable": false
+      "configurable": false,
+      "private": true
     },
     "blocked": {
       "type": "boolean",
       "default": false,
-      "configurable": false
+      "configurable": false,
+      "private": true
     },
     "role": {
       "model": "role",
       "via": "users",
       "plugin": "users-permissions",
-      "configurable": false
-    },
-    "shopping_bag": {
-      "via": "user",
-      "model": "shopping-bag"
-    },
-    "promocode": {
-      "via": "used_bies",
-      "model": "promocode",
+      "configurable": false,
       "private": true
     },
     "orders": {
       "via": "user",
       "collection": "order"
+    },
+    "favorites": {
+      "collection": "product",
+      "via": "users",
+      "dominant": true
+    },
+    "shopping_bag": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shopping-bag.shopping-bag"
     }
   }
 }

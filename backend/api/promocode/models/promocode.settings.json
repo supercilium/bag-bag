@@ -20,22 +20,11 @@
       "type": "date",
       "required": true
     },
-    "used_bies": {
-      "private": true,
-      "plugin": "users-permissions",
-      "collection": "user",
-      "via": "promocode"
-    },
     "discount": {
       "type": "integer",
       "required": true,
       "max": 100,
       "min": 0
-    },
-    "shopping_bags": {
-      "private": true,
-      "collection": "shopping-bag",
-      "via": "promocode"
     },
     "orders": {
       "private": true,

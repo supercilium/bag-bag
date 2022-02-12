@@ -7,7 +7,7 @@ export interface User {
     last_name?: string;
     email: string;
     orders?: OrderInterface[];
-    shopping_bag?: number | ShoppingBagInterface;
+    shopping_bag?: ShoppingBagInterface;
     phone?: string;
     address?: string;
 }

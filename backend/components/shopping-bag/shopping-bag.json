@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shopping_bag_shopping_bags",
+  "info": {
+    "name": "ShoppingBag",
+    "icon": "cart-arrow-down",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "products": {
+      "collection": "product"
+    },
+    "promocode": {
+      "model": "promocode"
+    }
+  }
+}

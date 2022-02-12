@@ -47,10 +47,10 @@
       "via": "orders"
     },
     "user": {
-      "private": true,
+      "via": "orders",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "orders"
+      "private": true,
+      "model": "user"
     }
   }
 }
