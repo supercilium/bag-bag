@@ -1,4 +1,6 @@
 import { PreviousPrice } from "../../styles/typography";
+import { ProductInterface } from "../../types/product";
+import { formatSum, getActualSum } from "../../utils/formatters";
 import NextImage from "../Image";
 
 import {
@@ -8,26 +10,31 @@ import {
   NameBlock,
 } from "./FavoriteItem.styles";
 
-export interface FavoriteItemProps {}
+export interface FavoriteItemProps extends ProductInterface {}
 
-export const FavoriteItem: React.FC<FavoriteItemProps> = (props) => {
+export const FavoriteItem: React.FC<FavoriteItemProps> = (item) => {
   return (
     <FavoriteRoot>
-      <NextImage
-        src="/favorite-dummy.jpg"
-        alt="Купим вашу сумку"
-        height="516"
-        width="640"
-      />
+      <NextImage media={item.images?.[0]} />
       <NameBlock>
-        <h4>Alexander McQuen</h4>
+        <h4>{item.name}</h4>
         <div>
-          <span>200 000 ₽</span>
-          <PreviousPrice>220 000 ₽</PreviousPrice>
-          <Ex>(ex)</Ex>
+          <span>{formatSum(getActualSum(item.price, item.discount), "₽")}</span>
+          {item.discount && (
+            <PreviousPrice>{formatSum(item.price, "₽")}</PreviousPrice>
+          )}
+          <Ex>
+            {item.condition === "ex" ? (
+              <span>(ex)</span>
+            ) : (
+              <span>
+                <i>new</i>
+              </span>
+            )}
+          </Ex>
         </div>
       </NameBlock>
-      <HidingPurchaseButtons />
+      <HidingPurchaseButtons productId={item.id} />
     </FavoriteRoot>
   );
 };

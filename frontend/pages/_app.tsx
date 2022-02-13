@@ -38,8 +38,12 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
   const categories = await getCategories();
+  // const user = await fetchJson("/api/user");
   // Pass the data to our page via props
-  return { ...appProps, pageProps: { categories, path: ctx.ctx.pathname } };
+  return {
+    ...appProps,
+    pageProps: { categories, path: ctx.ctx.pathname },
+  };
 };
 
 export default appWithTranslation(MyApp);

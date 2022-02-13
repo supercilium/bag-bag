@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/profile",
+      "handler": "profile.profile",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/profile/change-password",
+      "handler": "profile.changePassword",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/profile/change-address",
+      "handler": "profile.changeAddress",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/profile/add-to-favorite",
+      "handler": "profile.addToFavorite",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/profile/remove-from-favorite",
+      "handler": "profile.removeFromFavorite",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/profile/:id",
+      "handler": "profile.update",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

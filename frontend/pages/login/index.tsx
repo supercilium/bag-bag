@@ -3,8 +3,12 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
 import useUser from "../../hooks/useUser";
-import { AuthResponse, User } from "../../types/user";
-import { fetchJson, FetchError } from "../../utils/api";
+import {
+  FetchError,
+  login,
+  register as registerUser,
+  LoginFormInterface,
+} from "../../utils/api";
 import {
   FormBlock,
   FormRoot,
@@ -13,11 +17,6 @@ import {
   Tab,
   Tabs,
 } from "./Login.styles";
-
-interface LoginFormInterface extends User {
-  password: string;
-  identifier: string;
-}
 
 const Login = () => {
   const [activeTabLogin, setActiveTab] = useState(true);
@@ -42,18 +41,12 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginFormInterface> = async (data) => {
     try {
-      const res = await fetchJson<AuthResponse>(
-        "/api/login",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            identifier: data.email,
-            password: data.password,
-          }),
-        },
-        false
+      mutateUser(
+        await login({
+          identifier: data.email,
+          password: data.password,
+        })
       );
-      mutateUser(res.user, false);
     } catch (error) {
       if (error instanceof FetchError) {
         setErrorMsg(error.data.message);
@@ -66,19 +59,13 @@ const Login = () => {
   const onSubmitRegister: SubmitHandler<LoginFormInterface> = async (data) => {
     try {
       mutateUser(
-        await fetchJson(
-          "/api/register",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: data.email,
-              name: data.name,
-              username: data.email,
-              password: data.password,
-            }),
-          },
-          false
-        )
+        await registerUser({
+          email: data.email,
+          identifier: data.email,
+          username: data.email,
+          name: data.name,
+          password: data.password,
+        })
       );
     } catch (error) {
       if (error instanceof FetchError) {

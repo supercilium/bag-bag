@@ -1,4 +1,5 @@
 import { OrderInterface } from "./order";
+import { ProductInterface } from "./product";
 import { ShoppingBagInterface } from "./shoppingBag";
 
 export interface User {
@@ -10,6 +11,7 @@ export interface User {
     shopping_bag?: ShoppingBagInterface;
     phone?: string;
     address?: string;
+    favorites?: ProductInterface[];
 }
 
 export interface AuthResponse {

@@ -21,3 +21,9 @@ export const ButtonsBlock = styled.div`
     fill: transparent;
   }
 `;
+
+export const LikeButton = styled.span<{ $isInFavorite: boolean }>`
+  & svg {
+    fill: ${({ theme, $isInFavorite }) => $isInFavorite ? theme.colors.green : 'none'};
+  }
+`

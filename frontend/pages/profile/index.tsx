@@ -1,9 +1,6 @@
 import Head from "next/head";
-import { InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
-import { FC, useState } from "react";
-import { withIronSessionSsr } from "iron-session/next";
-import { sessionOptions } from "../../utils/session";
+import { useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
@@ -23,15 +20,17 @@ import { InfoBlock } from "../../components/InfoBlock";
 import { Box } from "../../styles/layout";
 import { User } from "../../types/user";
 import { useForm } from "react-hook-form";
+import useUser from "../../hooks/useUser";
+import { destroyCookie } from "nookies";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
-const Profile: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
-  user,
-  token,
-}) => {
+const Profile = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>("info");
   const router = useRouter();
+  const { user, mutateUser } = useUser({
+    redirectTo: "/login",
+  });
 
   const {
     register,
@@ -44,16 +43,23 @@ const Profile: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
   } = useForm<User & { password?: string }>({
     shouldFocusError: false,
     defaultValues: {
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
-      address: user.address,
+      name: user?.name,
+      email: user?.email,
+      phone: user?.phone,
+      address: user?.address,
     },
   });
-
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   if (router.isFallback) {
     return <div>Loading category...</div>;
   }
+
+  const onLogout = async () => {
+    destroyCookie(null, "token");
+    await mutateUser(null, false);
+  };
 
   return (
     <div>
@@ -61,7 +67,10 @@ const Profile: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
         <title>Профиль (ex)bags</title>
       </Head>
       <div className="container">
-        <h1 className="align-center">мой аккаунт</h1>
+        <h1 className="align-center">
+          мой аккаунт
+          <button onClick={onLogout}>Logout</button>
+        </h1>
         <ProfileRoot>
           <Tabs>
             <Tab
@@ -162,9 +171,10 @@ const Profile: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
           )}
           {activeTab === "favorite" && (
             <InfoTab>
-              <FavoriteItem />
-              <FavoriteItem />
-              <FavoriteItem />
+              {user?.favorites?.length > 0 &&
+                user?.favorites?.map((item) => (
+                  <FavoriteItem key={item.id} {...item} />
+                ))}
             </InfoTab>
           )}
         </ProfileRoot>
@@ -172,29 +182,5 @@ const Profile: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({
     </div>
   );
 };
-
-export const getServerSideProps = withIronSessionSsr(async function ({
-  req,
-  res,
-}) {
-  const user = req?.session?.user;
-
-  if (user === undefined) {
-    res.setHeader("location", "/login");
-    res.statusCode = 302;
-    res.end();
-    return {
-      props: {
-        user: {} as User,
-        token: null,
-      },
-    };
-  }
-
-  return {
-    props: { user: req?.session?.user, token: req?.session?.token },
-  };
-},
-sessionOptions);
 
 export default Profile;

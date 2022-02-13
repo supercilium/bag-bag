@@ -116,6 +116,11 @@ module.exports = async () => {
   if (shouldSetDefaultPermissions) {
     try {
       console.log("Setting up your starter...");
+      const knex = strapi.connections.default;
+
+      await knex.schema.table("products_users__users_favorites", function (t) {
+        t.unique(["user_id", "product_id"]);
+      });
       const files = fs.readdirSync(`./data/uploads`);
       await setDefaultPermissions();
       await createSeedData(files);

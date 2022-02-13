@@ -87,15 +87,21 @@
       "default": 2020
     },
     "orders": {
+      "private": true,
       "via": "products",
-      "collection": "order",
-      "private": true
+      "collection": "order"
     },
     "users": {
+      "private": true,
       "via": "favorites",
       "plugin": "users-permissions",
-      "private": true,
       "collection": "user"
+    },
+    "views": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "private": true
     }
   }
 }

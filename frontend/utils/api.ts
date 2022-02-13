@@ -1,11 +1,13 @@
+import { parseCookies, setCookie } from "nookies";
 import { CommonProps } from "../types/common";
 import { ProductInterface } from "../types/product";
+import { AuthResponse, User } from "../types/user";
 
 export function getStrapiURL(path: RequestInfo) {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
     }${path}`;
 }
-export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit, toBack?: boolean) => Promise<JSON>
+export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit) => Promise<JSON>
 
 // Helper to make GET requests to Strapi
 export const fetchAPI: FetchType = async (input, init) => {
@@ -20,8 +22,9 @@ export const fetchJson: FetchType = async (
   input,
   init
 ) => {
+  const requestInfo: RequestInfo = typeof input === 'string' ? getStrapiURL(input) : { ...input, url: getStrapiURL(input.url) };
 
-  const response = await fetch(input, init)
+  const response = await fetch(requestInfo, init)
 
   // if the server replies, there's always some data in json
   // if there's a network error, it will throw at the previous line
@@ -40,6 +43,11 @@ export const fetchJson: FetchType = async (
   })
 }
 
+export const fetchWithToken: FetchType = async (url) => {
+  const { token } = parseCookies();
+
+  return await fetchJson(url, { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } })
+}
 export class FetchError extends Error {
   response: Response
   data: {
@@ -88,4 +96,71 @@ export async function getProducts() {
 export async function getProduct(slug: string) {
   const products = await fetchAPI<ProductInterface[]>(`/products?slug=${slug}`);
   return products?.[0];
+}
+
+export async function getProfile(token: string) {
+  const profile = await fetchAPI<User>('/profile', {
+    method: "GET",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  });
+  return profile;
+}
+
+interface LoginParams {
+  password: string;
+  identifier: string;
+}
+
+export const login = async (body: LoginParams) => {
+  const {
+    user, jwt
+  } = await fetchAPI<AuthResponse>("/auth/local", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  setCookie(null, 'token', jwt, {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  })
+  return user
+}
+
+export interface LoginFormInterface extends User {
+  password: string;
+  identifier: string;
+  username?: string;
+}
+
+export const register = async (body: LoginFormInterface) => {
+  const {
+    user, jwt
+  } = await fetchAPI<AuthResponse>("/auth/local/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  setCookie(null, 'token', jwt, {
+    maxAge: 30 * 24 * 60 * 60,
+    path: '/',
+  })
+  return user
+}
+
+export const addToFavorite = async (id: number) => {
+  const { token } = parseCookies()
+  const user = await fetchAPI<User>(`/profile/add-to-favorite?id=${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return user
+}
+
+export const removeFromFavorite = async (id: number) => {
+  const { token } = parseCookies()
+  const user = await fetchAPI<User>(`/profile/remove-from-favorite?id=${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return user
 }

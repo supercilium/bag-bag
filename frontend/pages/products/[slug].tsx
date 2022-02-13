@@ -15,7 +15,7 @@ import Return from "../../components/icons/return-outline.svg";
 import NextImage from "../../components/Image";
 import { Item } from "../../components/Item";
 import { getProducts, getProduct } from "../../utils/api";
-import { formatSum } from "../../utils/formatters";
+import { formatSum, getActualSum } from "../../utils/formatters";
 import { getStrapiMedia } from "../../utils/medias";
 import {
   AccordionTitle,
@@ -63,21 +63,14 @@ const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
             <DescriptionTitle>{product.title}</DescriptionTitle>
             <Description>{product.description}</Description>
             <PriceRow>
-              {product.discount ? (
-                <>
-                  {formatSum(
-                    product.price - product.price * product.discount * 0.01,
-                    "₽"
-                  )}
-                  <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
-                </>
-              ) : (
-                formatSum(product.price, "₽")
+              {formatSum(getActualSum(product.price, product.discount), "₽")}
+              {product.discount && (
+                <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
               )}
             </PriceRow>
           </div>
 
-          <PurchaseButtons />
+          <PurchaseButtons productId={product.id} />
           <DescriptionBlock>
             <DescriptionRow>
               <Attribute>Цвет</Attribute>

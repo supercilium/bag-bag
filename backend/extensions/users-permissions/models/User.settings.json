@@ -68,8 +68,8 @@
       "collection": "order"
     },
     "favorites": {
-      "collection": "product",
       "via": "users",
+      "collection": "product",
       "dominant": true
     },
     "shopping_bag": {
