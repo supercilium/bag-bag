@@ -57,6 +57,7 @@ module.exports = {
       updated_at: "2022-01-08T09:49:47.616Z",
       year: 2021,
       images: null,
+      views: 0,
     },
     {
       brand: {
@@ -81,6 +82,7 @@ module.exports = {
       updated_at: "2022-01-08T09:49:47.616Z",
       year: 2021,
       images: null,
+      views: 0,
     },
     {
       brand: {
@@ -105,6 +107,7 @@ module.exports = {
       updated_at: "2022-01-08T09:49:47.616Z",
       year: 2021,
       images: null,
+      views: 0,
     },
   ],
   brands: [

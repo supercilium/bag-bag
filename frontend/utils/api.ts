@@ -94,8 +94,8 @@ export async function getProducts() {
 }
 
 export async function getProduct(slug: string) {
-  const products = await fetchAPI<ProductInterface[]>(`/products?slug=${slug}`);
-  return products?.[0];
+  const products = await fetchAPI<ProductInterface[]>(`/products/${slug}`);
+  return products;
 }
 
 export async function getProfile(token: string) {
