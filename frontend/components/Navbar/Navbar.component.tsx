@@ -11,13 +11,15 @@ import Search from "../icons/search.svg";
 import Profile from "../icons/profile.svg";
 import Bag from "../icons/bag.svg";
 import useUser from "../../hooks/useUser";
+import { useRouter } from "next/router";
 
 export interface NavbarProps {
   categories: any[];
 }
 
 export const Navbar = () => {
-  const { user } = useUser();
+  const { route } = useRouter();
+  const { user } = useUser({ revalidateOnMount: route !== "/profile" });
 
   return (
     <NavbarRoot>

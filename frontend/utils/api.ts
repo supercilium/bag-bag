@@ -43,10 +43,27 @@ export const fetchJson: FetchType = async (
   })
 }
 
-export const fetchWithToken: FetchType = async (url) => {
+export const fetchWithToken: FetchType = async (input) => {
   const { token } = parseCookies();
+  const requestInfo: RequestInfo = typeof input === 'string' ? getStrapiURL(input) : { ...input, url: getStrapiURL(input.url) };
 
-  return await fetchJson(url, { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } })
+  const response = await fetch(requestInfo, { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } })
+
+  // if the server replies, there's always some data in json
+  // if there's a network error, it will throw at the previous line
+  const data = await response.json()
+
+  // response.ok is true when res.status is 2xx
+  // https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
+  if (response.ok) {
+    return data
+  }
+
+  throw new FetchError({
+    message: response.statusText,
+    response,
+    data,
+  })
 }
 export class FetchError extends Error {
   response: Response

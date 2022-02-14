@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
@@ -31,6 +31,10 @@ const Profile = () => {
   const { user, mutateUser } = useUser({
     redirectTo: "/login",
   });
+
+  useEffect(() => {
+    mutateUser();
+  }, []);
 
   const {
     register,
