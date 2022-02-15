@@ -11,3 +11,8 @@ export interface Dimension {
     height: number;
     lgth: number;
 }
+
+export interface Filters {
+    brands: CommonProps[];
+    categories: CommonProps[];
+}

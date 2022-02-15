@@ -1,5 +1,6 @@
 import { parseCookies, setCookie } from "nookies";
-import { CommonProps } from "../types/common";
+import { BrandWithCount } from "../types/brand";
+import { CommonProps, Filters } from "../types/common";
 import { ProductInterface } from "../types/product";
 import { AuthResponse, User } from "../types/user";
 
@@ -97,6 +98,16 @@ export class FetchError extends Error {
 
 export async function getCategories() {
   const categories = await fetchAPI<CommonProps[]>("/categories");
+  return categories;
+}
+
+export async function getFilters() {
+  const categories = await fetchAPI<Filters[]>("/filters");
+  return categories;
+}
+
+export async function getBrandsWithCounts() {
+  const categories = await fetchAPI<BrandWithCount[]>("/brands-with-counts");
   return categories;
 }
 

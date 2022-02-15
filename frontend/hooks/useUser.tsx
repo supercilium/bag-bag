@@ -7,7 +7,6 @@ import { fetchWithToken } from "../utils/api";
 export default function useUser({
   redirectTo = "",
   redirectIfFound = false,
-  revalidateOnMount = false,
 } = {}) {
   const {
     data,
@@ -17,7 +16,6 @@ export default function useUser({
     shouldRetryOnError: false,
     revalidateIfStale: false,
     revalidateOnFocus: false,
-    revalidateOnMount,
   });
 
   useEffect(() => {

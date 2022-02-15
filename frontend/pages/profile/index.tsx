@@ -32,10 +32,6 @@ const Profile = () => {
     redirectTo: "/login",
   });
 
-  useEffect(() => {
-    mutateUser();
-  }, []);
-
   const {
     register,
     handleSubmit,

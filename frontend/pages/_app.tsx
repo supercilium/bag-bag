@@ -2,7 +2,7 @@ import App, { AppContext } from "next/app";
 import Head from "next/head";
 import { SWRConfig } from "swr";
 import { Layout } from "../components/Layout";
-import { fetchJson, getCategories } from "../utils/api";
+import { fetchJson, getFilters } from "../utils/api";
 import "../styles/index.css";
 import { THEME } from "../styles/theme";
 import { GlobalStyle } from "../styles/globalStyle";
@@ -37,7 +37,7 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
-  const categories = await getCategories();
+  const categories = await getFilters();
   // const user = await fetchJson("/api/user");
   // Pass the data to our page via props
   return {

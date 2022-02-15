@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/brands-with-counts",
+      "handler": "brand.findWithCounts",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/brands/:id",
       "handler": "brand.findOne",
       "config": {
