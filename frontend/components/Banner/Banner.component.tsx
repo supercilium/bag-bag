@@ -14,10 +14,14 @@ import { Button } from "../Button";
 import Star from "../icons/star2.svg";
 import Arrow from "../icons/arrow-big-right.svg";
 import NextImage from "../Image";
+import { BrandWithCount } from "../../types/brand";
+import Link from "next/link";
 
-export interface BannerProps {}
+export interface BannerProps {
+  brandsWithCounts: BrandWithCount[];
+}
 
-export const Banner: React.FC<BannerProps> = (props) => {
+export const Banner: React.FC<BannerProps> = ({ brandsWithCounts }) => {
   return (
     <>
       <BannerRoot>
@@ -48,30 +52,18 @@ export const Banner: React.FC<BannerProps> = (props) => {
         <FloatingImage>
           <NextImage src="/floating-bag.png" width="330" height="330" />
         </FloatingImage>
-        <BrandsLine className="h3">
-          <span>Gucci</span>
-          <span>Bottega Veneta</span>
-          <span>Michael Kors</span>
-          <span>Christian Dior</span>
-          <span>Hermes</span>
-          <span>Gucci</span>
-        </BrandsLine>
-        <BrandsLine className="h3">
-          <span>Gucci</span>
-          <span>Bottega Veneta</span>
-          <span>Michael Kors</span>
-          <span>Christian Dior</span>
-          <span>Hermes</span>
-          <span>Gucci</span>
-        </BrandsLine>
-        <BrandsLine className="h3">
-          <span>Gucci</span>
-          <span>Bottega Veneta</span>
-          <span>Michael Kors</span>
-          <span>Christian Dior</span>
-          <span>Hermes</span>
-          <span>Gucci</span>
-        </BrandsLine>
+        {[1, 2, 3].map((row) => (
+          <BrandsLine key={row} className="h3">
+            {brandsWithCounts?.map((brand) => (
+              <Link href={`/catalogue?brand=${brand.id}`} key={brand.id}>
+                <span>
+                  {brand.name}
+                  {brand.products > 0 && <sup>{brand.products}</sup>}
+                </span>
+              </Link>
+            ))}
+          </BrandsLine>
+        ))}
       </BrandsBlock>
     </>
   );

@@ -11,7 +11,7 @@ export const NavbarRoot = styled.div`
   left: 0;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const NavbarContainer = styled.div`

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react";
+import React, { FC } from "react";
 import { Banner } from "../components/Banner";
 import { getBrandsWithCounts, getProducts } from "../utils/api";
 import {
@@ -10,14 +10,20 @@ import {
 } from "../components/content";
 import { Subscribe } from "../components/content/Subscribe";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { ProductInterface } from "../types/product";
+import { BrandWithCount } from "../types/brand";
 
-const HomePage = ({ products, brandsWithCounts }) => {
+const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  products,
+  brandsWithCounts,
+}) => {
   return (
     <div>
       <Head>
         <title>(ex)bags</title>
       </Head>
-      <Banner />
+      <Banner brandsWithCounts={brandsWithCounts} />
       <NewArrivals products={products} />
       <Collections />
       <Sell />
@@ -27,7 +33,10 @@ const HomePage = ({ products, brandsWithCounts }) => {
   );
 };
 
-export async function getStaticProps({ locale }) {
+export const getStaticProps: GetStaticProps<{
+  products: ProductInterface[];
+  brandsWithCounts: BrandWithCount[];
+}> = async ({ locale }) => {
   const products = await getProducts();
   const brandsWithCounts = await getBrandsWithCounts();
   const locales = await serverSideTranslations(locale, ["common", "footer"]);
@@ -38,6 +47,6 @@ export async function getStaticProps({ locale }) {
       ...locales,
     },
   };
-}
+};
 
 export default HomePage;

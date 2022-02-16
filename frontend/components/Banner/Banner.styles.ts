@@ -64,6 +64,10 @@ export const BrandsLine = styled.div`
   text-transform: uppercase;
   white-space: nowrap;
 
+  & span {
+    position: relative;
+  }
+
   & span:nth-child(odd) {
     font-style: italic;
     font-family: New York Extra Large, serif;
@@ -76,6 +80,15 @@ export const BrandsLine = styled.div`
     font-weight: 400;
     font-size: 7.2rem;
     line-height: 140.5%;
+  }
+
+  & sup {
+    font-style: italic;
+    font-size: 1.8rem;
+    letter-spacing: 0.03em;
+    position: absolute;
+    top: 0;
+    line-height: 1;
   }
 `;
 
@@ -91,4 +104,5 @@ export const FloatingImage = styled.div`
   box-sizing: border-box;
   border-radius: 36px;
   padding: 1.5rem;
+  z-index: 1;
 `;
