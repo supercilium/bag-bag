@@ -260,6 +260,7 @@ module.exports = {
         "favorites.images",
         "favorites.brand",
         "favorites.category",
+        "orders",
         "shopping_bag.products.brand",
         "shopping_bag.products.category",
         "shopping_bag.products.color",

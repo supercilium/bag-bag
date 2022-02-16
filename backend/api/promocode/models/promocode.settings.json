@@ -27,8 +27,8 @@
       "min": 0
     },
     "orders": {
-      "private": true,
       "via": "promocode",
+      "private": true,
       "collection": "order"
     }
   }

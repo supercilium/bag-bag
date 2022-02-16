@@ -1,5 +1,5 @@
 import { primaryText, subtitle } from "../../styles/typography";
-import styled from "styled-components";
+import styled, { DefaultTheme } from "styled-components";
 
 export const ProfileRoot = styled.div`
   display: grid;
@@ -21,7 +21,7 @@ export const Tab = styled.button<{ $active: boolean }>`
   background: none;
   border-bottom: 1px solid
     ${({ theme, $active }) =>
-      $active ? theme.colors.green : theme.colors.grey3};
+    $active ? theme.colors.green : theme.colors.grey3};
   color: ${({ theme, $active }) =>
     $active ? theme.colors.green : theme.colors.black};
   display: flex;
@@ -59,6 +59,7 @@ export const OrderRow = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   ${primaryText};
+  text-transform: none;
   justify-content: space-between;
   text-align: left;
 `;
@@ -80,3 +81,12 @@ export const OrderDetails = styled.div`
     grid-column-start: 3;
   }
 `;
+
+export const PreviousPrice = styled.div`
+  color: ${({ theme }) => theme.colors.grey2};
+  text-decoration: line-through;
+`
+
+export const StatusHighlight = styled.div<{ highlight?: keyof DefaultTheme['colors'] }>`
+  color: ${({ highlight, theme }) => theme.colors[highlight]}
+`

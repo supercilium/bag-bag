@@ -10,7 +10,9 @@ import {
   InfoTab,
   OrderDetails,
   OrderRow,
+  PreviousPrice,
   ProfileRoot,
+  StatusHighlight,
   Tab,
   Tabs,
   TitleRow,
@@ -22,6 +24,9 @@ import { User } from "../../types/user";
 import { useForm } from "react-hook-form";
 import useUser from "../../hooks/useUser";
 import { destroyCookie } from "nookies";
+import { ORDER_DESCRIPTIONS, SHIPPING_METHODS } from "../../constants/order";
+import { formatDate, formatSum } from "../../utils/formatters";
+import { getStatusColor } from "./utils";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
@@ -145,28 +150,42 @@ const Profile = () => {
                 <div>Статус</div>
                 <div />
               </TitleRow>
-              <InfoBlock
-                title={
-                  <OrderRow>
-                    <div>11</div>
-                    <div>21</div>
-                    <div>31</div>
-                    <div>41</div>
-                    <div>51</div>
-                    <DetailsButton>Подробнее</DetailsButton>
-                  </OrderRow>
-                }
-                content={
-                  <OrderDetails>
-                    <div>0</div>
-                    <div>0</div>
-                    <div>
-                      15.01.2021 - 15:00 доставлен по адресу:г.Москва,
-                      ул.Королева 20 к1, 20 кв.
-                    </div>
-                  </OrderDetails>
-                }
-              />
+              {user?.orders?.length > 0 &&
+                user?.orders.map((order) => (
+                  <InfoBlock
+                    key={order.id}
+                    title={
+                      <OrderRow>
+                        <div>{order.id}</div>
+                        <div>{formatDate(order.created_at)}</div>
+                        <div>{SHIPPING_METHODS[order.shippingMethod]}</div>
+                        <div>{formatSum(order.total, "₽")}</div>
+                        <StatusHighlight
+                          highlight={getStatusColor(order.status)}
+                        >
+                          {ORDER_DESCRIPTIONS[order.status]}
+                        </StatusHighlight>
+                        <DetailsButton>Подробнее</DetailsButton>
+                      </OrderRow>
+                    }
+                    content={
+                      <OrderDetails>
+                        <div>{formatSum(order.delivery_cost || 0, "₽")}</div>
+                        {order.discount ? (
+                          <PreviousPrice>
+                            {formatSum(order.total + order.discount, "₽")}
+                          </PreviousPrice>
+                        ) : (
+                          <div />
+                        )}
+                        <div>
+                          15.01.2021 - 15:00 доставлен по адресу:г.Москва,
+                          ул.Королева 20 к1, 20 кв.
+                        </div>
+                      </OrderDetails>
+                    }
+                  />
+                ))}
             </Box>
           )}
           {activeTab === "favorite" && (

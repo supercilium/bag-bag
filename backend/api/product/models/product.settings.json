@@ -87,8 +87,8 @@
       "default": 2020
     },
     "orders": {
-      "private": true,
       "via": "products",
+      "private": true,
       "collection": "order"
     },
     "users": {
