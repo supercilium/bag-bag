@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/promocodes/check/:code",
+      "handler": "promocode.check",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/promocodes/:id",
       "handler": "promocode.findOne",
       "config": {
