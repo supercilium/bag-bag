@@ -260,6 +260,11 @@ module.exports = {
         "favorites.images",
         "favorites.brand",
         "favorites.category",
+        "shopping_bag.products.brand",
+        "shopping_bag.products.category",
+        "shopping_bag.products.color",
+        "shopping_bag.products.images",
+        "shopping_bag.products.dimension",
       ]
     );
 

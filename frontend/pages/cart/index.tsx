@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import {
   Attribute,
   BottomBlock,
@@ -8,6 +7,7 @@ import {
   CartItem,
   Description,
   DescriptionRow,
+  DescriptionText,
   Left,
   MainContent,
   PriceSummary,
@@ -19,15 +19,44 @@ import NextImage from "../../components/Image";
 import { PreviousPrice } from "../../styles/typography";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
-import { formatSum } from "../../utils/formatters";
+import { formatSum, getActualSum } from "../../utils/formatters";
 import { StyledHeader } from "../../styles/layout";
+import useUser from "../../hooks/useUser";
 
 const Login = () => {
-  const [items, setItems] = useState([1, 2]);
   const router = useRouter();
+
+  const { user, mutateUser } = useUser();
+
   if (router.isFallback) {
     return <div>Loading category...</div>;
   }
+
+  const removeFromShoppingBag = (id: number) =>
+    mutateUser(
+      {
+        ...user,
+        shopping_bag: {
+          ...user?.shopping_bag,
+          products: [
+            ...user?.shopping_bag?.products.filter((item) => item.id !== id),
+          ],
+        },
+      },
+      false
+    );
+
+  const clearShoppingBag = () =>
+    mutateUser(
+      {
+        ...user,
+        shopping_bag: {
+          ...user?.shopping_bag,
+          products: [],
+        },
+      },
+      false
+    );
 
   return (
     <div>
@@ -38,54 +67,59 @@ const Login = () => {
         <StyledHeader $buttonPosition="right">
           <h1 className="align-center">
             корзина
-            {items?.length > 0 && <i className="h2">({items.length})</i>}
+            {user?.shopping_bag?.products?.length > 0 && (
+              <i className="h2">({user?.shopping_bag?.products.length})</i>
+            )}
           </h1>
-          <ButtonText onClick={() => setItems([])}>Очистить корзину</ButtonText>
+          <ButtonText onClick={clearShoppingBag}>Очистить корзину</ButtonText>
         </StyledHeader>
-        {items?.length > 0 && (
+        {user?.shopping_bag?.products?.length > 0 && (
           <>
             <MainContent>
-              {items.map((item) => (
-                <CartItem key={item}>
-                  <NextImage
-                    src="/dummy-item.png"
-                    alt="Купим вашу сумку"
-                    height="445"
-                    width="345"
-                  />
+              {user?.shopping_bag?.products.map((item) => (
+                <CartItem key={item.id}>
+                  {/* TODO change to client-side alternative */}
+                  <NextImage media={item.images?.[0]} />
                   <Left>
                     <TopBlock>
                       <div>
-                        <CartHeader>Louis Vuitton</CartHeader>
+                        <CartHeader>{item.name}</CartHeader>
                         <Description>
                           <DescriptionRow>
                             <Attribute>Цвет</Attribute>
-                            <span>Цвет</span>
+                            <span>{item.color?.name}</span>
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Размер</Attribute>
-                            <span>27 х 26 х 22</span>
+                            <span>{`${item.dimension?.lgth} х ${item.dimension?.width} х ${item.dimension?.height}`}</span>
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Тип</Attribute>
-                            <span>Сумка</span>
+                            <span>{item.category?.name}</span>
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Год</Attribute>
-                            <span>2021</span>
+                            <span>{item.year}</span>
                           </DescriptionRow>
                         </Description>
                       </div>
-                      <p className="primary-text">
-                        Lorem Ipsum - это текст-&quot;рыба&quot;, часто
-                        используемый в печати и вэб-дизайне. Lorem Ipsum
-                        является{" "}
-                      </p>
+                      <DescriptionText>{item.description}</DescriptionText>
                     </TopBlock>
                     <BottomBlock>
-                      <PreviousPrice>{formatSum(220000, "₽")}</PreviousPrice>
-                      <span className="h4">{formatSum(200000, "₽")}</span>
-                      <ButtonText onClick={() => setItems([])}>
+                      {item.discount && (
+                        <PreviousPrice>
+                          {formatSum(item.price, "₽")}
+                        </PreviousPrice>
+                      )}
+                      <span className="h4">
+                        {formatSum(
+                          getActualSum(item.price, item.discount),
+                          "₽"
+                        )}
+                      </span>
+                      <ButtonText
+                        onClick={() => removeFromShoppingBag(item.id)}
+                      >
                         Удалить
                       </ButtonText>
                     </BottomBlock>

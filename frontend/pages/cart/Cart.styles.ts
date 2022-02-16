@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import ReactMarkdown from "react-markdown";
+
 import {
   buttonText,
   PreviousPrice,
@@ -110,3 +112,7 @@ export const PriceSummary = styled.div`
     text-align: right;
   }
 `;
+
+export const DescriptionText = styled(ReactMarkdown)`
+  ${primaryText};
+`

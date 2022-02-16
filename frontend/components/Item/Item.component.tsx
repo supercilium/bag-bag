@@ -3,7 +3,7 @@ import { Discount, Condition, ItemRoot, NameBlock } from "./Item.styles";
 import NextImage from "../Image";
 import Link from "next/link";
 import { PreviousPrice } from "../../styles/typography";
-import { formatSum } from "../../utils/formatters";
+import { formatSum, getActualSum } from "../../utils/formatters";
 import { ProductInterface } from "../../types/product";
 
 export const Item: React.FC<ProductInterface> = (props) => {
@@ -22,14 +22,8 @@ export const Item: React.FC<ProductInterface> = (props) => {
         <NameBlock>
           <h4>{brand?.name}</h4>
           <div>
-            {discount ? (
-              <>
-                <span>{formatSum(price - price * discount * 0.01, "₽")}</span>
-                <PreviousPrice>{formatSum(price, "₽")}</PreviousPrice>
-              </>
-            ) : (
-              <span>{formatSum(price, "₽")}</span>
-            )}
+            <span>{formatSum(getActualSum(price, discount), "₽")}</span>
+            {discount && <PreviousPrice>{formatSum(price, "₽")}</PreviousPrice>}
             <Condition>
               {condition === "ex" ? (
                 <span>(ex)</span>
