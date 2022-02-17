@@ -1,3 +1,4 @@
+import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 import { Box } from "../../styles/layout";
 import { buttonText, primaryText } from "../../styles/typography";
@@ -13,6 +14,13 @@ export const ProcessGrid = styled.div`
     padding: 1.5rem;
   }
 `;
+
+export const ProductsList = styled.div`
+  & > div + div {
+    margin-top: 3.6rem;
+  }
+
+`
 
 export const ProcessRow = styled.div`
   display: grid;
@@ -63,3 +71,8 @@ export const FullWidthLabel = styled.div`
   width: 100%;
   justify-content: space-between;
 `;
+
+
+export const DescriptionText = styled(ReactMarkdown)`
+  ${primaryText};
+`

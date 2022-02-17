@@ -42,6 +42,30 @@
     },
     {
       "method": "PUT",
+      "path": "/profile/add-to-shopping-bag",
+      "handler": "profile.addToShoppingBag",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/profile/remove-from-to-shopping-bag",
+      "handler": "profile.removeFromFShoppingBag",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/profile/clear-shopping-bag",
+      "handler": "profile.clearShoppingBag",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
       "path": "/profile/:id",
       "handler": "profile.update",
       "config": {

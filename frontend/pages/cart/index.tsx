@@ -22,41 +22,33 @@ import { ButtonText } from "../../components/ButtonText";
 import { formatSum, getActualSum } from "../../utils/formatters";
 import { StyledHeader } from "../../styles/layout";
 import useUser from "../../hooks/useUser";
+import { useMemo } from "react";
+import { getTotalSumAndDiscount } from "../../utils/calculation";
+import { clearShoppingBag, removeFromShoppingBag } from "../../utils/api";
 
-const Login = () => {
+const Cart = () => {
   const router = useRouter();
 
   const { user, mutateUser } = useUser();
+
+  const [totalSum, totalDiscount] = useMemo(
+    () => getTotalSumAndDiscount(user?.shopping_bag?.products),
+    [user?.shopping_bag?.products]
+  );
 
   if (router.isFallback) {
     return <div>Loading category...</div>;
   }
 
-  const removeFromShoppingBag = (id: number) =>
-    mutateUser(
-      {
-        ...user,
-        shopping_bag: {
-          ...user?.shopping_bag,
-          products: [
-            ...user?.shopping_bag?.products.filter((item) => item.id !== id),
-          ],
-        },
-      },
-      false
-    );
+  const onClickRemove = async (id: number) => {
+    const data = await removeFromShoppingBag(id);
+    await mutateUser(data, false);
+  };
 
-  const clearShoppingBag = () =>
-    mutateUser(
-      {
-        ...user,
-        shopping_bag: {
-          ...user?.shopping_bag,
-          products: [],
-        },
-      },
-      false
-    );
+  const onClickClear = async () => {
+    const data = await clearShoppingBag();
+    await mutateUser(data, false);
+  };
 
   return (
     <div>
@@ -71,7 +63,7 @@ const Login = () => {
               <i className="h2">({user?.shopping_bag?.products.length})</i>
             )}
           </h1>
-          <ButtonText onClick={clearShoppingBag}>Очистить корзину</ButtonText>
+          <ButtonText onClick={onClickClear}>Очистить корзину</ButtonText>
         </StyledHeader>
         {user?.shopping_bag?.products?.length > 0 && (
           <>
@@ -117,9 +109,7 @@ const Login = () => {
                           "₽"
                         )}
                       </span>
-                      <ButtonText
-                        onClick={() => removeFromShoppingBag(item.id)}
-                      >
+                      <ButtonText onClick={() => onClickRemove(item.id)}>
                         Удалить
                       </ButtonText>
                     </BottomBlock>
@@ -132,9 +122,9 @@ const Login = () => {
                 <p className="h4">ваш заказ</p>
                 <PriceSummary>
                   <span>сумма скидки</span>
-                  <PreviousPrice>{formatSum(220000, "₽")}</PreviousPrice>
+                  <PreviousPrice>{formatSum(totalSum, "₽")}</PreviousPrice>
                   <span>Итого к оплате </span>
-                  <span>{formatSum(200000, "₽")}</span>
+                  <span>{formatSum(totalSum - totalDiscount, "₽")}</span>
                 </PriceSummary>
               </SummaryTop>
               <Button href="/process" $size="s">
@@ -148,4 +138,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Cart;

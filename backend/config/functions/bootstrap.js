@@ -121,6 +121,12 @@ module.exports = async () => {
       await knex.schema.table("products_users__users_favorites", function (t) {
         t.unique(["user_id", "product_id"]);
       });
+      await knex.schema.table(
+        "components_shopping_bag_shopping_bags__products",
+        function (t) {
+          t.unique(["components_shopping_bag_shopping_bag_id", "product_id"]);
+        }
+      );
       const files = fs.readdirSync(`./data/uploads`);
       await setDefaultPermissions();
       await createSeedData(files);

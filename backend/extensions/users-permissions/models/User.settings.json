@@ -76,6 +76,14 @@
       "type": "component",
       "repeatable": false,
       "component": "shopping-bag.shopping-bag"
+    },
+    "phone": {
+      "type": "string",
+      "private": false,
+      "regex": "/^\\d*$/"
+    },
+    "last_name": {
+      "type": "string"
     }
   }
 }

@@ -1,6 +1,7 @@
 import { parseCookies, setCookie } from "nookies";
 import { BrandWithCount } from "../types/brand";
 import { CommonProps, Filters } from "../types/common";
+import { OrderInterface } from "../types/order";
 import { ProductInterface } from "../types/product";
 import { AuthResponse, User } from "../types/user";
 
@@ -191,4 +192,48 @@ export const removeFromFavorite = async (id: number) => {
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
   });
   return user
+}
+
+export const addToShoppingBag = async (id: number) => {
+  const { token } = parseCookies()
+  const user = await fetchAPI<User>(`/profile/add-to-shopping-bag?id=${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return user
+}
+
+export const removeFromShoppingBag = async (id: number) => {
+  const { token } = parseCookies()
+  const user = await fetchAPI<User>(`/profile/remove-from-to-shopping-bag?id=${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return user
+}
+
+export const clearShoppingBag = async () => {
+  const { token } = parseCookies()
+  const user = await fetchAPI<User>('/profile/clear-shopping-bag', {
+    method: "GET",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return user
+}
+
+export interface OrderFormValues extends Partial<OrderInterface>, Pick<User, 'last_name' | 'email' | 'phone' | 'address'> {
+  shipping_date?: Date;
+  commentary?: string;
+}
+
+export const createOrder = async (values: OrderFormValues) => {
+  const { token } = parseCookies()
+
+  const order = await fetchAPI<OrderInterface>('/orders', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify(values)
+  })
+
+  return order;
 }

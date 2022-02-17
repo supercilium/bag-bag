@@ -2,7 +2,11 @@ import Like from "../icons/like.svg";
 import { Button } from "../Button";
 import { ButtonsBlock, LikeButton } from "./PurchaseButtons.styles";
 import { HTMLAttributes, useEffect, useState } from "react";
-import { addToFavorite, removeFromFavorite } from "../../utils/api";
+import {
+  addToFavorite,
+  addToShoppingBag,
+  removeFromFavorite,
+} from "../../utils/api";
 import useUser from "../../hooks/useUser";
 
 export interface PurchaseButtonsProps
@@ -32,9 +36,16 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
     await mutateUser(data, false);
   };
 
+  const onClickBuyButton = async () => {
+    const data = await addToShoppingBag(productId);
+    await mutateUser(data, false);
+  };
+
   return (
     <ButtonsBlock className={className}>
-      <Button $size="s">Купить</Button>
+      <Button $size="s" onClick={onClickBuyButton}>
+        Купить
+      </Button>
       {user && (
         <Button $size="s" $round onClick={onClick}>
           <LikeButton $isInFavorite={isInFavorite}>

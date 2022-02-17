@@ -276,4 +276,139 @@ module.exports = {
     // Send 200 `ok`
     ctx.body = data;
   },
+  async removeFromFShoppingBag(ctx) {
+    const userFromContext = ctx.state.user;
+
+    if (!userFromContext) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: "No authorization header was found" }] },
+      ]);
+    }
+
+    const { id } = ctx.query;
+
+    const product = await strapi.query("product").findOne({ id });
+
+    if (!product) {
+      if (!userFromContext) {
+        return ctx.badRequest("No products found");
+      }
+    }
+
+    const knex = strapi.connections.default;
+    await knex("components_shopping_bag_shopping_bags__products")
+      .where({
+        components_shopping_bag_shopping_bag_id:
+          userFromContext.shopping_bag?.id,
+        product_id: id,
+      })
+      .delete();
+
+    let data = await strapi.plugins["users-permissions"].services.user.fetch(
+      {
+        id: userFromContext.id,
+      },
+      [
+        "favorites",
+        "favorites.color",
+        "favorites.images",
+        "favorites.brand",
+        "favorites.category",
+      ]
+    );
+
+    if (data) {
+      data = sanitizeUser(data);
+    }
+
+    // Send 200 `ok`
+    ctx.body = data;
+  },
+  async addToShoppingBag(ctx) {
+    const userFromContext = ctx.state.user;
+
+    if (!userFromContext) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: "No authorization header was found" }] },
+      ]);
+    }
+
+    const { id } = ctx.query;
+
+    const product = await strapi.query("product").findOne({ id });
+
+    if (!product) {
+      if (!userFromContext) {
+        return ctx.badRequest("No products found");
+      }
+    }
+
+    const knex = strapi.connections.default;
+
+    await knex("components_shopping_bag_shopping_bags__products")
+      .insert({
+        components_shopping_bag_shopping_bag_id:
+          userFromContext.shopping_bag?.id,
+        product_id: id,
+      })
+      .onConflict(["components_shopping_bag_shopping_bag_id", "product_id"])
+      .ignore();
+
+    let data = await strapi.plugins["users-permissions"].services.user.fetch(
+      {
+        id: userFromContext.id,
+      },
+      [
+        "favorites",
+        "favorites.color",
+        "favorites.images",
+        "favorites.brand",
+        "favorites.category",
+      ]
+    );
+
+    if (data) {
+      data = sanitizeUser(data);
+    }
+
+    // Send 200 `ok`
+    ctx.body = data;
+  },
+  async clearShoppingBag(ctx) {
+    const userFromContext = ctx.state.user;
+
+    if (!userFromContext) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: "No authorization header was found" }] },
+      ]);
+    }
+    const knex = strapi.connections.default;
+
+    await knex("components_shopping_bag_shopping_bags__products")
+      .where({
+        components_shopping_bag_shopping_bag_id:
+          userFromContext.shopping_bag?.id,
+      })
+      .delete();
+
+    let data = await strapi.plugins["users-permissions"].services.user.fetch(
+      {
+        id: userFromContext.id,
+      },
+      [
+        "favorites",
+        "favorites.color",
+        "favorites.images",
+        "favorites.brand",
+        "favorites.category",
+      ]
+    );
+
+    if (data) {
+      data = sanitizeUser(data);
+    }
+
+    // Send 200 `ok`
+    ctx.body = data;
+  },
 };
