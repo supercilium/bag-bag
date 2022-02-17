@@ -15,7 +15,8 @@ export const MainContent = styled.main`
 `;
 
 export const CartItem = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 34.5rem 1fr;
   padding: 1.5rem 0;
 
   & > div:first-child {
@@ -37,7 +38,6 @@ export const CartHeader = styled.h4`
 
 export const Left = styled.div`
   margin: 4.5rem 6rem;
-  width: 100%;
 `;
 
 export const TopBlock = styled.div`

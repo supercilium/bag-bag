@@ -70,12 +70,13 @@ const Cart = () => {
             <MainContent>
               {user?.shopping_bag?.products.map((item) => (
                 <CartItem key={item.id}>
-                  {/* TODO change to client-side alternative */}
-                  <NextImage media={item.images?.[0]} />
+                  <NextImage
+                    media={item.images?.[0].formats?.medium || item.images?.[0]}
+                  />
                   <Left>
                     <TopBlock>
                       <div>
-                        <CartHeader>{item.name}</CartHeader>
+                        <CartHeader>{item.title}</CartHeader>
                         <Description>
                           <DescriptionRow>
                             <Attribute>Цвет</Attribute>

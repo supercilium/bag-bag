@@ -3,6 +3,7 @@ import { CollectionItem } from "../../CollectionItem";
 import { ContentBlock } from "../content.styles";
 import { BigButton, CollectionList, RightColumn } from "./Collections.styles";
 import Arrow from "../../icons/arrow-simple-right.svg";
+import Link from "next/link";
 // export interface CollectionsProps {};
 
 export const Collections: React.FC = () => {
@@ -18,10 +19,12 @@ export const Collections: React.FC = () => {
           ))}
           <RightColumn>
             <CollectionItem halfHeight />
-            <BigButton $round $size="l">
-              еще
-              <Arrow width="36" height="36" />
-            </BigButton>
+            <Link href="/catalogue">
+              <BigButton $round $size="l">
+                еще
+                <Arrow width="36" height="36" />
+              </BigButton>
+            </Link>
           </RightColumn>
         </CollectionList>
       </div>

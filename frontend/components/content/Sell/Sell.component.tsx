@@ -2,6 +2,7 @@ import React from "react";
 import { SellBlock, SellButtons, SellRoot } from "./Sell.styles";
 import NextImage from "../../Image";
 import { Button } from "../../Button";
+import Link from "next/link";
 
 // export interface SellProps {};
 
@@ -36,7 +37,9 @@ export const Sell: React.FC = () => {
             />
           </div>
           <SellButtons>
-            <Button>продать сумку</Button>
+            <Link href="/offer">
+              <Button>продать сумку</Button>
+            </Link>
             <p className="primary-text">
               Для нашей компании важно эфективное и ответственное потребление,
               поэтому мы помогаем найти новую хозяйку для ваших любимых вещей.

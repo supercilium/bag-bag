@@ -257,7 +257,7 @@ const Process = () => {
                   <Box key={item.id}>
                     <NextImage media={item.images?.[0]} />
                     <NameBlock>
-                      <NameTitle>{item.name}</NameTitle>
+                      <NameTitle>{item.title}</NameTitle>
                       <DescriptionText>{item.description}</DescriptionText>
                       <Details>
                         <DescriptionBlock>

@@ -5,6 +5,8 @@ import { ContentBlock } from "../content.styles";
 import { ButtonsContainer, Carousel, Count } from "./NewArrivals.styles";
 import Arrow from "../../icons/arrow-big-right.svg";
 import { ProductInterface } from "../../../types/product";
+import Link from "next/link";
+
 export interface NewArrivalsProps {
   products: ProductInterface[];
 }
@@ -31,7 +33,9 @@ export const NewArrivals: React.FC<NewArrivalsProps> = ({ products }) => {
               <Arrow height="54" width="54" />
             </Button>
           </div>
-          <Button>посмотреть все</Button>
+          <Link href="/catalogue">
+            <Button>посмотреть все</Button>
+          </Link>
         </ButtonsContainer>
       </div>
     </ContentBlock>
