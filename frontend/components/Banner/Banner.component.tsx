@@ -55,7 +55,7 @@ export const Banner: React.FC<BannerProps> = ({ brandsWithCounts }) => {
         {[1, 2, 3].map((row) => (
           <BrandsLine key={row} className="h3">
             {brandsWithCounts?.map((brand) => (
-              <Link href={`/catalogue?brand=${brand.id}`} key={brand.id}>
+              <Link href={`/catalogue?brand.id=${brand.id}`} key={brand.id}>
                 <span>
                   {brand.name}
                   {brand.products > 0 && <sup>{brand.products}</sup>}

@@ -1,4 +1,4 @@
-import App, { AppContext } from "next/app";
+import App, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { SWRConfig } from "swr";
 import { Layout } from "../components/Layout";
@@ -9,7 +9,7 @@ import { GlobalStyle } from "../styles/globalStyle";
 import { ThemeProvider } from "styled-components";
 import { appWithTranslation } from "next-i18next";
 
-const MyApp = ({ Component, pageProps }) => {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={THEME}>
       <SWRConfig
@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }) => {
         }}
       >
         <GlobalStyle />
-        <Layout categories={pageProps.categories}>
+        <Layout filters={pageProps.filters}>
           <Component {...pageProps} />
         </Layout>
       </SWRConfig>
@@ -37,12 +37,11 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
-  const categories = await getFilters();
-  // const user = await fetchJson("/api/user");
+  const filters = await getFilters();
   // Pass the data to our page via props
   return {
     ...appProps,
-    pageProps: { categories, path: ctx.ctx.pathname },
+    pageProps: { filters, path: ctx.ctx.pathname },
   };
 };
 

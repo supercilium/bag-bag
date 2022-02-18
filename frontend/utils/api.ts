@@ -1,9 +1,11 @@
 import { parseCookies, setCookie } from "nookies";
+import { ParsedUrlQuery } from "querystring";
 import { BrandWithCount } from "../types/brand";
 import { CommonProps, Filters } from "../types/common";
 import { OrderInterface } from "../types/order";
 import { ProductInterface } from "../types/product";
 import { AuthResponse, User } from "../types/user";
+import { getAsString } from "./formatters";
 
 export function getStrapiURL(path: RequestInfo) {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
@@ -103,7 +105,7 @@ export async function getCategories() {
 }
 
 export async function getFilters() {
-  const categories = await fetchAPI<Filters[]>("/filters");
+  const categories = await fetchAPI<Filters>("/filters");
   return categories;
 }
 
@@ -117,8 +119,9 @@ export async function getCategory(slug: string) {
   return categories?.[0];
 }
 
-export async function getProducts() {
-  const products = await fetchAPI<ProductInterface[]>("/products");
+export async function getProducts(query: ParsedUrlQuery) {
+  const querystring = getAsString(query)
+  const products = await fetchAPI<ProductInterface[]>(`/products${querystring}`);
   return products;
 }
 

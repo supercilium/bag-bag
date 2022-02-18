@@ -33,7 +33,7 @@ export const NewArrivals: React.FC<NewArrivalsProps> = ({ products }) => {
               <Arrow height="54" width="54" />
             </Button>
           </div>
-          <Link href="/catalogue">
+          <Link href="/catalogue?_sort=views:DESC">
             <Button>посмотреть все</Button>
           </Link>
         </ButtonsContainer>

@@ -1,3 +1,4 @@
+import { ParsedUrlQuery } from "querystring";
 import { ProductInterface } from "../types/product";
 
 export const formatSum = (sum: number, currency: string) =>
@@ -16,3 +17,9 @@ export const formatDate = (date: string) =>
 export const formatDimensions = ({ product_width,
     product_height,
     product_length, }: ProductInterface) => `${product_length} х ${product_width} х ${product_height}`
+
+export function getAsString(query: ParsedUrlQuery): string {
+    const str = query && Object.keys(query).reduce((acc, key) => `${acc ? acc + "&" : acc}${key}=${query[key]}`, "");
+
+    return str ? '?' + str : '';
+}

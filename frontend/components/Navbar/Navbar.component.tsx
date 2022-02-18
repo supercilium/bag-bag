@@ -11,12 +11,13 @@ import Search from "../icons/search.svg";
 import Profile from "../icons/profile.svg";
 import Bag from "../icons/bag.svg";
 import useUser from "../../hooks/useUser";
+import { Filters } from "../../types/common";
 
 export interface NavbarProps {
-  categories: any[];
+  filters: Filters;
 }
 
-export const Navbar = () => {
+export const Navbar = ({ filters }) => {
   const { user } = useUser();
 
   return (

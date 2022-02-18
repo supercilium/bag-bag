@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import { primaryText } from "../../styles/typography";
 
-export const FiltersRow = styled.div`
+export const FiltersRoot = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};
-  height: 7rem;
   border-radius: 3.5rem;
+  padding: 0 3.6rem;
+`
+
+export const FiltersRow = styled.div`
+  height: 7rem;
   display: flex;
   align-items: center;
-  padding: 0 3.6rem;
 
   & > div {
     text-transform: uppercase;
@@ -42,3 +45,26 @@ export const CatalogueGrid = styled.div`
 export const CatalogueItem = styled.div<{ $gridArea: string }>`
   grid-area: ${({ $gridArea }) => $gridArea};
 `;
+
+export const FiltersForm = styled.form`
+  padding-bottom: 3.6rem;
+`
+
+export const SelectedFilters = styled.div`
+  margin-top: 2.4rem;
+
+  & > button {
+    background-color: ${({ theme }) => theme.colors.grey4};
+    color: ${({ theme }) => theme.colors.grey};
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    border-radius: 9.4rem;
+    padding: 3px 1.5rem;
+    border: none;
+    cursor: pointer;
+  }
+
+  & > button + button {
+    margin-left: 9px;
+  }
+`
