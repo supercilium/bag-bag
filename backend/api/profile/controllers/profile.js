@@ -265,7 +265,6 @@ module.exports = {
         "shopping_bag.products.category",
         "shopping_bag.products.color",
         "shopping_bag.products.images",
-        "shopping_bag.products.dimension",
       ]
     );
 

@@ -19,7 +19,11 @@ import NextImage from "../../components/Image";
 import { PreviousPrice } from "../../styles/typography";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
-import { formatSum, getActualSum } from "../../utils/formatters";
+import {
+  formatDimensions,
+  formatSum,
+  getActualSum,
+} from "../../utils/formatters";
 import { StyledHeader } from "../../styles/layout";
 import useUser from "../../hooks/useUser";
 import { useMemo } from "react";
@@ -84,7 +88,7 @@ const Cart = () => {
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Размер</Attribute>
-                            <span>{`${item.dimension?.lgth} х ${item.dimension?.width} х ${item.dimension?.height}`}</span>
+                            <span>{formatDimensions(item)}</span>
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Тип</Attribute>

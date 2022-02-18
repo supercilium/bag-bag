@@ -1,33 +1,55 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 
 const { categories, products, brands } = require("../../data/data");
-
-const findPublicRole = async () => {
-  const result = await strapi.query("role", "users-permissions").findOne({
-    type: "public",
-  });
-  return result;
-};
+const {
+  public: publicPermissions,
+  authenticated: authenticatedPermissions,
+} = require("../../data/permissions");
+const {
+  findRole,
+  getPermissions,
+  // writePermissionsToFile,
+} = require("./createPermissionsSnapshot");
 
 const setDefaultPermissions = async () => {
-  const role = await findPublicRole();
-  const permissions_applications = await strapi
-    .query("permission", "users-permissions")
-    .find({
-      type: "application",
-      role: role.id,
-    });
+  const authenticated_role = await findRole("authenticated");
+
+  const authenticated_permissions_applications = await getPermissions(
+    authenticated_role.id
+  );
+  const public_role = await findRole("public");
+  const public_permissions_applications = await getPermissions(public_role.id);
+
   await Promise.all(
-    permissions_applications.map((p) =>
+    public_permissions_applications.map((p) =>
       strapi.query("permission", "users-permissions").update(
         {
           id: p.id,
         },
         {
-          enabled: true,
+          enabled:
+            publicPermissions.find(
+              ({ controller, action }) =>
+                p.controller === controller && p.action === action
+            )?.enabled || false,
+        }
+      )
+    )
+  );
+  await Promise.all(
+    authenticated_permissions_applications.map((p) =>
+      strapi.query("permission", "users-permissions").update(
+        {
+          id: p.id,
+        },
+        {
+          enabled:
+            authenticatedPermissions.find(
+              ({ controller, action }) =>
+                p.controller === controller && p.action === action
+            )?.enabled || false,
         }
       )
     )
@@ -113,6 +135,14 @@ const createSeedData = async (files) => {
 
 module.exports = async () => {
   const shouldSetDefaultPermissions = await isFirstRun();
+  // const publicRole = await findRole("public");
+  // const authenticated = await findRole("authenticated");
+
+  // const public_permissions_applications = await getPermissions(publicRole.id);
+  // writePermissionsToFile("../public.json", public_permissions_applications);
+  // const permissions_applications = await getPermissions(authenticated.id);
+  // writePermissionsToFile("../authenticated.json", permissions_applications);
+
   if (shouldSetDefaultPermissions) {
     try {
       console.log("Setting up your starter...");

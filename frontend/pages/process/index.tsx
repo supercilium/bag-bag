@@ -20,7 +20,11 @@ import {
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
 import { PreviousPrice } from "../../styles/typography";
-import { formatSum, getActualSum } from "../../utils/formatters";
+import {
+  formatDimensions,
+  formatSum,
+  getActualSum,
+} from "../../utils/formatters";
 import { PriceSummary } from "../cart/Cart.styles";
 import { Attribute, DescriptionRow } from "../products/Products.styles";
 import { RadioButton } from "../../components/RadioButton";
@@ -267,7 +271,7 @@ const Process = () => {
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Размер</Attribute>
-                            <span>{`${item.dimension?.lgth} х ${item.dimension?.width} х ${item.dimension?.height}`}</span>
+                            <span>{formatDimensions(item)}</span>
                           </DescriptionRow>
                           <DescriptionRow>
                             <Attribute>Тип</Attribute>

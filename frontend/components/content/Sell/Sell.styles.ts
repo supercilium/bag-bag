@@ -29,6 +29,7 @@ export const SellBlock = styled.div`
   & > div:last-child {
     padding: 4.2rem 6rem 6rem;
     flex-basis: 66%;
+    max-width: 66%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

@@ -1,4 +1,4 @@
-import { CommonProps, Dimension } from "./common";
+import { CommonProps } from "./common";
 import { Image } from './image';
 
 export interface ProductInterface extends CommonProps {
@@ -12,6 +12,8 @@ export interface ProductInterface extends CommonProps {
     condition: "ex" | "new";
     status: "published" | "draft";
     color: CommonProps;
-    dimension: Dimension;
+    product_width: number;
+    product_height: number;
+    product_length: number;
     year: number;
 }

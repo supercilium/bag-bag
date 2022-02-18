@@ -15,7 +15,11 @@ import Return from "../../components/icons/return-outline.svg";
 import NextImage from "../../components/Image";
 import { Item } from "../../components/Item";
 import { getProducts, getProduct } from "../../utils/api";
-import { formatSum, getActualSum } from "../../utils/formatters";
+import {
+  formatDimensions,
+  formatSum,
+  getActualSum,
+} from "../../utils/formatters";
 import { getStrapiMedia } from "../../utils/medias";
 import {
   AccordionTitle,
@@ -78,7 +82,7 @@ const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
             </DescriptionRow>
             <DescriptionRow>
               <Attribute>Размер</Attribute>
-              <span>{`${product.dimension.lgth} х ${product.dimension.width} х ${product.dimension.height}`}</span>
+              <span>{formatDimensions(product)}</span>
             </DescriptionRow>
             <DescriptionRow>
               <Attribute>Тип</Attribute>

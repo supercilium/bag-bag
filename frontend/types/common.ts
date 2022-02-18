@@ -6,12 +6,6 @@ export interface CommonProps {
     updated_at: string;
 }
 
-export interface Dimension {
-    width: number;
-    height: number;
-    lgth: number;
-}
-
 export interface Filters {
     brands: CommonProps[];
     categories: CommonProps[];

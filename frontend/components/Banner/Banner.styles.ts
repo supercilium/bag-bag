@@ -63,9 +63,12 @@ export const BrandsBlock = styled.div`
 export const BrandsLine = styled.div`
   text-transform: uppercase;
   white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
 
   & span {
     position: relative;
+    cursor: pointer;
   }
 
   & span:nth-child(odd) {

@@ -73,12 +73,6 @@
     "color": {
       "model": "color"
     },
-    "dimension": {
-      "type": "component",
-      "repeatable": false,
-      "component": "dimensions.dimension",
-      "required": true
-    },
     "year": {
       "type": "integer",
       "required": true,
@@ -87,14 +81,14 @@
       "default": 2020
     },
     "orders": {
-      "via": "products",
       "private": true,
+      "via": "products",
       "collection": "order"
     },
     "users": {
+      "private": true,
       "via": "favorites",
       "plugin": "users-permissions",
-      "private": true,
       "collection": "user"
     },
     "views": {
@@ -102,6 +96,24 @@
       "default": 0,
       "min": 0,
       "private": true
+    },
+    "product_length": {
+      "type": "decimal",
+      "required": true,
+      "default": 0,
+      "min": 0
+    },
+    "product_width": {
+      "type": "decimal",
+      "default": 0,
+      "required": true,
+      "min": 0
+    },
+    "product_height": {
+      "type": "decimal",
+      "default": 0,
+      "required": true,
+      "min": 0
     }
   }
 }
