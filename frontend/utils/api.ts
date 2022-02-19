@@ -119,7 +119,7 @@ export async function getCategory(slug: string) {
   return categories?.[0];
 }
 
-export async function getProducts(query: ParsedUrlQuery) {
+export async function getProducts(query?: ParsedUrlQuery) {
   const querystring = getAsString(query)
   const products = await fetchAPI<ProductInterface[]>(`/products${querystring}`);
   return products;

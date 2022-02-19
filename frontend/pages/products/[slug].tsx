@@ -53,6 +53,15 @@ const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
     <div>
       <Head>
         <title>{product.title} product</title>
+        <meta
+          property="og:image"
+          content={product.images?.[0]?.formats?.thumbnail?.url}
+        />
+        <meta property="og:description" content={product.description} />
+        <meta
+          property="og:title"
+          content={`${product.title} by ${product.brand.name} | ex(Bag) Online Store`}
+        />
       </Head>
       <ProductsRoot>
         <ImageContainer>
