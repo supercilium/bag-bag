@@ -1,4 +1,4 @@
-import { primaryText, subtitle } from "../../styles/typography";
+import { primaryText, subtitle } from "../typography";
 import styled, { DefaultTheme } from "styled-components";
 
 export const ProfileRoot = styled.div`

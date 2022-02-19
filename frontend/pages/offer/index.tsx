@@ -5,8 +5,11 @@ import { Button } from "../../components/Button";
 import { FileInput } from "../../components/FileInput";
 import { Input } from "../../components/Input";
 import { Box } from "../../styles/layout";
-import { ProcessRow } from "../process/Process.styles";
-import { ImageInputsRow, OrderContainer } from "./Offer.styles";
+import { ProcessRow } from "../../styles/pages/Process.styles";
+import {
+  ImageInputsRow,
+  OrderContainer,
+} from "../../styles/pages/Offer.styles";
 
 const Offer = () => {
   //   const router = useRouter()

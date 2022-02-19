@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container } from "../../styles/layout";
+import { Container } from "../layout";
 
 export const OrderContainer = styled.div`
   ${Container};

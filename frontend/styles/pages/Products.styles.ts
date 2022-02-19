@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { device } from "../../styles/constants";
-import { Container } from "../../styles/layout";
-import { PreviousPrice, primaryText, subtitle } from "../../styles/typography";
+import { device } from "../constants";
+import { Container } from "../layout";
+import { PreviousPrice, primaryText, subtitle } from "../typography";
 
 export const ProductsRoot = styled.div`
   ${Container}

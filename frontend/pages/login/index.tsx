@@ -16,7 +16,7 @@ import {
   SmallButton,
   Tab,
   Tabs,
-} from "./Login.styles";
+} from "../../styles/pages/Login.styles";
 
 const Login = () => {
   const [activeTabLogin, setActiveTab] = useState(true);

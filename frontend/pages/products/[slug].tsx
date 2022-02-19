@@ -32,7 +32,7 @@ import {
   ItemDescriptionContainer,
   PriceRow,
   ProductsRoot,
-} from "./Products.styles";
+} from "../../styles/pages/Products.styles";
 import { PurchaseButtons } from "../../components/PurchaseButtons";
 import { InfoBlock } from "../../components/InfoBlock";
 import { PreviousPrice } from "../../styles/typography";

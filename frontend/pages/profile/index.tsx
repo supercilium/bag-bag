@@ -16,7 +16,7 @@ import {
   Tab,
   Tabs,
   TitleRow,
-} from "./Profile.styles";
+} from "../../styles/pages/Profile.styles";
 import { FavoriteItem } from "../../components/FavoriteItem";
 import { InfoBlock } from "../../components/InfoBlock";
 import { Box } from "../../styles/layout";
@@ -26,7 +26,7 @@ import useUser from "../../hooks/useUser";
 import { destroyCookie } from "nookies";
 import { ORDER_DESCRIPTIONS, SHIPPING_METHODS } from "../../constants/order";
 import { formatDate, formatSum } from "../../utils/formatters";
-import { getStatusColor } from "./utils";
+import { getStatusColor } from "../../utils/profile";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
