@@ -14,7 +14,7 @@ import {
   Summary,
   SummaryTop,
   TopBlock,
-} from "./Cart.styles";
+} from "../../styles/pages/Cart.styles";
 import NextImage from "../../components/Image";
 import { PreviousPrice } from "../../styles/typography";
 import { Button } from "../../components/Button";

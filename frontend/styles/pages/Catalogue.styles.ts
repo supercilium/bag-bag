@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryText } from "../../styles/typography";
+import { primaryText } from "../typography";
 
 export const FiltersRoot = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};

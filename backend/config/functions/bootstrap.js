@@ -135,6 +135,7 @@ const createSeedData = async (files) => {
 
 module.exports = async () => {
   const shouldSetDefaultPermissions = await isFirstRun();
+  // const shouldSetDefaultPermissions = process.env.SHOULD_INITIATE || false;
   // const publicRole = await findRole("public");
   // const authenticated = await findRole("authenticated");
 

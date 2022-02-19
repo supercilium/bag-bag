@@ -16,7 +16,7 @@ import {
   FullWidthLabel,
   DescriptionText,
   ProductsList,
-} from "./Process.styles";
+} from "../../styles/pages/Process.styles";
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
 import { PreviousPrice } from "../../styles/typography";
@@ -25,8 +25,8 @@ import {
   formatSum,
   getActualSum,
 } from "../../utils/formatters";
-import { PriceSummary } from "../cart/Cart.styles";
-import { Attribute, DescriptionRow } from "../products/Products.styles";
+import { PriceSummary } from "../../styles/pages/Cart.styles";
+import { Attribute, DescriptionRow } from "../../styles/pages/Products.styles";
 import { RadioButton } from "../../components/RadioButton";
 import useUser from "../../hooks/useUser";
 import { useForm } from "react-hook-form";
