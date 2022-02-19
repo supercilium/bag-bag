@@ -133,8 +133,51 @@ const createSeedData = async (files) => {
   await Promise.all(productsPromises);
 };
 
+// const updateProducts = async (files) => {
+//   const handleFiles = (data) => {
+//     var file = files.find((x) => x.includes(data.slug));
+//     file = `./data/uploads/${file}`;
+
+//     const size = getFilesizeInBytes(file);
+//     const array = file.split(".");
+//     const ext = array[array.length - 1];
+//     const mimeType = `image/.${ext}`;
+//     const image = {
+//       path: file,
+//       name: `${data.slug}.${ext}`,
+//       size,
+//       type: mimeType,
+//     };
+//     return image;
+//   };
+
+//   const productsPromises = products.map(async (product) => {
+//     const images = handleFiles(product);
+
+//     const files = {
+//       images,
+//     };
+
+//     try {
+//       const entry = await strapi.query("product").find({
+//         id: product.id,
+//       });
+
+//       if (files) {
+//         await strapi.entityService.uploadFiles(entry, files, {
+//           model: "product",
+//         });
+//       }
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   });
+//   await Promise.all(productsPromises);
+// };
+
 module.exports = async () => {
   const shouldSetDefaultPermissions = await isFirstRun();
+  // const shouldSetDefaultPermissions = process.env.SHOULD_INITIATE || false;
   // const publicRole = await findRole("public");
   // const authenticated = await findRole("authenticated");
 
@@ -143,7 +186,16 @@ module.exports = async () => {
   // const permissions_applications = await getPermissions(authenticated.id);
   // writePermissionsToFile("../authenticated.json", permissions_applications);
 
-  if (!shouldSetDefaultPermissions) {
+  // try {
+  //   const files = fs.readdirSync(`./data/uploads`);
+
+  //   await updateProducts(files);
+  //   console.log("added images");
+  // } catch (err) {
+  //   console.log(err);
+  // }
+
+  if (shouldSetDefaultPermissions) {
     try {
       console.log("Setting up your starter...");
       const knex = strapi.connections.default;

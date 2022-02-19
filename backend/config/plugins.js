@@ -15,12 +15,15 @@ module.exports = ({ env }) => ({
       defaultReplyTo: env("EMAIL_ADDRESS_REPLY"),
     },
   },
-  // upload: {
-  //   provider: "local",
-  //   providerOptions: {
-  //     localServer: {
-  //       maxAge: 31536000000,
-  //     },
-  //   },
-  // },
+  upload: {
+    provider: "aws-s3",
+    providerOptions: {
+      accessKeyId: env("AWS_ACCESS_KEY"),
+      secretAccessKey: env("AWS_SECRET_KEY"),
+      region: env("AWS_REGION"),
+      params: {
+        Bucket: env("AWS_BUCKET"),
+      },
+    },
+  },
 });
