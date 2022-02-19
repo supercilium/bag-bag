@@ -143,7 +143,7 @@ module.exports = async () => {
   // const permissions_applications = await getPermissions(authenticated.id);
   // writePermissionsToFile("../authenticated.json", permissions_applications);
 
-  if (shouldSetDefaultPermissions) {
+  if (!shouldSetDefaultPermissions) {
     try {
       console.log("Setting up your starter...");
       const knex = strapi.connections.default;
