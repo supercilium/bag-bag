@@ -1,3 +1,4 @@
+import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
 import { device } from "../constants";
 import { Container } from "../layout";
@@ -41,7 +42,7 @@ export const DescriptionTitle = styled.div`
   margin-bottom: 1.5rem;
 `;
 
-export const Description = styled.div`
+export const Description = styled(ReactMarkdown)`
   ${primaryText};
   padding-bottom: 3.6rem;
   margin-bottom: 3.6rem;

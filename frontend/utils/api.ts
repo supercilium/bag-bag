@@ -240,3 +240,15 @@ export const createOrder = async (values: OrderFormValues) => {
 
   return order;
 }
+
+export const createRequest = async (values: FormData) => {
+  const { token } = parseCookies()
+  const Authorization = token ? `Bearer ${token}` : null
+  const order = await fetchAPI<OrderInterface>('/requests', {
+    method: 'POST',
+    headers: { Authorization },
+    body: values,
+  })
+
+  return order;
+}

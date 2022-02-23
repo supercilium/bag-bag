@@ -86,7 +86,7 @@
       "type": "string"
     },
     "requests": {
-      "via": "users_permissions_user",
+      "via": "user",
       "collection": "request"
     }
   }

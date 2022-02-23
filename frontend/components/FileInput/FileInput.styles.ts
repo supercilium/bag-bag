@@ -30,7 +30,7 @@ export const EditIndicator = styled.div`
   display: none;
 `;
 
-export const FileInputRoot = styled.div<{ $state: State }>`
+export const FileInputRoot = styled.label<{ $state: State }>`
   width: 25.2rem;
   height: 25.2rem;
   border-radius: 3.6rem;

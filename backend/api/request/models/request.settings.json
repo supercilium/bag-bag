@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "requests",
   "info": {
-    "name": "request"
+    "name": "request",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -118,7 +119,7 @@
       "required": true,
       "pluginOptions": {}
     },
-    "photo_fastner": {
+    "photo_fastener": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -142,7 +143,7 @@
       "required": true,
       "pluginOptions": {}
     },
-    "damage": {
+    "photo_damage": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -154,7 +155,7 @@
       "required": false,
       "pluginOptions": {}
     },
-    "users_permissions_user": {
+    "user": {
       "plugin": "users-permissions",
       "model": "user",
       "via": "requests"

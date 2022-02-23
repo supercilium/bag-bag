@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Container } from "../layout";
 
-export const OrderContainer = styled.div`
+export const OrderContainer = styled.form`
   ${Container};
   display: grid;
   grid-gap: 3.6rem;
