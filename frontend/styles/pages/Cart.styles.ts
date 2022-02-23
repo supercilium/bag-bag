@@ -5,7 +5,7 @@ import {
   buttonText,
   PreviousPrice,
   primaryText,
-} from "../../styles/typography";
+} from "../typography";
 
 export const MainContent = styled.main`
   border: 1px solid ${({ theme }) => theme.colors.black};

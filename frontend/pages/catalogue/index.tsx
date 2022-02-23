@@ -17,8 +17,8 @@ import {
   FiltersForm,
   FiltersRoot,
   SelectedFilters,
-} from "./Catalogue.styles";
-import { GRID_TEMPLATES } from "./constants";
+} from "../../styles/pages/Catalogue.styles";
+import { GRID_TEMPLATES } from "../../constants/catalogueGridTemplate";
 
 export interface FilterObjInterface {
   "brand-id"?: string | string[];

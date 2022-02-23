@@ -1,7 +1,7 @@
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
-import { Box } from "../../styles/layout";
-import { buttonText, primaryText } from "../../styles/typography";
+import { Box } from "../layout";
+import { buttonText, primaryText } from "../typography";
 
 export const ProcessGrid = styled.div`
   display: grid;

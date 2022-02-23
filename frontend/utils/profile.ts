@@ -1,6 +1,6 @@
 import { DefaultTheme } from "styled-components";
-import { ORDER_STATUSES_GREEN, ORDER_STATUSES_RED } from "../../constants/order";
-import { OrderInterface } from "../../types/order";
+import { ORDER_STATUSES_GREEN, ORDER_STATUSES_RED } from "../constants/order";
+import { OrderInterface } from "../types/order";
 
 export const getStatusColor = (
     status: OrderInterface["status"]

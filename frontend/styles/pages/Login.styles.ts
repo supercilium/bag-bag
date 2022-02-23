@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Button } from "../../components/Button";
-import { buttonText } from "../../styles/typography";
+import { buttonText } from "../typography";
 
 export const FormBlock = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};
