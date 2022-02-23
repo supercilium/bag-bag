@@ -1,5 +1,7 @@
 import React, { forwardRef, ReactNode } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import { SelectBlock, SelectRoot } from "./Select.styles";
+import Arrow from "../../components/icons/arrow-simple-right.svg";
 
 export interface SelectProps extends UseFormRegisterReturn {
   label?: ReactNode;
@@ -10,13 +12,14 @@ export interface SelectProps extends UseFormRegisterReturn {
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ options, label, error, ...rest }, ref) => {
     return (
-      <div>
+      <SelectBlock>
         {label && <label>{label}</label>}
-        <select {...rest} ref={ref}>
+        <SelectRoot {...rest} ref={ref}>
           {options}
-        </select>
+        </SelectRoot>
+        <Arrow />
         {error && <div>{error}</div>}
-      </div>
+      </SelectBlock>
     );
   }
 );
