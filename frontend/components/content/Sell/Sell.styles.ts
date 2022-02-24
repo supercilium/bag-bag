@@ -39,9 +39,10 @@ export const SellBlock = styled.div`
 
 export const SellButtons = styled.div`
   display: grid;
-  grid-template-columns: 55rem 51.1rem;
+  grid-template-columns: 55rem minMax(auto, 51.1rem);
   grid-gap: 9.7rem;
   justify-content: space-between;
+  align-items: center;
   margin-top: 6.8rem;
 
   & > p {

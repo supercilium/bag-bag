@@ -9,9 +9,9 @@ export interface InputProps
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ value, label, error, placeholder, as, ...rest }, ref) => {
+  ({ value, label, error, placeholder, as, className, ...rest }, ref) => {
     return (
-      <InputBlock>
+      <InputBlock className={className}>
         {label && <label>{label}</label>}
         <InputRoot
           ref={ref}

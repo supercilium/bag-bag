@@ -4,7 +4,6 @@ import { primaryText } from "../../styles/typography";
 export const CollectionItemRoot = styled.a<{ $halfHeight?: boolean }>`
   display: flex;
   flex-direction: column;
-  width: 59.2rem;
   height: ${({ $halfHeight }) => ($halfHeight ? "48rem" : "88.5rem")};
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 

@@ -3,7 +3,7 @@ import { Button } from "../../Button";
 
 export const CollectionList = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minMax(0, 1fr));
   align-items: flex-start;
   grid-gap: 3.6rem;
   margin-top: 5rem;

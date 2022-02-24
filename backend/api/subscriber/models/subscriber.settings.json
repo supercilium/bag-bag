@@ -1,8 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "subscrubers",
+  "collectionName": "subscribers",
   "info": {
-    "name": "Subscruber"
+    "name": "Subscriber",
+    "description": ""
   },
   "options": {
     "increments": true,

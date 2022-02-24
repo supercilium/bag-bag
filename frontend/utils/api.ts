@@ -252,3 +252,17 @@ export const createRequest = async (values: FormData) => {
 
   return order;
 }
+
+export interface SubscriberInterface {
+  email: string;
+}
+
+export const createSubscriber = async (values: SubscriberInterface) => {
+  const res = await fetchAPI<string>('/subscribers', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  })
+
+  return res;
+}
