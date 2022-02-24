@@ -1,9 +1,10 @@
 import { parseCookies, setCookie } from "nookies";
 import { ParsedUrlQuery } from "querystring";
 import { BrandWithCount } from "../types/brand";
-import { CommonProps, Filters } from "../types/common";
+import { CommonProps, ErrorRequest, Filters } from "../types/common";
 import { OrderInterface } from "../types/order";
 import { ProductInterface } from "../types/product";
+import { PromocodeInterface } from "../types/promocode";
 import { AuthResponse, User } from "../types/user";
 import { getAsString } from "./formatters";
 
@@ -11,7 +12,7 @@ export function getStrapiURL(path: RequestInfo) {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
     }${path}`;
 }
-export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit) => Promise<JSON>
+export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit) => Promise<JSON | ErrorRequest>
 
 // Helper to make GET requests to Strapi
 export const fetchAPI: FetchType = async (input, init) => {
@@ -146,11 +147,11 @@ interface LoginParams {
 export const login = async (body: LoginParams) => {
   const {
     user, jwt
-  } = await fetchAPI<AuthResponse>("/auth/local", {
+  } = (await fetchAPI<AuthResponse>("/auth/local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  });
+  }) as AuthResponse);
   setCookie(null, 'token', jwt, {
     maxAge: 30 * 24 * 60 * 60,
     path: '/',
@@ -167,11 +168,11 @@ export interface LoginFormInterface extends User {
 export const register = async (body: LoginFormInterface) => {
   const {
     user, jwt
-  } = await fetchAPI<AuthResponse>("/auth/local/register", {
+  } = (await fetchAPI<AuthResponse>("/auth/local/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  });
+  }) as AuthResponse);
   setCookie(null, 'token', jwt, {
     maxAge: 30 * 24 * 60 * 60,
     path: '/',
@@ -263,6 +264,14 @@ export const createSubscriber = async (values: SubscriberInterface) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(values),
   })
-
   return res;
+}
+
+export const checkPromoCode = async (code: string) => {
+  const { token } = parseCookies()
+  const res = await fetchAPI<PromocodeInterface>(`/promocodes/check/${code}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return res
 }

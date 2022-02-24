@@ -10,3 +10,9 @@ export interface Filters {
     brands: CommonProps[];
     categories: CommonProps[];
 }
+
+export interface ErrorRequest {
+    error: string;
+    message: string;
+    statusCode: number;
+}

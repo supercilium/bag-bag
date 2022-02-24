@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
 import { Box, StyledHeader } from "../../styles/layout";
@@ -30,7 +30,7 @@ import { Attribute, DescriptionRow } from "../../styles/pages/Products.styles";
 import { RadioButton } from "../../components/RadioButton";
 import useUser from "../../hooks/useUser";
 import { useForm } from "react-hook-form";
-import { OrderFormValues, createOrder } from "../../utils/api";
+import { OrderFormValues, createOrder, checkPromoCode } from "../../utils/api";
 import { getTotalSumAndDiscount } from "../../utils/calculation";
 
 /* TODO make dynamic value */
@@ -39,6 +39,7 @@ const DELIVERY_COST = 1200;
 const Process = () => {
   const router = useRouter();
   const { user, mutateUser } = useUser();
+  const [promocodeString, setPromocodeString] = useState("");
 
   const [totalSum, totalDiscount] = getTotalSumAndDiscount(
     user?.shopping_bag?.products
@@ -82,15 +83,22 @@ const Process = () => {
       discount: totalDiscount,
     });
   }, [user, totalSum, totalDiscount, reset]);
-  const { shippingMethod, total } = watch();
+
+  const { shippingMethod, total, promocode } = watch();
 
   useEffect(() => {
     if (shippingMethod === "shipping") {
-      setValue("total", totalSum + 1200);
+      setValue(
+        "total",
+        totalSum + 1200 - totalSum * (promocode?.discount || 0) * 0.01
+      );
     } else {
-      setValue("total", totalSum);
+      setValue(
+        "total",
+        totalSum - totalSum * (promocode?.discount || 0) * 0.01
+      );
     }
-  }, [shippingMethod, setValue, totalSum]);
+  }, [shippingMethod, setValue, totalSum, promocode]);
 
   if (router.isFallback) {
     return <div>Loading category...</div>;
@@ -106,6 +114,24 @@ const Process = () => {
       router.replace("/profile");
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const handleCheckPromocode = async () => {
+    setError("promocode.code", undefined);
+    if (promocodeString && promocodeString !== promocode?.code) {
+      try {
+        const res = await checkPromoCode(promocodeString);
+        if ("message" in res) {
+          setError("promocode.code", { message: res?.message });
+        }
+        if ("id" in res) {
+          setValue("promocode", res);
+        }
+      } catch (err) {
+        console.log({ err });
+        setError("promocode.code", { message: err?.message });
+      }
     }
   };
 
@@ -239,8 +265,12 @@ const Process = () => {
                 <ProcessRow>
                   <Input
                     placeholder="Промокод"
-                    {...register("promocode")}
-                    // error={errors?.promocode?.message}
+                    value={promocodeString}
+                    onChange={({ currentTarget }) =>
+                      setPromocodeString(currentTarget.value)
+                    }
+                    onBlur={() => handleCheckPromocode()}
+                    error={errors?.promocode?.code?.message}
                   />
                   <PriceSummary>
                     <span>сумма скидки</span>

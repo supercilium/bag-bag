@@ -24,9 +24,8 @@ export const Subscribe: React.FC = () => {
       const res = await createSubscriber(values);
       if (typeof res === "string") {
         setSubmitMessage(res);
-      }
-      if (res) {
-        setSubmitError(res);
+      } else if ("message" in res) {
+        setSubmitError(res?.message);
       }
     } catch (err) {
       setSubmitError(err.message);

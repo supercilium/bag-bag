@@ -21,11 +21,11 @@ module.exports = {
       const promocode = await strapi.query("promocode").findOne({ code: code });
 
       if (!promocode) {
-        return ctx.send("Promo code is not found", 400);
+        return ctx.badRequest("Promo code is not found");
       }
 
       if (isPast(new Date(promocode.validTill))) {
-        return ctx.send("Promo code is expired", 400);
+        return ctx.badRequest("Promo code is expired");
       }
       const knex = strapi.connections.default;
       const count = await knex
@@ -34,10 +34,10 @@ module.exports = {
         .where({ user: user, promocode: promocode.id });
 
       if (count?.[0]?.count > 0) {
-        return ctx.send("Promo code is already used by you", 400);
+        return ctx.badRequest("Promo code is already used by you");
       }
       return sanitizeEntity(promocode, { model: strapi.models["promocode"] });
     }
-    return ctx.send("Code is empty", 400);
+    return ctx.badRequest("Code is empty");
   },
 };
