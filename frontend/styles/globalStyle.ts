@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    position: relative;
   }
   a {
     text-decoration: none;
@@ -32,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   h1, .h1 {
     font-weight: 500;
-    font-size: 12.9rem;
+    font-size: 4.5rem;
     line-height: 89%;
 
     letter-spacing: -0.005em;
@@ -88,6 +89,10 @@ export const GlobalStyle = createGlobalStyle`
   }
   
   @media screen and ${device.wide} {
+    h1, .h1 {
+      font-size: 12.9rem;
+      line-height: 89%;
+    }
     html {
       font-size: 10px;
     }

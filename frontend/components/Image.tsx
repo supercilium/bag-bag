@@ -1,12 +1,22 @@
 import { getStrapiMedia } from "../utils/medias";
-import NextImage from "next/image";
+import NextImage, { ImageProps } from "next/image";
+import { FC } from "react";
 
-const Image = (props) => {
-  if (!props.media) {
-    return <NextImage {...props} />;
+interface NextImageProps extends Partial<ImageProps> {
+  media?: {
+    url: string;
+    alternativeText: string;
+    width: number;
+    height: number;
+  };
+}
+
+const Image: FC<NextImageProps> = ({ media, ...props }) => {
+  if (!media) {
+    return <NextImage {...(props as ImageProps)} />;
   }
 
-  const { url, alternativeText } = props.media;
+  const { url, alternativeText } = media;
 
   const loader = ({ src }) => {
     return getStrapiMedia(src);
@@ -15,10 +25,10 @@ const Image = (props) => {
   return (
     <NextImage
       loader={loader}
-      layout="responsive"
-      objectFit="contain"
-      width={props.media.width}
-      height={props.media.height}
+      layout={props.layout || "responsive"}
+      objectFit={props.objectFit || "contain"}
+      width={media.width}
+      height={media.height}
       src={url}
       alt={alternativeText || ""}
     />

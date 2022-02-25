@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../../styles/constants";
 
 export const TitleBlock = styled.div`
   padding: 9.5rem 3.6rem 11.8rem;
@@ -7,12 +8,23 @@ export const TitleBlock = styled.div`
 
   & > div {
     display: flex;
+    flex-direction: column;
     align-items: center;
+  }
+
+  @media ${device.laptopL} {
+    & > div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   }
 `;
 export const QualityAssuranceTitleImage = styled.div`
-  flex-shrink: 0;
-  margin: 0 11.5rem;
+  @media ${device.laptopL} {
+    flex-shrink: 0;
+    margin: 0 11.5rem;
+  }
 `;
 
 export const ContentBlock = styled.div`
@@ -24,10 +36,12 @@ export const ContentBlock = styled.div`
   }
 `;
 export const QualityAssuranceBannerContainer = styled.div`
-  border-right: 1px solid ${({ theme }) => theme.colors.black};
-  padding: 1.5rem;
-  flex-basis: 127.4rem;
-  min-width: 127.4rem;
+  @media ${device.laptopL} {
+    border-right: 1px solid ${({ theme }) => theme.colors.black};
+    padding: 1.5rem;
+    flex-basis: 127.4rem;
+    min-width: 127.4rem;
+  }
 `;
 
 export const QualityAssuranceContent = styled.div`

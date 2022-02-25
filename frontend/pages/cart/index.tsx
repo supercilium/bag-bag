@@ -8,6 +8,7 @@ import {
   Description,
   DescriptionRow,
   DescriptionText,
+  ImageContainer,
   Left,
   MainContent,
   PriceSummary,
@@ -74,9 +75,15 @@ const Cart = () => {
             <MainContent>
               {user?.shopping_bag?.products.map((item) => (
                 <CartItem key={item.id}>
-                  <NextImage
-                    media={item.images?.[0].formats?.medium || item.images?.[0]}
-                  />
+                  <ImageContainer>
+                    <NextImage
+                      layout="fill"
+                      objectFit="cover"
+                      media={
+                        item.images?.[0].formats?.medium || item.images?.[0]
+                      }
+                    />
+                  </ImageContainer>
                   <Left>
                     <TopBlock>
                       <div>

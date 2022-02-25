@@ -16,6 +16,7 @@ import {
   FullWidthLabel,
   DescriptionText,
   ProductsList,
+  ImageContainer,
 } from "../../styles/pages/Process.styles";
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
@@ -289,7 +290,13 @@ const Process = () => {
               {shopping_bag?.products?.length > 0 &&
                 shopping_bag.products.map((item) => (
                   <Box key={item.id}>
-                    <NextImage media={item.images?.[0]} />
+                    <ImageContainer>
+                      <NextImage
+                        layout="fill"
+                        objectFit="cover"
+                        media={item.images?.[0]}
+                      />
+                    </ImageContainer>
                     <NameBlock>
                       <NameTitle>{item.title}</NameTitle>
                       <DescriptionText>{item.description}</DescriptionText>

@@ -1,14 +1,11 @@
 import styled from "styled-components";
+import { device } from "../../../styles/constants";
 import { Container } from "../../../styles/layout";
 
 export const SubscribeBlock = styled.form`
   ${Container};
   padding: 7.8rem 3.6rem;
-  
-  & > div {
-    display: flex;
-    align-items: flex-start;
-  }
+
   
   & > div > div:first-child {
     flex-grow: 1;
@@ -23,6 +20,13 @@ export const SubscribeBlock = styled.form`
       font-size: 4rem;
       text-transform: uppercase;
       line-height: 100%;
+    }
+  }
+
+  @media ${device.laptopL} {
+    & > div {
+      display: flex;
+      align-items: flex-start;
     }
   }
 `;

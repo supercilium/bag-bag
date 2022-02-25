@@ -116,3 +116,13 @@ export const PriceSummary = styled.div`
 export const DescriptionText = styled(ReactMarkdown)`
   ${primaryText};
 `
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 44.5rem;
+  position: relative;
+
+  & img {
+    border-radius: 2.4rem;
+  }
+`

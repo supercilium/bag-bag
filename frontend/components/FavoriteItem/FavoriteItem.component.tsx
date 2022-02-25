@@ -7,6 +7,7 @@ import {
   Ex,
   FavoriteRoot,
   HidingPurchaseButtons,
+  ImageContainer,
   NameBlock,
 } from "./FavoriteItem.styles";
 
@@ -15,7 +16,9 @@ export interface FavoriteItemProps extends ProductInterface {}
 export const FavoriteItem: React.FC<FavoriteItemProps> = (item) => {
   return (
     <FavoriteRoot>
-      <NextImage media={item.images?.[0]} />
+      <ImageContainer>
+        <NextImage media={item.images?.[0]} layout="fill" objectFit="cover" />
+      </ImageContainer>
       <NameBlock>
         <h4>{item.name}</h4>
         <div>

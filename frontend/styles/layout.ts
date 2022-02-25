@@ -1,9 +1,13 @@
 import styled, { css } from "styled-components"
+import { device } from "./constants"
 
 export const Container = css`
-  max-width: 1920px;
   width: 100%;
   margin: 0 auto;
+  
+  @media ${device.laptopL} {
+    max-width: 1920px;
+  }
 `
 
 export const StyledHeader = styled.header<{ $buttonPosition: 'left' | 'right' }>`

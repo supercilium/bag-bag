@@ -1,15 +1,11 @@
 import styled from "styled-components";
-import { TRANSITION } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { subtitle } from "../../styles/typography";
 
 export const FooterRoot = styled.footer`
-  height: 50.4rem;
   background-color: ${({ theme }) => theme.colors.black};
   padding: 14.3rem 0 0;
   color: ${({ theme }) => theme.colors.white};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
   & > div {
     padding: 0 6rem;
@@ -21,6 +17,14 @@ export const FooterRoot = styled.footer`
     flex-grow: 1;
     white-space: pre-line;
   }
+
+  @media ${device.laptopL} {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 50.4rem;
+  }
 `;
 
 export const FooterEmail = styled.div`
@@ -31,14 +35,20 @@ export const FooterEmail = styled.div`
 `;
 
 export const FooterBottom = styled.div`
-  height: 8.9rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.white};
-  display: flex;
-  align-items: center;
+  display: none;
+
+  @media ${device.laptopL} {
+    height: 8.9rem;
+    border-top: 1px solid ${({ theme }) => theme.colors.white};
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const FooterTop = styled.div`
-  display: flex;
+  @media ${device.laptopL} {
+    display: flex;
+  }
 `;
 
 export const FooterLink = styled.a`
@@ -52,8 +62,8 @@ export const FooterLink = styled.a`
 `;
 
 export const SocialLink = styled.a`
-  width: 12.9rem;
-  height: 12.9rem;
+  width: 10rem;
+  height: 10rem;
   border: 1px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
   display: flex;
@@ -71,6 +81,11 @@ export const SocialLink = styled.a`
       fill: ${({ theme }) => theme.colors.black};
     }
   }
+
+  @media ${device.laptopL} {
+    width: 12.9rem;
+    height: 12.9rem;
+  }
 `;
 
 export const Copyright = styled.span`
@@ -83,6 +98,9 @@ export const Copyright = styled.span`
 `;
 
 export const InfoBlock = styled.div`
-  flex-basis: 46rem;
-  margin-right: 6rem;
+
+  @media ${device.laptopL} {
+    flex-basis: 46rem;
+    margin-right: 6rem;
+  }
 `;

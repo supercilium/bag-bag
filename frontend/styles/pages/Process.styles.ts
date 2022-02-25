@@ -9,15 +9,15 @@ export const ProcessGrid = styled.div`
   grid-gap: 3.6rem;
   margin-bottom: 43rem;
   align-items: flex-start;
-
-  & > ${Box} {
-    padding: 1.5rem;
-  }
 `;
 
 export const ProductsList = styled.div`
   & > div + div {
     margin-top: 3.6rem;
+  }
+
+  & > ${Box} {
+    padding: 1.5rem;
   }
 
 `
@@ -75,4 +75,14 @@ export const FullWidthLabel = styled.div`
 
 export const DescriptionText = styled(ReactMarkdown)`
   ${primaryText};
+`
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 58.1rem;
+  position: relative;
+
+  & img {
+    border-radius: 2.4rem;
+  }
 `

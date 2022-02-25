@@ -25,6 +25,16 @@ export const FavoriteRoot = styled.div`
   }
 `;
 
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 72rem;
+  position: relative;
+
+  & img {
+    border-radius: 3.6rem;
+  }
+`
+
 export const NameBlock = styled.div`
   margin: 3.6rem 1.1rem 2rem;
 

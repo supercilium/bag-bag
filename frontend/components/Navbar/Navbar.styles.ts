@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TRANSITION } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { Container } from "../../styles/layout";
 import { subtitle } from "../../styles/typography";
 
@@ -44,17 +44,21 @@ export const NavbarActions = styled.div`
 `;
 
 export const NavbarLinks = styled.div`
-  display: flex;
-  ${subtitle}
-  justify-self: center;
+  display: none;
 
-  a {
-    color: ${({ theme }) => theme.colors.black};
-    margin: 0 1.8rem;
-    transition: color ${TRANSITION};
+  @media ${device.laptopL} {
+    display: flex;
+    ${subtitle}
+    justify-self: center;
 
-    &:hover {
-      color: ${({ theme }) => theme.colors.green};
+    a {
+      color: ${({ theme }) => theme.colors.black};
+      margin: 0 1.8rem;
+      transition: color ${TRANSITION};
+
+      &:hover {
+        color: ${({ theme }) => theme.colors.green};
+      }
     }
   }
 `;

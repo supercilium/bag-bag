@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { device } from "../../styles/constants";
 import { PreviousPrice, subtitle } from "../../styles/typography";
 
 export const ItemRoot = styled.div`
-  width: 100%;
+  min-width: 339px;
   height: 63rem;
   border: 1px solid #1d1d1b;
   box-sizing: border-box;
@@ -13,8 +14,8 @@ export const ItemRoot = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  & > div:first-child {
-    border-radius: 2.4rem;
+  @media ${device.laptopL} {
+    width: 100%;
   }
 `;
 
@@ -34,6 +35,16 @@ export const Condition = styled.span`
   color: ${({ theme }) => theme.colors.grey};
   margin-left: auto;
 `;
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 40.5rem;
+  position: relative;
+
+  & img {
+    border-radius: 2.4rem;
+  }
+`
 
 export const NameBlock = styled.div`
   margin: 3.6rem 1.1rem 0;

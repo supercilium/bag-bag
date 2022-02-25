@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/constants";
 import { Container } from "../../styles/layout";
 
 export const BannerRoot = styled.div`
@@ -41,16 +42,25 @@ export const BannerImage = styled.div<{ $url: string }>`
 `;
 
 export const BannerActions = styled.div`
-  display: flex;
+  display: none;
 
-  & button + button {
-    margin-left: 3rem;
+  @media ${device.laptopL} {
+    display: flex;
+
+    & button + button {
+      margin-left: 3rem;
+    }
   }
 `;
 
 export const BannerAside = styled.div`
-  width: 8.8rem;
-  flex-shrink: 0;
+  display: none;
+
+  @media ${device.laptopL} {
+    display: flex;
+    width: 8.8rem;
+    flex-shrink: 0;
+  }
 `;
 
 export const BrandsBlock = styled.div`
@@ -96,16 +106,21 @@ export const BrandsLine = styled.div`
 `;
 
 export const FloatingImage = styled.div`
-  position: absolute;
-  top: -4.4rem;
-  left: 50%;
-  margin-left: -16.5rem;
-  width: 33rem;
-  height: 33rem;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  background: ${({ theme }) => theme.colors.white};
-  box-sizing: border-box;
-  border-radius: 36px;
-  padding: 1.5rem;
-  z-index: 1;
+  display: none;
+
+  @media ${device.laptopL} {
+    position: absolute;
+    top: -4.4rem;
+    left: 50%;
+    margin-left: -16.5rem;
+    width: 33rem;
+    height: 33rem;
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    background: ${({ theme }) => theme.colors.white};
+    box-sizing: border-box;
+    border-radius: 36px;
+    padding: 1.5rem;
+    z-index: 1;
+    display: block;
+  }
 `;

@@ -1,19 +1,43 @@
 import styled from "styled-components";
+import { device } from "../../../styles/constants";
 
 export const Carousel = styled.div`
-  display: grid;
-  grid-gap: 3.6rem;
-  grid-template-columns: repeat(4, 1fr);
   justify-items: space-between;
   margin: 5rem 0 6rem;
-`;
-export const ButtonsContainer = styled.div`
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  padding-left: 0;
+  list-style-type: none;
   display: flex;
-  justify-content: space-between;
 
-  & > div {
+  & > a {
+    scroll-snap-align: start;
+  }
+
+  @media ${device.laptopL} {
+    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    grid-gap: 3.6rem;
+  }
+`;
+
+export const ButtonsContainer = styled.div`
+display: none;
+
+@media ${device.laptopL} {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    
+    & > div {
+      display: flex;
+      align-items: center;
+    }
+
   }
 `;
 

@@ -1,11 +1,17 @@
 import styled from "styled-components";
-import { TRANSITION } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { ButtonProps } from "./Button.component";
 
 const BUTTON_SIZE: Record<ButtonProps["$size"], string> = {
   l: "26.6rem",
   s: "5.4rem",
   m: "8.6rem",
+};
+
+const FONT_SIZES_MOBILE: Record<ButtonProps["$size"], string> = {
+  s: "3rem",
+  m: "3rem",
+  l: "5rem",
 };
 
 const FONT_SIZES: Record<ButtonProps["$size"], string> = {
@@ -24,7 +30,7 @@ export const StyledButton = styled.button<{
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 9.4rem;
   font-weight: 500;
-  font-size: ${({ $size }) => FONT_SIZES[$size]};
+  font-size: ${({ $size }) => FONT_SIZES_MOBILE[$size]};
   line-height: 6.8rem;
   color: ${({ theme }) => theme.colors.black};
   display: flex;
@@ -44,5 +50,9 @@ export const StyledButton = styled.button<{
     background-color: ${({ theme }) => theme.colors.black};
     border-color: ${({ theme }) => theme.colors.black};
     color: ${({ theme }) => theme.colors.white};
+  }
+
+  @media ${device.laptopL} {
+    font-size: ${({ $size }) => FONT_SIZES[$size]};
   }
 `;

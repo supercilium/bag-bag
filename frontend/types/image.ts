@@ -27,5 +27,5 @@ export interface Image extends CommonProps {
     size: number;
     url: string;
     width: number;
-    formats: Record<Formats, CommonImageProps>
+    formats: Record<Formats, Omit<Image, 'formats'>>
 }
