@@ -40,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   h2, .h2 {
     font-weight: 500;
-    font-size: 7.2rem;
+    font-size: 4.8rem;
     line-height: 90%;
   }
   h3, .h3 {
@@ -92,6 +92,10 @@ export const GlobalStyle = createGlobalStyle`
     h1, .h1 {
       font-size: 12.9rem;
       line-height: 89%;
+    }
+    h2, .h2 {
+      font-size: 7.2rem;
+      line-height: 90%;
     }
     html {
       font-size: 10px;

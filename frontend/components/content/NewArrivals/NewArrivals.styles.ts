@@ -20,6 +20,7 @@ export const Carousel = styled.div`
   }
 
   @media ${device.laptopL} {
+    overflow: auto;
     grid-template-columns: repeat(4, 1fr);
     display: grid;
     grid-gap: 3.6rem;

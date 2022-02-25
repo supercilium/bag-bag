@@ -16,6 +16,7 @@ export const BannerImageContainer = styled.div`
   padding: 1.4rem;
   border-right: 1px solid ${({ theme }) => theme.colors.black};
   display: flex;
+  width: 100%;
 `;
 
 export const BannerImage = styled.div<{ $url: string }>`
@@ -32,6 +33,7 @@ export const BannerImage = styled.div<{ $url: string }>`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
 
   & > div {
     display: flex;

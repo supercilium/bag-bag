@@ -41,3 +41,19 @@ export const Box = styled.div`
   display: grid;
   grid-gap: 1.5rem;
 `
+
+export const MobileVisible = styled.div`
+  display: block;
+
+  @media ${device.laptopL} {
+    display: none;
+  }
+`
+
+export const LaptopLVisible = styled.div`
+  display: none;
+
+  @media ${device.laptopL} {
+    display: block;
+  }
+`

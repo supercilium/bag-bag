@@ -38,6 +38,7 @@ import { InfoBlock } from "../../components/InfoBlock";
 import { PreviousPrice } from "../../styles/typography";
 import { FC } from "react";
 import { ProductInterface } from "../../types/product";
+import { LaptopLVisible, MobileVisible } from "../../styles/layout";
 
 const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
   const router = useRouter();
@@ -64,6 +65,16 @@ const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
         />
       </Head>
       <ProductsRoot>
+        <MobileVisible>
+          <h2>{product.brand.name}</h2>
+          <PriceRow>
+            {formatSum(getActualSum(product.price, product.discount), "₽")}
+            {product.discount && (
+              <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
+            )}
+          </PriceRow>
+        </MobileVisible>
+
         <ImageContainer>
           {product.images &&
             product.images.map((image) => (
@@ -72,14 +83,19 @@ const ProductPage: FC<{ product: ProductInterface }> = ({ product }) => {
         </ImageContainer>
         <ItemDescriptionContainer>
           <div>
-            <h2>{product.brand.name}</h2>
+            <LaptopLVisible>
+              <h2>{product.brand.name}</h2>
+            </LaptopLVisible>
             <DescriptionTitle>{product.title}</DescriptionTitle>
             <Description>{product.description}</Description>
+
             <PriceRow>
-              {formatSum(getActualSum(product.price, product.discount), "₽")}
-              {product.discount && (
-                <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
-              )}
+              <LaptopLVisible>
+                {formatSum(getActualSum(product.price, product.discount), "₽")}
+                {product.discount && (
+                  <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
+                )}
+              </LaptopLVisible>
             </PriceRow>
           </div>
 
@@ -175,11 +191,11 @@ export async function getStaticProps({ params }) {
 export async function getStaticPaths() {
   const products = await getProducts();
   return {
-    paths: products.map((_product) => {
+    paths: (products as ProductInterface[]).map((_product) => {
       return {
         params: { slug: _product.slug },
       };
     }),
-    fallback: false,
+    fallback: true,
   };
 }
