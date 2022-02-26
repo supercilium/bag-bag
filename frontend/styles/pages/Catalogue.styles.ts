@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../constants";
 import { primaryText } from "../typography";
 
 export const FiltersRoot = styled.div`
@@ -35,15 +36,23 @@ export const SortBy = styled.div`
 `;
 
 export const CatalogueGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* grid-template-rows: repeat(5, 1fr); */
-  grid-gap: 3.6rem;
-  margin: 6rem 0;
+
+  @media ${device.laptopL} {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-template-rows: repeat(5, 1fr); */
+    grid-gap: 3.6rem;
+    margin: 6rem 0;
+  }
 `;
 
 export const CatalogueItem = styled.div<{ $gridArea: string }>`
-  grid-area: ${({ $gridArea }) => $gridArea};
+  margin-bottom: 24px;
+
+  @media ${device.laptopL} {
+    margin-bottom: unset;
+    grid-area: ${({ $gridArea }) => $gridArea};
+  }
 `;
 
 export const FiltersForm = styled.form`
