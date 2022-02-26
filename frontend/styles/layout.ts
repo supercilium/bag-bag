@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components"
 import { device } from "./constants"
+import { buttonText } from "./typography"
 
 export const Container = css`
   width: 100%;
@@ -10,18 +11,24 @@ export const Container = css`
   }
 `
 
-export const StyledHeader = styled.header<{ $buttonPosition: 'left' | 'right' }>`
+export const StyledHeader = styled.header<{ $buttonPosition?: 'left' | 'right' }>`
     position: relative;
 
     h1 {
-        display: flex;
-        align-items: flex-end;
-        color: ${({ theme }) => theme.colors.green};
+      display: flex;
+      align-items: flex-end;
+      color: ${({ theme }) => theme.colors.green};
 
-        i {
-            margin-left: 1rem;
-          }
+      i {
+          margin-left: 1rem;
         }
+      }
+
+      span {
+        ${buttonText};
+        margin-left: auto;
+        color: ${({ theme }) => theme.colors.black};
+      }
         
       button {
         max-width: 10rem;
@@ -38,6 +45,7 @@ export const StyledHeader = styled.header<{ $buttonPosition: 'left' | 'right' }>
     @media ${device.laptopL} {
       h1 {
         text-align: center;
+        justify-content: center;
       }
       button {
         max-width: none;

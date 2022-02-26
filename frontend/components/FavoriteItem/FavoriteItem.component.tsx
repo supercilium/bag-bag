@@ -20,7 +20,7 @@ export const FavoriteItem: React.FC<FavoriteItemProps> = (item) => {
         <NextImage media={item.images?.[0]} layout="fill" objectFit="cover" />
       </ImageContainer>
       <NameBlock>
-        <h4>{item.name}</h4>
+        <h4>{item.title}</h4>
         <div>
           <span>{formatSum(getActualSum(item.price, item.discount), "₽")}</span>
           {item.discount && (

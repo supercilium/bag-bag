@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { primaryText, subtitle } from "../../styles/typography";
 
 export const InfoBlockContainer = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey3};
   padding: 1.5rem 0;
 `;
 
@@ -18,26 +17,24 @@ export const Title = styled.button`
   position: relative;
 `;
 
-export const Icon = styled.span<{ $isOpen: boolean }>`
-  margin-left: auto;
-  color: ${({ theme }) => theme.colors.black};
-  text-transform: none;
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  & > svg {
-    width: 2.2rem;
-    height: 2.2rem;
-    transform: ${({ $isOpen }) =>
-    $isOpen ? "rotate(-90deg)" : "rotate(90deg)"};
-  }
-`;
-
 export const Content = styled.div`
   padding-top: 1.5rem;
   ${primaryText};
   color: ${({ theme }) => theme.colors.grey};
 `;
+
+export const Border = styled.button`
+  height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  border: none;
+  background: none;
+  min-width: 100%;
+
+
+  & hr {
+    flex-grow: 1;
+    height: 1px;
+  }
+`

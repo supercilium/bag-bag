@@ -19,6 +19,7 @@ import {
   SelectedFilters,
 } from "../../styles/pages/Catalogue.styles";
 import { GRID_TEMPLATES } from "../../constants/catalogueGridTemplate";
+import { StyledHeader } from "../../styles/layout";
 
 export interface FilterObjInterface {
   "brand-id"?: string | string[];
@@ -46,7 +47,7 @@ const QUERY_KEYS: Array<keyof FilterObjInterface> = [
 ];
 
 export const SORT_OPTIONS = {
-  "created_at:ASC": "По новизне",
+  "created_at:DESC": "По новизне",
   "views:DESC": "По популярности",
   "price:ASC": "Цена по возрастанию",
   "price:DESC": "Цена по убыванию",
@@ -123,117 +124,117 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
       <Head>
         <title>Каталог (ex)bags</title>
       </Head>
-      <div className="container">
-        <div className="m32">
-          <h1>каталог</h1>
-          <FiltersRoot>
-            <FiltersRow>
-              {/* TODO make buttons */}
-              <div onClick={() => setOpenedFilter("condition")}>Все</div>
-              <div onClick={() => setOpenedFilter("category")}>тип</div>
-              <div onClick={() => setOpenedFilter("brand")}>бренд</div>
-              <div onClick={() => setOpenedFilter("price")}>цена</div>
-              <SortBy onClick={() => setOpenedFilter("sort")}>
-                <span>сортировать по:</span>
-                {
-                  SORT_OPTIONS[
-                    Array.isArray(values._sort) ? values._sort[0] : values._sort
-                  ]
-                }
-              </SortBy>
-            </FiltersRow>
-            {openedFilter && (
-              <FiltersForm onSubmit={handleSubmit(onSubmit)}>
-                {openedFilter === "condition" && (
-                  <select {...register("condition")}>
-                    <option value="">Все</option>
-                    <option value="ex">(ex)</option>
-                    <option value="new">new</option>
-                  </select>
-                )}
-                {openedFilter === "brand" && (
-                  <select {...register("brand-id")}>
-                    {filters?.brands?.map(({ name, id }) => (
-                      <option key={id} value={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {openedFilter === "category" && (
-                  <select {...register("category-id")}>
-                    <option key="all" value="">
-                      Все категории
+      <div className="container m32">
+        <StyledHeader>
+          <h1>
+            каталог <span>catalog</span>
+          </h1>
+        </StyledHeader>
+
+        <FiltersRoot>
+          <FiltersRow>
+            {/* TODO make buttons */}
+            <div onClick={() => setOpenedFilter("condition")}>Все</div>
+            <div onClick={() => setOpenedFilter("category")}>тип</div>
+            <div onClick={() => setOpenedFilter("brand")}>бренд</div>
+            <div onClick={() => setOpenedFilter("price")}>цена</div>
+            <SortBy onClick={() => setOpenedFilter("sort")}>
+              <span>сортировать по:</span>
+              {
+                SORT_OPTIONS[
+                  Array.isArray(values._sort) ? values._sort[0] : values._sort
+                ]
+              }
+            </SortBy>
+          </FiltersRow>
+          {openedFilter && (
+            <FiltersForm onSubmit={handleSubmit(onSubmit)}>
+              {openedFilter === "condition" && (
+                <select {...register("condition")}>
+                  <option value="">Все</option>
+                  <option value="ex">(ex)</option>
+                  <option value="new">new</option>
+                </select>
+              )}
+              {openedFilter === "brand" && (
+                <select {...register("brand-id")}>
+                  {filters?.brands?.map(({ name, id }) => (
+                    <option key={id} value={id}>
+                      {name}
                     </option>
-                    {filters?.categories?.map(({ name, id }) => (
-                      <option key={id} value={id}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {openedFilter === "price" && (
-                  <>
-                    <input type="number" {...register("price_gte")} />
-                    <input type="number" {...register("price_lte")} />
-                  </>
-                )}
-                {openedFilter === "sort" && (
-                  <select {...register("_sort")}>
-                    {Object.keys(SORT_OPTIONS).map((item) => (
-                      <option key={item} value={item}>
-                        {SORT_OPTIONS[item]}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                <button>submit</button>
-              </FiltersForm>
-            )}
-          </FiltersRoot>
-          {!openedFilter && Object.keys(values).length > 0 && (
-            <SelectedFilters>
-              {Object.keys(pick(values, "brand-id", "category-id")).map(
-                (item) =>
-                  values[item] ? (
-                    <button
-                      onClick={() =>
-                        setValue(item as keyof FilterObjInterface, "")
-                      }
-                      key={item}
-                    >
-                      {
-                        (item === "brand-id"
-                          ? filters?.brands
-                          : filters?.categories
-                        )?.find(({ id }) => id == values[item])?.name
-                      }
-                    </button>
-                  ) : null
+                  ))}
+                </select>
               )}
-              {values.condition && (
-                <button onClick={() => setValue("condition", "")}>
-                  {values.condition}
-                </button>
+              {openedFilter === "category" && (
+                <select {...register("category-id")}>
+                  <option key="all" value="">
+                    Все категории
+                  </option>
+                  {filters?.categories?.map(({ name, id }) => (
+                    <option key={id} value={id}>
+                      {name}
+                    </option>
+                  ))}
+                </select>
               )}
-              {values.price_gte && values.price_lte && (
-                <button
-                  onClick={() => {
-                    setValue("price_gte", "");
-                    setValue("price_lte", "");
-                  }}
-                >{`${values.price_gte} - ${values.price_lte}`}</button>
+              {openedFilter === "price" && (
+                <>
+                  <input type="number" {...register("price_gte")} />
+                  <input type="number" {...register("price_lte")} />
+                </>
               )}
-            </SelectedFilters>
+              {openedFilter === "sort" && (
+                <select {...register("_sort")}>
+                  {Object.keys(SORT_OPTIONS).map((item) => (
+                    <option key={item} value={item}>
+                      {SORT_OPTIONS[item]}
+                    </option>
+                  ))}
+                </select>
+              )}
+              <button>submit</button>
+            </FiltersForm>
           )}
-          <CatalogueGrid>
-            {products.map((item, i) => (
-              <CatalogueItem key={item.id} $gridArea={GRID_TEMPLATES[i]}>
-                <Item {...item} />
-              </CatalogueItem>
-            ))}
-          </CatalogueGrid>
-        </div>
+        </FiltersRoot>
+        {!openedFilter && Object.keys(values).length > 0 && (
+          <SelectedFilters>
+            {Object.keys(pick(values, "brand-id", "category-id")).map((item) =>
+              values[item] ? (
+                <button
+                  onClick={() => setValue(item as keyof FilterObjInterface, "")}
+                  key={item}
+                >
+                  {
+                    (item === "brand-id"
+                      ? filters?.brands
+                      : filters?.categories
+                    )?.find(({ id }) => id == values[item])?.name
+                  }
+                </button>
+              ) : null
+            )}
+            {values.condition && (
+              <button onClick={() => setValue("condition", "")}>
+                {values.condition}
+              </button>
+            )}
+            {values.price_gte && values.price_lte && (
+              <button
+                onClick={() => {
+                  setValue("price_gte", "");
+                  setValue("price_lte", "");
+                }}
+              >{`${values.price_gte} - ${values.price_lte}`}</button>
+            )}
+          </SelectedFilters>
+        )}
+        <CatalogueGrid>
+          {products.map((item, i) => (
+            <CatalogueItem key={item.id} $gridArea={GRID_TEMPLATES[i]}>
+              <Item {...item} />
+            </CatalogueItem>
+          ))}
+        </CatalogueGrid>
       </div>
     </div>
   );
