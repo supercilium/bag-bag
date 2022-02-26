@@ -16,21 +16,33 @@ export const StyledHeader = styled.header<{ $buttonPosition: 'left' | 'right' }>
     h1 {
         display: flex;
         align-items: flex-end;
-        text-align: center;
         color: ${({ theme }) => theme.colors.green};
 
         i {
             margin-left: 1rem;
+          }
         }
-    }
-
-    button {
+        
+      button {
+        max-width: 10rem;
         border: none;
         background: none;
         position: absolute;
         right: ${({ $buttonPosition }) => $buttonPosition === 'left' ? 'auto' : '0'};
         left: ${({ $buttonPosition }) => $buttonPosition === 'right' ? 'auto' : '0'};
+        top: 0;
+        padding: 0;
+        text-align: right;
+    }
+
+    @media ${device.laptopL} {
+      h1 {
+        text-align: center;
+      }
+      button {
+        max-width: none;
         top: 50%;
+      }
     }
 `
 

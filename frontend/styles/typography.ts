@@ -1,9 +1,15 @@
 import styled, { css } from "styled-components"
+import { device } from "./constants"
 
 export const buttonText = css`
   font-weight: 500;
-  font-size: 5.7rem;
-  line-height: 6.8rem;
+  font-size: 3.6rem;
+  line-height: 3.4rem;
+  
+  @media ${device.laptopL} {
+    font-size: 5.7rem;
+    line-height: 6.8rem;
+  }
 `
 
 export const excretions = css`

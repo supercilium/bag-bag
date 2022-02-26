@@ -62,7 +62,7 @@ const Cart = () => {
       </Head>
       <div className="container m32">
         <StyledHeader $buttonPosition="right">
-          <h1 className="align-center">
+          <h1>
             корзина
             {user?.shopping_bag?.products?.length > 0 && (
               <i className="h2">({user?.shopping_bag?.products.length})</i>
