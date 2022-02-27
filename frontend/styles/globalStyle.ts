@@ -47,9 +47,8 @@ export const GlobalStyle = createGlobalStyle`
   }
   h3, .h3 {
     font-weight: 500;
-    font-size: 24px;
-    line-height: 140%;
-    letter-spacing: 0.03em;
+    font-size: 45px;
+    line-height: 95%;
   }
   h4, .h4 {
     font-weight: 500;
@@ -109,6 +108,7 @@ export const GlobalStyle = createGlobalStyle`
     h3, .h3 {
       font-size: 4.8rem;
       line-height: 140%;
+      letter-spacing: 0.03em;
     }
   }
 

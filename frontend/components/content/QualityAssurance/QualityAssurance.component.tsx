@@ -8,6 +8,8 @@ import {
 } from "./QualityAssurance.styles";
 import NextImage from "../../Image";
 import React from "react";
+import Link from "next/link";
+import { Button } from "../../Button";
 
 // export interface QualityAssuranceProps {};
 
@@ -44,6 +46,9 @@ export const QualityAssurance: React.FC = (props) => {
             </p>
           </QualityAssuranceContent>
         </div>
+        <Link href="/offer">
+          <Button>подробнее</Button>
+        </Link>
       </ContentBlock>
     </>
   );

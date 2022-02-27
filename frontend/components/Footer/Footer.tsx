@@ -21,8 +21,8 @@ export const Footer = () => {
     <FooterRoot>
       <FooterTop>
         <InfoBlock>
-          <div className="h3">+7 999 355-35-35</div>
-          <div className="h3">
+          <div>+7 999 355-35-35</div>
+          <div>
             <i>hello@exbags.ru</i>
           </div>
         </InfoBlock>

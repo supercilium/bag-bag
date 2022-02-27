@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { device } from "../../styles/constants";
 import { buttonText } from "../../styles/typography";
 
-export const ContentBlock = styled.div`
-  padding: 11.3rem 3.6rem 13.9rem;
+export const ContentBlock = styled.div<{ $hidePaddings?: boolean }>`
+  padding: ${({ $hidePaddings }) => $hidePaddings ? '80px 0' : '80px 18px'};
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 
   h2 {
@@ -16,6 +16,8 @@ export const ContentBlock = styled.div`
   }
 
   @media ${device.laptopL} {
+    padding: 11.3rem 3.6rem 13.9rem;
+
     h2 {
       display: flex;
       justify-content: space-between;

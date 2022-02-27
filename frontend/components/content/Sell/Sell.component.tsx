@@ -23,28 +23,30 @@ export const Sell: React.FC = () => {
           <Button>подробнее</Button>
         </div>
         <div>
-          <h3>
-            купим вашу сумку
-            <br /> и найдем ей новую <br />
-            <i>хозяйку</i>
-          </h3>
-          <div className="align-center">
-            <NextImage
-              src="/sell-bag.png"
-              alt="Купим вашу сумку"
-              height="610"
-              width="945"
-            />
+          <div>
+            <h3>
+              купим вашу сумку
+              <br /> и найдем ей новую <br />
+              <i>хозяйку</i>
+            </h3>
+            <div className="align-center">
+              <NextImage
+                src="/sell-bag.png"
+                alt="Купим вашу сумку"
+                height="610"
+                width="945"
+              />
+            </div>
+            <SellButtons>
+              <Link href="/offer">
+                <Button>продать сумку</Button>
+              </Link>
+              <p className="primary-text">
+                Для нашей компании важно эфективное и ответственное потребление,
+                поэтому мы помогаем найти новую хозяйку для ваших любимых вещей.
+              </p>
+            </SellButtons>
           </div>
-          <SellButtons>
-            <Link href="/offer">
-              <Button>продать сумку</Button>
-            </Link>
-            <p className="primary-text">
-              Для нашей компании важно эфективное и ответственное потребление,
-              поэтому мы помогаем найти новую хозяйку для ваших любимых вещей.
-            </p>
-          </SellButtons>
         </div>
       </SellBlock>
     </SellRoot>

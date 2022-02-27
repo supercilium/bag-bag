@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { device } from "../../../styles/constants";
 
 export const Carousel = styled.div`
+  padding-bottom: 24px;
   justify-items: space-between;
-  margin: 5rem 0 6rem;
+  margin: 5rem 18px 10px;
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
@@ -11,15 +12,17 @@ export const Carousel = styled.div`
   scrollbar-width: none;
   width: 100%;
   scroll-snap-type: x mandatory;
-  padding-left: 0;
   list-style-type: none;
   display: flex;
+  gap: 16px;
 
   & > a {
     scroll-snap-align: start;
   }
 
   @media ${device.laptopL} {
+    margin: 5rem 18px 6rem;
+    padding: 0;
     overflow: auto;
     grid-template-columns: repeat(4, 1fr);
     display: grid;
@@ -28,12 +31,20 @@ export const Carousel = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`
-display: none;
-
-@media ${device.laptopL} {
-    display: flex;
+  display: flex;
+  justify-content: center;
+  
+  & > div:first-child {
+    display: none;
+  }
+  
+  @media ${device.laptopL} {
     justify-content: space-between;
     
+    & > div:first-child {
+      display: flex;
+    }
+
     & > div {
       display: flex;
       align-items: center;

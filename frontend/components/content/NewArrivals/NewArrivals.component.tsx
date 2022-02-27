@@ -13,7 +13,7 @@ export interface NewArrivalsProps {
 
 export const NewArrivals: React.FC<NewArrivalsProps> = ({ products }) => {
   return (
-    <ContentBlock>
+    <ContentBlock $hidePaddings={true}>
       <div className="container">
         <h2 className="h1">
           новинки <span>new</span>

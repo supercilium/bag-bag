@@ -4,12 +4,13 @@ import { Button } from "../../Button";
 
 export const CollectionList = styled.div`
   margin-top: 5rem;
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: 3.6rem;    
   
   @media ${device.laptopL} {
-    display: grid;
     grid-template-columns: repeat(3, minMax(0, 1fr));
     align-items: flex-start;
-    grid-gap: 3.6rem;    
   }
 `;
 
@@ -19,9 +20,14 @@ export const BigButton = styled(Button)`
   border-radius: 50%;
   padding-left: 0;
   padding-right: 0;
+  margin-top: 80px;
 
   & > svg {
     margin-top: 7px;
+  }
+
+  @media ${device.laptopL} {
+    margin-top: 0
   }
 `;
 

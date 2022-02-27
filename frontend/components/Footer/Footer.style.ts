@@ -119,6 +119,11 @@ export const Copyright = styled.span`
 `;
 
 export const InfoBlock = styled.div`
+  & > div {
+    font-size: 24px;
+    line-height: 110%;
+  }
+
   & > div + div {
     margin-top: 8px;
   }
@@ -127,6 +132,9 @@ export const InfoBlock = styled.div`
     flex-basis: 46rem;
     margin-right: 6rem;
 
+    & > div {
+      font-size: 4.8rem;
+    }
     & > div + div {
      margin-top: 0;
     }

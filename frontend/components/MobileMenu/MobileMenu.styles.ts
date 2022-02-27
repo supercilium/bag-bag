@@ -62,11 +62,7 @@ export const MobileMenuRoot = styled.div<{
             padding: 24px 18px;
             flex-basis: ${({ $screenWidth }) => $screenWidth}px;
         }
-        & > ${SubMenu} {
-            transform: translateX(${({ $isOpenSubMenu, $screenWidth }) => $isOpenSubMenu ? -$screenWidth : 0}px);
     }
-
-}
 `;
 
 export const SocialLink = styled.a`

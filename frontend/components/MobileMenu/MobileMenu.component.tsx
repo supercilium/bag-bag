@@ -49,6 +49,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
       document.removeEventListener("resize", noop);
     };
   }, []);
+
   const isWideScreen = screenSize.width >= size.laptop;
 
   useEffect(() => {
@@ -86,7 +87,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
             </Link>
           </MenuItem>
         </div>
-        <SubMenu>
+        <SubMenu
+          style={{
+            transform: `translateX(
+              ${isSubMenuOpened ? -screenSize.width : 0}px
+            )`,
+          }}
+        >
           <ButtonBack onClick={() => setSubMenuState(false)}>
             <Arrow />
             Назад

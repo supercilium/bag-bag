@@ -2,17 +2,20 @@ import styled from "styled-components";
 import { device } from "../../../styles/constants";
 
 export const TitleBlock = styled.div`
-  padding: 9.5rem 3.6rem 11.8rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  padding-top: 90px;
   color: ${({ theme }) => theme.colors.green};
-
+  text-align: center;
+  
   & > div {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-
+  
   @media ${device.laptopL} {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+    padding: 9.5rem 3.6rem 11.8rem;
+
     & > div {
       display: flex;
       flex-direction: row;
@@ -20,6 +23,7 @@ export const TitleBlock = styled.div`
     }
   }
 `;
+
 export const QualityAssuranceTitleImage = styled.div`
   @media ${device.laptopL} {
     flex-shrink: 0;
@@ -29,12 +33,30 @@ export const QualityAssuranceTitleImage = styled.div`
 
 export const ContentBlock = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  text-align: center;
+  padding-bottom: 90px;
+  display: flex;
+  flex-direction: column;
 
-  & > div {
-    height: 72rem;
-    display: flex;
+  & > button {
+    margin: 63px 18px 0;
+    display: block;
+  }
+  
+  @media ${device.laptopL} {
+    padding-bottom: 0;
+
+    & > div {
+      height: 72rem;
+      display: flex;
+    }
+
+    & > button {
+      display: none;
+    }
   }
 `;
+
 export const QualityAssuranceBannerContainer = styled.div`
   @media ${device.laptopL} {
     border-right: 1px solid ${({ theme }) => theme.colors.black};
@@ -48,7 +70,10 @@ export const QualityAssuranceContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 7.5rem;
+
+  @media ${device.laptopL} {
+    padding: 0 7.5rem;
+  }
 `;
 
 export const QualityAssuranceBanner = styled.div<{ $url: string }>`

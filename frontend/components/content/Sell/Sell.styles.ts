@@ -4,6 +4,17 @@ import { Container } from "../../../styles/layout";
 
 export const SellRoot = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+
+  & h3 {
+    text-align: center;
+    margin: 24px 0;
+  }
+
+  @media ${device.laptopL} {
+    & h3 {
+      text-align: left;
+    }
+  }
 `;
 
 export const SellBlock = styled.div`
@@ -15,7 +26,6 @@ export const SellBlock = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    border-right: 1px solid ${({ theme }) => theme.colors.black};
     flex-shrink: 0;
     padding-bottom: 6rem;
 
@@ -24,11 +34,22 @@ export const SellBlock = styled.div`
     }
   }
   & > div:last-child {
-    padding: 4.2rem 6rem 6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     background-color: ${({ theme }) => theme.colors.greenLight};
+    border-top: 1px solid ${({ theme }) => theme.colors.black};
+    
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4.2rem 6rem 6rem;
+      border-radius: 60px;
+      border: 1px solid${({ theme }) => theme.colors.black};
+
+      & > h3 + div {
+        order: -1;
+      }
+    }
   }
 
   @media ${device.laptopL} {
@@ -38,11 +59,22 @@ export const SellBlock = styled.div`
 
     & > div:first-child {
       flex-basis: 34%;
+      border-right: 1px solid ${({ theme }) => theme.colors.black};
     }
 
     & > div:last-child {
       flex-basis: 66%;
       max-width: 66%;
+      border-top: none;
+
+      & > div {
+        border: none;
+        border-radius: none;
+
+        & > h3 + div {
+          order: 0;
+        }
+      }
     }
   }
 `;
@@ -50,14 +82,18 @@ export const SellBlock = styled.div`
 export const SellButtons = styled.div`
   justify-content: space-between;
   align-items: center;
-  margin-top: 6.8rem;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 63px;
 
   & > p {
     margin: 0;
   }
   @media ${device.laptopL} {
+    gap: 0;
     display: grid;
     grid-template-columns: 55rem minMax(auto, 51.1rem);
     grid-gap: 9.7rem;
+    margin-top: 6.8rem;
   }
 `;
