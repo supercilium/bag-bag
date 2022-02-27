@@ -3,15 +3,16 @@ import {
   FooterBottom,
   FooterLink,
   Copyright,
-  FooterEmail,
   FooterTop,
   SocialLink,
   InfoBlock,
+  SocialContainer,
 } from "./Footer.style";
 import Link from "next/link";
 import Instagram from "../icons/insta.svg";
 import Facebook from "../icons/fb.svg";
 import { useTranslation } from "next-i18next";
+import { MobileVisible } from "../../styles/layout";
 
 export const Footer = () => {
   const { t } = useTranslation("footer");
@@ -21,21 +22,26 @@ export const Footer = () => {
       <FooterTop>
         <InfoBlock>
           <div className="h3">+7 999 355-35-35</div>
-          <FooterEmail>hello@exbags.ru</FooterEmail>
+          <div className="h3">
+            <i>hello@exbags.ru</i>
+          </div>
         </InfoBlock>
         <address className="h4">{t("address")}</address>
-        <FooterTop>
+        <SocialContainer>
           <Link href="/">
             <SocialLink>
-              <Instagram height="60" width="60" />
+              <Instagram />
             </SocialLink>
           </Link>
           <Link href="/">
             <SocialLink style={{ marginLeft: "3.6rem" }}>
-              <Facebook height="60" width="60" />
+              <Facebook />
             </SocialLink>
           </Link>
-        </FooterTop>
+        </SocialContainer>
+        <MobileVisible>
+          <Copyright>© (ex)bags 2021</Copyright>
+        </MobileVisible>
       </FooterTop>
       <FooterBottom>
         <Link href="/">

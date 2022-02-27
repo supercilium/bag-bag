@@ -47,13 +47,13 @@ export const GlobalStyle = createGlobalStyle`
   }
   h3, .h3 {
     font-weight: 500;
-    font-size: 4.8rem;
+    font-size: 24px;
     line-height: 140%;
     letter-spacing: 0.03em;
   }
   h4, .h4 {
     font-weight: 500;
-    font-size: 2.4rem;
+    font-size: 24px;
     line-height: 110%;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -101,6 +101,14 @@ export const GlobalStyle = createGlobalStyle`
     }
     html {
       font-size: 9px;
+    }
+    h4, .h4 {
+      font-size: 2.4rem;
+      line-height: 110%;
+    }
+    h3, .h3 {
+      font-size: 4.8rem;
+      line-height: 140%;
     }
   }
 
