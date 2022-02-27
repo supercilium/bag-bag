@@ -15,7 +15,6 @@ export const Title = styled.button`
   cursor: pointer;
   padding: 0;
   width: 100%;
-  position: relative;
 `;
 
 export const Icon = styled.span<{ $isOpen: boolean }>`
@@ -24,9 +23,6 @@ export const Icon = styled.span<{ $isOpen: boolean }>`
   text-transform: none;
   display: flex;
   align-items: center;
-  position: absolute;
-  right: 0;
-  top: 0;
 
   & > svg {
     width: 2.2rem;

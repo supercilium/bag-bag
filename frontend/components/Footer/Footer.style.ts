@@ -71,6 +71,7 @@ export const SocialLink = styled.a`
   justify-content: center;
   transition: background-color ${TRANSITION}, color ${TRANSITION},
     border-color ${TRANSITION};
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
     color: ${({ theme }) => theme.colors.black};

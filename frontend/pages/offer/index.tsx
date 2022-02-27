@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { Button } from "../../components/Button";
 import { FileInput } from "../../components/FileInput";
 import { Input } from "../../components/Input";
-import { Box } from "../../styles/layout";
+import { Box, StyledHeader } from "../../styles/layout";
 import { ProcessRow } from "../../styles/pages/Process.styles";
 import {
   ImageInputsRow,
@@ -80,10 +80,12 @@ const Offer: FC<OfferProps> = ({ filters }) => {
       <Head>
         <title>Offer (ex)bags</title>
       </Head>
+      <StyledHeader>
+        <h1>продажа</h1>
+      </StyledHeader>
       <OrderContainer
         onSubmit={handleSubmit(onSubmit, (err) => console.log({ err }))}
       >
-        <h1 className="align-center">продажа</h1>
         <Box>
           <ProcessRow>
             <Select

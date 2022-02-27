@@ -33,4 +33,5 @@ export const SelectRoot = styled.select`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   height: 6.3rem;
   appearance: none;
+  background: none;
 `;

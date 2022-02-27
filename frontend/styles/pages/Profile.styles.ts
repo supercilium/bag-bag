@@ -60,7 +60,7 @@ export const Tab = styled.button<{ $active: boolean, $order?: number }>`
   display: flex;
   align-items: center;
   line-height: 2.2rem;
-  padding: 3rem 1.8rem;
+  padding: 0 1.8rem;
   min-width: 100%;
   order: ${({ $order }) => $order};
   ${subtitle};

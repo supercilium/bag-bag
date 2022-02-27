@@ -17,6 +17,8 @@ export const GlobalStyle = createGlobalStyle`
   }
   a {
     text-decoration: none;
+    appearance: none;
+    color: ${({ theme }) => theme.colors.black};
   }
   i {
     font-family: 'New York Extra Large', -apple-system-ui-serif, ui-serif, 'Georgia', serif;
@@ -87,8 +89,8 @@ export const GlobalStyle = createGlobalStyle`
     padding-left: 3.2rem;
     padding-right: 3.2rem;
   }
-  
-  @media screen and ${device.wide} {
+
+  @media ${device.laptopL} {
     h1, .h1 {
       font-size: 12.9rem;
       line-height: 89%;
@@ -97,6 +99,12 @@ export const GlobalStyle = createGlobalStyle`
       font-size: 7.2rem;
       line-height: 90%;
     }
+    html {
+      font-size: 9px;
+    }
+  }
+
+  @media ${device.wide} {
     html {
       font-size: 10px;
     }
