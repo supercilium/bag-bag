@@ -18,7 +18,7 @@ export const Root = styled.div`
   }
 
   @media ${device.laptopL} {
-    padding: 11.3rem 0 21.9rem;
+    padding: 11.3rem 0 13.9rem;
 
     h2 {
       display: flex;

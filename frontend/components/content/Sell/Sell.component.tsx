@@ -20,7 +20,8 @@ export const Sell: React.FC = () => {
           <h3>
             получайте сразу, <i>а платите потом</i>
           </h3>
-          <Button>подробнее</Button>
+          <div />
+          {/* <Button>подробнее</Button> */}
         </div>
         <div>
           <div>

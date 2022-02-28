@@ -14,7 +14,6 @@ export const ButtonsContainer = styled.div`
   }
   
   @media ${device.laptopL} {
-    position: absolute;
     justify-content: space-between;
     
     & > div:first-child {

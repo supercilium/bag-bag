@@ -22,7 +22,7 @@ export const FavoriteRoot = styled.div`
 
 
   @media ${device.laptopL} {
-    width: 67rem;
+    /* width: 67rem; */
     height: 67rem;
 
     & ${HidingPurchaseButtons} {
