@@ -23,15 +23,19 @@ export const ProductsRoot = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  display: grid;
-  grid-gap: 3.6rem;
-  margin-bottom: 2.7rem;
+  width: 100%;
+  height: 462px;
+  position: relative;
+  margin-bottom: 27px;
 
-  & > div {
+  & img {
     border-radius: 3.6rem;
   }
 
   @media ${device.laptopL} {
+    height: auto;
+    display: grid;
+    grid-gap: 3.6rem;
     margin-bottom: 0;
   }
 `;
@@ -74,11 +78,6 @@ export const PriceRow = styled.div`
 
 export const DescriptionBlock = styled.div`
   margin: 3.6rem 0;
-  
-  @media ${device.laptopL} {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
 `;
 
 export const DescriptionRow = styled.div`
@@ -105,4 +104,29 @@ export const AccordionTitle = styled.div`
     margin-right: 1.5rem;
     color: ${({ theme }) => theme.colors.grey2};
   }
+`;
+
+export const CarouselContainer = styled.div`
+  @media ${device.laptopL} {
+    margin: 0 -3.6rem;
+  }
+`
+
+export const ItemButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  right: 0;
+  left: 0;
+  bottom: 42px;
+  position: absolute;
+`;
+
+export const ItemCount = styled.div`
+  font-family: New York Extra Large;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 140.5%;
 `;

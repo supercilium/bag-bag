@@ -32,6 +32,8 @@ export const GlobalStyle = createGlobalStyle`
   button {
     font-family: 'Graphik LC', sans-serif;
     font-style: normal;
+    text-transform: lowercase;
+    cursor: pointer;
   }
   h1, .h1 {
     font-weight: 500;

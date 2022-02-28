@@ -14,7 +14,7 @@ import { size } from "../../styles/constants";
 import { InfoBlock } from "../InfoBlock";
 import { Filters } from "../../types/common";
 import { MenuItem } from "./components";
-import { noop } from "lodash-es";
+import { useDimensions } from "../../hooks/useDimensions";
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -27,29 +27,8 @@ export interface ScreenSize {
 }
 
 export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
-  const [screenSize, setScreenSize] = useState<ScreenSize>({
-    height: 0,
-    width: 0,
-  });
   const [isSubMenuOpened, setSubMenuState] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setScreenSize({
-        height: document.documentElement.clientHeight,
-        width: document.documentElement.clientWidth,
-      });
-    });
-    setScreenSize({
-      height: document.documentElement.clientHeight,
-      width: document.documentElement.clientWidth,
-    });
-
-    return () => {
-      document.removeEventListener("resize", noop);
-    };
-  }, []);
-
+  const screenSize = useDimensions();
   const isWideScreen = screenSize.width >= size.laptop;
 
   useEffect(() => {
@@ -58,7 +37,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
     } else {
       document.getElementById("layout").style.overflow = isOpen
         ? "hidden"
-        : "auto";
+        : "unset";
     }
   }, [isWideScreen, isOpen]);
 

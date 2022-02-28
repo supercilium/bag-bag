@@ -13,6 +13,7 @@ export const ItemRoot = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 
   @media ${device.laptopL} {
     width: 100%;

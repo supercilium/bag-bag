@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { Container } from "../../styles/layout";
 
 export const BannerRoot = styled.div`
@@ -81,11 +81,17 @@ export const BrandsLine = styled.div`
   & span {
     position: relative;
     cursor: pointer;
+    transition: color ${TRANSITION};
+  }
+
+  & span:hover {
+    color: ${({ theme }) => theme.colors.green};
   }
 
   & span:nth-child(odd) {
     font-style: italic;
     font-family: New York Extra Large, serif;
+    font-weight: 400;
   }
 
   & span:after {

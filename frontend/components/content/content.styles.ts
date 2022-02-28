@@ -7,6 +7,7 @@ export const ContentBlock = styled.div<{ $hidePaddings?: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 
   h2 {
+    padding: ${({ $hidePaddings }) => $hidePaddings ? '0 18px' : '0'};
     color: ${({ theme }) => theme.colors.green};
     text-transform: lowercase;
 
