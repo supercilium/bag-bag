@@ -4,11 +4,11 @@ import { Button } from "../../Button";
 
 export const CollectionList = styled.div`
   margin-top: 5rem;
-  display: grid;
-  grid-auto-rows: auto;
-  grid-gap: 3.6rem;    
+  width: 100%;
   
   @media ${device.laptopL} {
+    grid-gap: 3.6rem;
+    display: grid;
     grid-template-columns: repeat(3, minMax(0, 1fr));
     align-items: flex-start;
   }

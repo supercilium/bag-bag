@@ -1,6 +1,7 @@
 import { parseCookies, setCookie } from "nookies";
 import { ParsedUrlQuery } from "querystring";
 import { BrandWithCount } from "../types/brand";
+import { CollectionInterface } from "../types/collection";
 import { CommonProps, ErrorRequest, Filters } from "../types/common";
 import { OrderInterface } from "../types/order";
 import { ProductInterface } from "../types/product";
@@ -127,8 +128,19 @@ export async function getProducts(query?: ParsedUrlQuery) {
 }
 
 export async function getProduct(slug: string) {
-  const products = await fetchAPI<ProductInterface[]>(`/products/${slug}`);
+  const products = await fetchAPI<ProductInterface>(`/products/${slug}`);
   return products;
+}
+
+export async function getCollection(slug: string) {
+  const res = await fetchAPI<CollectionInterface>(`/collections/${slug}`);
+  return res;
+}
+
+export async function getCollections(query?: ParsedUrlQuery) {
+  const querystring = getAsString(query)
+  const res = await fetchAPI<CollectionInterface[]>(`/collections${querystring}`);
+  return res;
 }
 
 export async function getProfile(token: string) {

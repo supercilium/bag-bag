@@ -4,9 +4,13 @@ import { ContentBlock } from "../content.styles";
 import { BigButton, CollectionList, RightColumn } from "./Collections.styles";
 import Arrow from "../../icons/arrow-simple-right.svg";
 import Link from "next/link";
-// export interface CollectionsProps {};
+import { CollectionInterface } from "../../../types/collection";
 
-export const Collections: React.FC = () => {
+export interface CollectionsProps {
+  items: CollectionInterface[];
+}
+
+export const Collections: React.FC<CollectionsProps> = ({ items }) => {
   return (
     <ContentBlock>
       <div className="container">
@@ -14,11 +18,11 @@ export const Collections: React.FC = () => {
           коллекции<span>collection</span>
         </h2>
         <CollectionList>
-          {[1, 2].map((item) => (
-            <CollectionItem key={item} />
+          {items?.slice(0, 2).map((item) => (
+            <CollectionItem key={item.id} {...item} />
           ))}
           <RightColumn>
-            <CollectionItem halfHeight />
+            <CollectionItem halfHeight {...items?.[2]} />
             <Link href="/catalogue">
               <BigButton $round $size="l">
                 еще

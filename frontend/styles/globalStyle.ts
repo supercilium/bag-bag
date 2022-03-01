@@ -19,6 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     appearance: none;
     color: ${({ theme }) => theme.colors.black};
+    cursor: pointer;
   }
   i {
     font-family: 'New York Extra Large', -apple-system-ui-serif, ui-serif, 'Georgia', serif;

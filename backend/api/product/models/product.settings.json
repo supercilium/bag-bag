@@ -114,6 +114,10 @@
       "default": 0,
       "required": true,
       "min": 0
+    },
+    "collections": {
+      "via": "products",
+      "collection": "collection"
     }
   }
 }
