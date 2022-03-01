@@ -23,7 +23,7 @@ export const Collections: React.FC<CollectionsProps> = ({ items }) => {
           ))}
           <RightColumn>
             <CollectionItem halfHeight {...items?.[2]} />
-            <Link href="/catalogue">
+            <Link href="/collections">
               <BigButton $round $size="l">
                 еще
                 <Arrow width="36" height="36" />

@@ -18,7 +18,7 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
   ...item
 }) => {
   return (
-    <Link href={`/collections/${item.slug}`}>
+    <Link href={`/collection/${item.slug}`}>
       <CollectionItemRoot $halfHeight={halfHeight}>
         <ImageContainer>
           <NextImage

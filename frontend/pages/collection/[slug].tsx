@@ -26,12 +26,12 @@ const Page: FC<{ collection: CollectionInterface }> = ({ collection }) => {
       <div className="container m32">
         <StyledHeader>
           <h1>
-            {collection.name} <span>collection</span>
+            {collection?.name} <span>collection</span>
           </h1>
         </StyledHeader>
 
         <CatalogueGrid>
-          {collection.products.map((item, i) => (
+          {collection?.products.map((item, i) => (
             <CatalogueItem key={item.id} $gridArea={GRID_TEMPLATES[i]}>
               <Item {...item} />
             </CatalogueItem>

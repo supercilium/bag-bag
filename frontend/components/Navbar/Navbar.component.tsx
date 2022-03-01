@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NextImage from "../Image";
 import {
   Logo,
@@ -16,6 +16,7 @@ import { Filters } from "../../types/common";
 import { MenuIcon } from "../MenuIcon";
 import { LaptopLVisible, MobileVisible } from "../../styles/layout";
 import { MobileMenu } from "../MobileMenu";
+import { useRouter } from "next/router";
 
 export interface NavbarProps {
   filters: Filters;
@@ -23,8 +24,13 @@ export interface NavbarProps {
 
 export const Navbar = ({ filters }) => {
   const { user } = useUser();
+  const { query } = useRouter();
 
   const [isOpen, setOpenedState] = useState(false);
+
+  useEffect(() => {
+    setOpenedState(false);
+  }, [query?.slug]);
 
   return (
     <>

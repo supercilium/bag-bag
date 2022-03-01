@@ -78,18 +78,29 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
             Назад
           </ButtonBack>
           <div>
-            {filters.categories.map((item) => (
+            {filters?.categories?.map((item) => (
               <Link key={item.slug} href={`/catalogue?category.id=${item.id}`}>
                 <a>{item.name}</a>
               </Link>
             ))}
           </div>
-          {/* <InfoBlock title="коллекции" content={123} /> */}
+          <InfoBlock
+            title="коллекции"
+            content={
+              <>
+                {filters?.collections?.map((item) => (
+                  <Link key={item.slug} href={`/collection/${item.slug}`}>
+                    <a>{item.name}</a>
+                  </Link>
+                ))}
+              </>
+            }
+          />
           <InfoBlock
             title="бренды"
             content={
               <>
-                {filters.brands.map((item) => (
+                {filters?.brands.map((item) => (
                   <Link key={item.slug} href={`/catalogue?brand.id=${item.id}`}>
                     <a>{item.name}</a>
                   </Link>
