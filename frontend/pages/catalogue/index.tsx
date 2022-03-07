@@ -3,7 +3,7 @@ import Head from "next/head";
 import get from "lodash-es/get";
 import pick from "lodash-es/pick";
 import { useRouter } from "next/router";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Item } from "../../components/Item";
 import { Filters } from "../../types/common";
@@ -17,9 +17,23 @@ import {
   FiltersForm,
   FiltersRoot,
   SelectedFilters,
+  CatalogButton,
+  CatalogFieldset,
+  LabelCondition,
+  InputField,
+  PriceRow,
+  BrandsFilters,
+  KeyTitle,
+  SortFieldset,
 } from "../../styles/pages/Catalogue.styles";
 import { GRID_TEMPLATES } from "../../constants/catalogueGridTemplate";
 import { StyledHeader } from "../../styles/layout";
+import Arrow from "../../components/icons/arrow-simple-right.svg";
+import Check from "../../components/icons/check-outline.svg";
+import Close from "../../components/icons/close.svg";
+import { Button } from "../../components/Button";
+import { debounce } from "lodash-es";
+import { formatSum } from "../../utils/formatters";
 
 export interface FilterObjInterface {
   "brand-id"?: string | string[];
@@ -59,7 +73,7 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
 }) => {
   const { query, isFallback, push } = useRouter();
   const [openedFilter, setOpenedFilter] = useState<OpenedFilter>(null);
-  const { register, handleSubmit, reset, watch, setValue, resetField } =
+  const { register, handleSubmit, reset, watch, setValue } =
     useForm<FilterObjInterface>({
       shouldFocusError: false,
       defaultValues: {
@@ -113,11 +127,39 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
     [push]
   );
 
+  const filtersByAlphabet = useMemo(
+    () =>
+      filters.brands.reduce((acc, item) => {
+        const firstLetter = item.name[0].toLowerCase();
+        if (acc[firstLetter]) {
+          acc[firstLetter] = [...acc[firstLetter], item];
+        } else {
+          acc[firstLetter] = [item];
+        }
+        return acc;
+      }, {}),
+    [filters.brands]
+  );
+
+  const handleSubmitByDebounce = useCallback(
+    debounce((values) => onSubmit(values), 300),
+    [onSubmit]
+  );
+
+  const values = watch();
+
+  useEffect(() => {
+    handleSubmitByDebounce(values);
+  }, [
+    values["brand-id"],
+    values["category-id"],
+    values._sort,
+    values.condition,
+  ]);
+
   if (isFallback) {
     return <div>Loading category...</div>;
   }
-
-  const values = watch();
 
   return (
     <div>
@@ -133,66 +175,168 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
 
         <FiltersRoot>
           <FiltersRow>
-            {/* TODO make buttons */}
-            <div onClick={() => setOpenedFilter("condition")}>Все</div>
-            <div onClick={() => setOpenedFilter("category")}>тип</div>
-            <div onClick={() => setOpenedFilter("brand")}>бренд</div>
-            <div onClick={() => setOpenedFilter("price")}>цена</div>
-            <SortBy onClick={() => setOpenedFilter("sort")}>
+            <CatalogButton
+              $isOpen={openedFilter === "condition"}
+              onClick={() =>
+                setOpenedFilter((prev) =>
+                  prev === "condition" ? null : "condition"
+                )
+              }
+            >
+              Все <Arrow height="22" width="22" />
+            </CatalogButton>
+            <CatalogButton
+              $isOpen={openedFilter === "category"}
+              onClick={() =>
+                setOpenedFilter((prev) =>
+                  prev === "category" ? null : "category"
+                )
+              }
+            >
+              тип
+              <Arrow height="22" width="22" />
+            </CatalogButton>
+            <CatalogButton
+              $isOpen={openedFilter === "brand"}
+              onClick={() =>
+                setOpenedFilter((prev) => (prev === "brand" ? null : "brand"))
+              }
+            >
+              бренд
+              <Arrow height="22" width="22" />
+            </CatalogButton>
+            <CatalogButton
+              $isOpen={openedFilter === "price"}
+              onClick={() =>
+                setOpenedFilter((prev) => (prev === "price" ? null : "price"))
+              }
+            >
+              цена
+              <Arrow height="22" width="22" />
+            </CatalogButton>
+            <SortBy
+              $isOpen={openedFilter === "sort"}
+              onClick={() =>
+                setOpenedFilter((prev) => (prev === "sort" ? null : "sort"))
+              }
+            >
               <span>сортировать по:</span>
               {
                 SORT_OPTIONS[
                   Array.isArray(values._sort) ? values._sort[0] : values._sort
                 ]
               }
+              <Arrow height="22" width="22" />
             </SortBy>
           </FiltersRow>
           {openedFilter && (
             <FiltersForm onSubmit={handleSubmit(onSubmit)}>
               {openedFilter === "condition" && (
-                <select {...register("condition")}>
-                  <option value="">Все</option>
-                  <option value="ex">(ex)</option>
-                  <option value="new">new</option>
-                </select>
+                <CatalogFieldset>
+                  <LabelCondition $selected={!values.condition}>
+                    Все
+                    <input value="" type="radio" {...register("condition")} />
+                  </LabelCondition>
+                  <LabelCondition $selected={values.condition === "ex"}>
+                    (ex)
+                    <input value="ex" type="radio" {...register("condition")} />
+                  </LabelCondition>
+                  <LabelCondition $selected={values.condition === "new"}>
+                    new
+                    <input
+                      value="new"
+                      type="radio"
+                      {...register("condition")}
+                    />
+                  </LabelCondition>
+                </CatalogFieldset>
               )}
               {openedFilter === "brand" && (
-                <select {...register("brand-id")}>
-                  {filters?.brands?.map(({ name, id }) => (
-                    <option key={id} value={id}>
-                      {name}
-                    </option>
+                <BrandsFilters>
+                  {Object.keys(filtersByAlphabet).map((key) => (
+                    <div key={key}>
+                      <KeyTitle>{key}</KeyTitle>
+                      <CatalogFieldset>
+                        {filtersByAlphabet?.[key]?.map(({ name, id }) => (
+                          <LabelCondition
+                            key={id}
+                            $selected={values["brand-id"] === "" + id}
+                          >
+                            {values["brand-id"] === "" + id && (
+                              <Check height="22" width="22" />
+                            )}
+                            {name}
+                            <input
+                              value={id}
+                              type="radio"
+                              {...register("brand-id")}
+                            />
+                          </LabelCondition>
+                        ))}
+                      </CatalogFieldset>
+                    </div>
                   ))}
-                </select>
+                </BrandsFilters>
               )}
               {openedFilter === "category" && (
-                <select {...register("category-id")}>
-                  <option key="all" value="">
+                <CatalogFieldset>
+                  <LabelCondition $selected={!values["category-id"]}>
+                    {!values["category-id"] && <Check height="22" width="22" />}
                     Все категории
-                  </option>
+                    <input value="" type="radio" {...register("category-id")} />
+                  </LabelCondition>
                   {filters?.categories?.map(({ name, id }) => (
-                    <option key={id} value={id}>
+                    <LabelCondition
+                      key={id}
+                      $selected={values["category-id"] === "" + id}
+                    >
+                      {values["category-id"] === "" + id && (
+                        <Check height="22" width="22" />
+                      )}
                       {name}
-                    </option>
+                      <input
+                        value={id}
+                        type="radio"
+                        {...register("category-id")}
+                      />
+                    </LabelCondition>
                   ))}
-                </select>
+                </CatalogFieldset>
               )}
               {openedFilter === "price" && (
-                <>
-                  <input type="number" {...register("price_gte")} />
-                  <input type="number" {...register("price_lte")} />
-                </>
+                <PriceRow>
+                  <InputField>
+                    От
+                    <input
+                      placeholder="35 000"
+                      type="number"
+                      {...register("price_gte")}
+                    />
+                  </InputField>
+                  <InputField>
+                    До
+                    <input
+                      placeholder="1 000 000"
+                      type="number"
+                      {...register("price_lte")}
+                    />
+                  </InputField>
+                  <Button $size="s" type="submit">
+                    показать
+                  </Button>
+                </PriceRow>
               )}
               {openedFilter === "sort" && (
-                <select {...register("_sort")}>
-                  {Object.keys(SORT_OPTIONS).map((item) => (
-                    <option key={item} value={item}>
-                      {SORT_OPTIONS[item]}
-                    </option>
+                <SortFieldset>
+                  {Object.keys(SORT_OPTIONS).map((key) => (
+                    <LabelCondition key={key} $selected={values._sort === key}>
+                      {values._sort === key && <Check height="22" width="22" />}
+                      {SORT_OPTIONS[key]}
+                      <input value={key} type="radio" {...register("_sort")} />
+                    </LabelCondition>
                   ))}
-                </select>
+                </SortFieldset>
               )}
-              <button>submit</button>
             </FiltersForm>
           )}
         </FiltersRoot>
@@ -210,21 +354,28 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
                       : filters?.categories
                     )?.find(({ id }) => id == values[item])?.name
                   }
+                  <Close width="16" height="16" />
                 </button>
               ) : null
             )}
             {values.condition && (
               <button onClick={() => setValue("condition", "")}>
                 {values.condition}
+                <Close width="16" height="16" />
               </button>
             )}
             {values.price_gte && values.price_lte && (
               <button
                 onClick={() => {
-                  setValue("price_gte", "");
-                  setValue("price_lte", "");
+                  onSubmit({ ...values, price_gte: null, price_lte: null });
                 }}
-              >{`${values.price_gte} - ${values.price_lte}`}</button>
+              >
+                {`${formatSum(+values.price_gte, "₽")} - ${formatSum(
+                  +values.price_lte,
+                  "₽"
+                )}`}
+                <Close width="16" height="16" />
+              </button>
             )}
           </SelectedFilters>
         )}
