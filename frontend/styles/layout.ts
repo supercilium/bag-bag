@@ -55,11 +55,15 @@ export const StyledHeader = styled.header<{ $buttonPosition?: 'left' | 'right' }
 `
 
 export const Box = styled.div`
-  padding: 6rem;
+  padding: 18px;
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 3.6rem;
   display: grid;
   grid-gap: 1.5rem;
+  
+  @media ${device.laptopL} {
+    padding: 6rem;
+  }
 `
 
 export const MobileVisible = styled.div`
@@ -75,5 +79,21 @@ export const LaptopLVisible = styled.div`
 
   @media ${device.laptopL} {
     display: block;
+  }
+`
+
+
+export const StatusBox = styled.div<{ $status: 'success' | 'error' }>`
+  padding: 18px;
+  border: 1px solid ${({ theme, $status }) => $status === 'success' ? theme.colors.green : theme.colors.red};
+  border-radius: 3.6rem;
+  color: ${({ theme, $status }) => $status === 'success' ? theme.colors.green : theme.colors.red};
+  font-size: 16px;
+  line-height: 120%;
+  display: flex;
+  gap: 15px;
+
+  @media ${device.laptopL} {
+    padding: 6rem;
   }
 `

@@ -1,5 +1,5 @@
 import React from "react";
-import { InputBlock, InputRoot } from "./Input.styles";
+import { InputBlock, InputRoot, ErrorMessage } from "./Input.styles";
 
 export interface InputProps
   extends Omit<React.AllHTMLAttributes<HTMLInputElement>, "label"> {
@@ -11,7 +11,7 @@ export interface InputProps
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ value, label, error, placeholder, as, className, ...rest }, ref) => {
     return (
-      <InputBlock className={className}>
+      <InputBlock className={className} $hasError={!!error}>
         {label && <label>{label}</label>}
         <InputRoot
           ref={ref}
@@ -19,7 +19,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={placeholder}
           {...rest}
         />
-        {error && <div>{error}</div>}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
       </InputBlock>
     );
   }

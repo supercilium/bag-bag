@@ -29,7 +29,7 @@ export interface FileInputProps extends UseFormRegisterReturn {
 
 export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
   ({ photo, labelText, error, onChange, ...rest }, ref) => {
-    const [state, setState] = useState<State>("empty");
+    const [state, setState] = useState<State>(error ? "error" : "empty");
     const [file, setFile] = useState<File>(null);
 
     const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
@@ -41,8 +41,8 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
     );
 
     useEffect(() => {
-      setState(file ? "success" : "empty");
-    }, [file]);
+      setState((error && "error") || (file ? "success" : "empty"));
+    }, [file, error]);
 
     return (
       <FileInputRoot $state={state}>

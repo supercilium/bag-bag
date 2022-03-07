@@ -11,7 +11,6 @@ module.exports = {
     let entity;
 
     const userFromContext = ctx.state.user;
-    console.log(userFromContext);
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
 
@@ -26,6 +25,7 @@ module.exports = {
         }
         strapi.log.debug(entity);
       } catch (error) {
+        strapi.log.error(error);
         return ctx.send("Incorrect request", 400);
       }
     } else {
