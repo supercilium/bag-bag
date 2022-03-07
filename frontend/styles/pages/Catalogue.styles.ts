@@ -6,17 +6,14 @@ export const FiltersRoot = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 3.5rem;
   padding: 0 3.6rem;
-
-  max-height: 54.8rem;
-  overflow-y: auto;
 `
 
 export const FiltersRow = styled.div`
   height: 7rem;
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
+  /* position: sticky; */
+  /* top: 0; */
   background-color: #fff;
 `;
 
@@ -74,6 +71,8 @@ export const CatalogueItem = styled.div<{ $gridArea: string }>`
 
 export const FiltersForm = styled.form`
   padding-bottom: 3.6rem;
+  overflow-y: auto;
+  max-height: 54.8rem;
 `
 
 export const SelectedFilters = styled.div`

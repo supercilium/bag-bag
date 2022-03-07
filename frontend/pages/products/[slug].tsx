@@ -16,7 +16,6 @@ import {
   formatSum,
   getActualSum,
 } from "../../utils/formatters";
-import { getStrapiMedia } from "../../utils/medias";
 import {
   AccordionTitle,
   Attribute,
