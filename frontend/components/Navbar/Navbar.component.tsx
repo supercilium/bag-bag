@@ -7,6 +7,7 @@ import {
   NavbarContainer,
   NavbarLinks,
   NavbarRoot,
+  BagContainer,
 } from "./Navbar.styles";
 import Search from "../icons/search.svg";
 import Profile from "../icons/profile.svg";
@@ -73,10 +74,10 @@ export const Navbar = ({ filters }) => {
               </a>
             </Link>
             <Link href="/cart">
-              <a>
+              <BagContainer>
                 <Bag height="40" width="40" />
-                {user?.shopping_bag?.products?.length}
-              </a>
+                <b>{user?.shopping_bag?.products?.length}</b>
+              </BagContainer>
             </Link>
           </NavbarActions>
         </NavbarContainer>

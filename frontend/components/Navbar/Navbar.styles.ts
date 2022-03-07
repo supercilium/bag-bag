@@ -102,3 +102,33 @@ export const Logo = styled.a`
     justify-self: flex-start;
   }
 `
+
+export const BagContainer = styled.a`
+  position: relative;
+
+  & b {
+    position: absolute;
+    width: 11px;
+    height: 11px;
+    line-height: 11px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.colors.pink};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    font-weight: normal;
+    bottom: 13px;
+    right: 12px;
+  }
+
+  @media ${device.laptopL} {
+    & b {
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      bottom: 25px;
+      right: 24px;
+    }
+  }
+`

@@ -72,6 +72,11 @@ const ButtonGroup: React.FC<CarouselButtonGroupProps> = ({
   const {
     carouselState: { currentSlide, totalItems },
   } = rest;
+
+  if (totalItems <= 1) {
+    return null;
+  }
+
   return (
     <ItemButtonsContainer>
       <Button
