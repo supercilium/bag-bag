@@ -5,7 +5,7 @@ import {
   MobileMenuRoot,
   SocialLink,
   SubMenu,
-} from "./MobileMenu.styles";
+} from "../MobileMenu/MobileMenu.styles";
 import Instagram from "../icons/insta.svg";
 import Facebook from "../icons/fb.svg";
 import Arrow from "../icons/arrow-simple-right.svg";
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { size } from "../../styles/constants";
 import { InfoBlock } from "../InfoBlock";
 import { Filters } from "../../types/common";
-import { MenuItem } from "./components";
+import { MenuItem } from "../MobileMenu/components";
 import { useDimensions } from "../../hooks/useDimensions";
 
 export interface MobileMenuProps {
@@ -32,9 +32,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
   const isWideScreen = screenSize.width >= size.laptop;
 
   useEffect(() => {
-    if (isWideScreen) {
-      // setMenuFilled(true);
-    } else {
+    if (!isWideScreen) {
       document.getElementById("layout").style.overflow = isOpen
         ? "hidden"
         : "unset";
@@ -79,7 +77,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
           </ButtonBack>
           <div>
             {filters?.categories?.map((item) => (
-              <Link key={item.slug} href={`/catalogue?category.id=${item.id}`}>
+              <Link
+                key={item.slug}
+                href={`/catalogue?category.id=${item.id}&_sort=views:DESC`}
+              >
                 <a>{item.name}</a>
               </Link>
             ))}
@@ -101,7 +102,10 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
             content={
               <>
                 {filters?.brands.map((item) => (
-                  <Link key={item.slug} href={`/catalogue?brand.id=${item.id}`}>
+                  <Link
+                    key={item.slug}
+                    href={`/catalogue?brand.id=${item.id}&_sort=views:DESC`}
+                  >
                     <a>{item.name}</a>
                   </Link>
                 ))}

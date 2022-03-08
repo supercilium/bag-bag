@@ -31,7 +31,7 @@ export const MenuItem: FC<HTMLAttributes<HTMLButtonElement>> = ({
   onClick,
 }) => {
   return (
-    <MenuItemRoot onClick={onClick}>
+    <MenuItemRoot type="button" onClick={onClick}>
       {children}
       <Arrow />
     </MenuItemRoot>

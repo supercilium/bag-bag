@@ -1,19 +1,18 @@
 import styled from "styled-components";
-import { TRANSITION } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { primaryText } from "../../styles/typography";
 
 export const RadioInputRoot = styled.div<{ hasError: boolean }>`
   display: flex;
-  height: 2.7rem;
-  align-items: center;
   width: 100%;
+  margin-bottom: 18px;
 
   & input {
     margin-left: 0;
     margin-right: 1.4rem;
     margin-top: 0;
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 18px;
+    height: 18px;
 
     appearance: none;
     position: relative;
@@ -39,5 +38,21 @@ export const RadioInputRoot = styled.div<{ hasError: boolean }>`
     ${primaryText};
     text-transform: none;
     flex-grow: 1;
+    line-height: 18px;
+  }
+
+  @media ${device.laptopL} {
+    height: 2.7rem;
+    align-items: center;
+    margin-bottom: 0;
+
+    & input {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+
+    & label {
+      line-height: 150%;
+    }
   }
 `;

@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { device, TRANSITION } from "../../styles/constants";
 import { ButtonProps } from "./Button.component";
 
+const BUTTON_SIZE_MOBILE: Record<ButtonProps["$size"], string> = {
+  l: "26.6rem",
+  s: "30px",
+  m: "8.6rem",
+};
+
 const BUTTON_SIZE: Record<ButtonProps["$size"], string> = {
   l: "26.6rem",
   s: "5.4rem",
@@ -9,7 +15,7 @@ const BUTTON_SIZE: Record<ButtonProps["$size"], string> = {
 };
 
 const FONT_SIZES_MOBILE: Record<ButtonProps["$size"], string> = {
-  s: "3rem",
+  s: "18px",
   m: "3rem",
   l: "5rem",
 };
@@ -26,7 +32,7 @@ export const StyledButton = styled.button<{
 }>`
   padding: ${({ $round }) => ($round ? 0 : ".7rem 6.9rem 1.1rem")};
   min-width: ${({ $size }) => BUTTON_SIZE[$size]};
-  height: ${({ $size }) => BUTTON_SIZE[$size]};
+  height: ${({ $size }) => BUTTON_SIZE_MOBILE[$size]};
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 9.4rem;
   font-weight: 500;
@@ -53,6 +59,7 @@ export const StyledButton = styled.button<{
   }
 
   @media ${device.laptopL} {
+    height: ${({ $size }) => BUTTON_SIZE[$size]};
     font-size: ${({ $size }) => FONT_SIZES[$size]};
   }
 `;

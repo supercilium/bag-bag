@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
-import { Box, StyledHeader } from "../../styles/layout";
+import { Box, LaptopLVisible, StyledHeader } from "../../styles/layout";
 import {
   NameBlock,
   NameTitle,
@@ -17,6 +17,9 @@ import {
   DescriptionText,
   ProductsList,
   ImageContainer,
+  ActiveTab,
+  ButtonsBlock,
+  PaymentBlock,
 } from "../../styles/pages/Process.styles";
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
@@ -33,6 +36,8 @@ import useUser from "../../hooks/useUser";
 import { useForm } from "react-hook-form";
 import { OrderFormValues, createOrder, checkPromoCode } from "../../utils/api";
 import { getTotalSumAndDiscount } from "../../utils/calculation";
+import { Breadcrumbs } from "../../components/Breadcrumbs";
+import Arrow from "../../components/icons/arrow-simple-right.svg";
 
 /* TODO make dynamic value */
 const DELIVERY_COST = 1200;
@@ -41,6 +46,7 @@ const Process = () => {
   const router = useRouter();
   const { user, mutateUser } = useUser();
   const [promocodeString, setPromocodeString] = useState("");
+  const [activeTab, setActiveTab] = useState<ActiveTab>("shipping");
 
   const [totalSum, totalDiscount] = getTotalSumAndDiscount(
     user?.shopping_bag?.products
@@ -51,12 +57,10 @@ const Process = () => {
     reset,
     handleSubmit,
     formState: { errors },
-    clearErrors,
-    unregister,
-    getValues,
     watch,
     setError,
     setValue,
+    trigger,
   } = useForm<OrderFormValues>({
     shouldFocusError: false,
     defaultValues: {
@@ -101,6 +105,10 @@ const Process = () => {
     }
   }, [shippingMethod, setValue, totalSum, promocode]);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeTab]);
+
   if (router.isFallback) {
     return <div>Loading category...</div>;
   }
@@ -136,6 +144,15 @@ const Process = () => {
     }
   };
 
+  const handleClickNextButton = async () => {
+    await trigger(["address", "email", "phone", "shipping_date"]);
+
+    if (!Object.keys(errors).length) {
+      setActiveTab("payment");
+    }
+  };
+
+  console.log(activeTab);
   return (
     <div>
       <Head>
@@ -144,19 +161,31 @@ const Process = () => {
       <div className="container">
         <div className="m32">
           <StyledHeader $buttonPosition="left">
-            <ButtonText href="/cart">Вернуться назад</ButtonText>
+            <LaptopLVisible>
+              <ButtonText href="/cart">Вернуться назад</ButtonText>
+            </LaptopLVisible>
             <h1 className="align-center">оформление</h1>
           </StyledHeader>
-          <ProcessGrid>
+          <Breadcrumbs
+            items={[
+              { title: "доставка", active: activeTab === "shipping" },
+              { title: "оплата", active: activeTab === "payment" },
+              { title: "ваш заказ", active: activeTab === "result" },
+            ]}
+          />
+
+          <ProcessGrid $activeTab={activeTab}>
             <div>
               <Box>
                 <ProcessRow>
                   <Input
+                    label="Имя фамилия"
                     placeholder="Имя фамилия"
                     {...register("last_name", { required: "Name is required" })}
                     error={errors?.last_name?.message}
                   />
                   <Input
+                    label="Эл. почта"
                     placeholder="Эл. почта"
                     {...register("email", {
                       required: "Email is required",
@@ -195,6 +224,7 @@ const Process = () => {
                     />
                   </div>
                   <Input
+                    label="Телефон"
                     placeholder="+7 ____ ___-__-__"
                     {...register("phone", { required: "Phone is required" })}
                     error={errors?.phone?.message}
@@ -246,6 +276,27 @@ const Process = () => {
                     error={errors?.commentary?.message}
                   />
                 </div>
+                <LaptopLVisible>
+                  <p className="subtitle">Оплата</p>
+                  <div>
+                    <RadioButton
+                      value="card"
+                      labelText={<span>Банковской картой</span>}
+                      {...register("paymentMethod")}
+                      error={errors?.paymentMethod?.message}
+                    />
+                    <RadioButton
+                      value="cash"
+                      labelText="Оплата наличными или при получении в шоуруме"
+                      {...register("paymentMethod")}
+                      error={errors?.paymentMethod?.message}
+                    />
+                  </div>
+                </LaptopLVisible>
+              </Box>
+            </div>
+            <PaymentBlock>
+              <Box>
                 <p className="subtitle">Оплата</p>
                 <div>
                   <RadioButton
@@ -262,30 +313,43 @@ const Process = () => {
                   />
                 </div>
               </Box>
-              <SummaryRow>
-                <ProcessRow>
-                  <Input
-                    placeholder="Промокод"
-                    value={promocodeString}
-                    onChange={({ currentTarget }) =>
-                      setPromocodeString(currentTarget.value)
-                    }
-                    onBlur={() => handleCheckPromocode()}
-                    error={errors?.promocode?.code?.message}
-                  />
-                  <PriceSummary>
-                    <span>сумма скидки</span>
-                    <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
-                    <span>Итого к оплате </span>
-                    <span>{formatSum(total - totalDiscount, "₽")}</span>
-                  </PriceSummary>
-                </ProcessRow>
-
+            </PaymentBlock>
+            <SummaryRow>
+              <ProcessRow>
+                <Input
+                  placeholder="Промокод"
+                  value={promocodeString}
+                  onChange={({ currentTarget }) =>
+                    setPromocodeString(currentTarget.value)
+                  }
+                  onBlur={() => handleCheckPromocode()}
+                  error={errors?.promocode?.code?.message}
+                />
+                <PriceSummary>
+                  <span>сумма скидки</span>
+                  <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
+                  <span>Итого к оплате </span>
+                  <span>{formatSum(total - totalDiscount, "₽")}</span>
+                </PriceSummary>
+              </ProcessRow>
+              <LaptopLVisible>
                 <Button onClick={handleSubmit(onSubmit)} $size="s">
                   оплатить
                 </Button>
-              </SummaryRow>
-            </div>
+                <ButtonText
+                  type="button"
+                  onClick={() => setActiveTab("payment")}
+                >
+                  <Arrow width="22" height="22" />
+                  Вернуться назад
+                </ButtonText>
+              </LaptopLVisible>
+            </SummaryRow>
+            <ButtonsBlock>
+              <Button onClick={handleClickNextButton} type="button" $size="s">
+                далее
+              </Button>
+            </ButtonsBlock>
             <ProductsList>
               {shopping_bag?.products?.length > 0 &&
                 shopping_bag.products.map((item) => (
@@ -298,7 +362,8 @@ const Process = () => {
                       />
                     </ImageContainer>
                     <NameBlock>
-                      <NameTitle>{item.title}</NameTitle>
+                      <NameTitle>{item.brand.name}</NameTitle>
+                      {/* <NameTitle>{item.title}</NameTitle> */}
                       <DescriptionText>{item.description}</DescriptionText>
                       <Details>
                         <DescriptionBlock>

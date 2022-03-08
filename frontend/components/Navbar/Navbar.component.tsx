@@ -1,13 +1,12 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import NextImage from "../Image";
 import {
-  Logo,
   NavbarActions,
   NavbarContainer,
   NavbarLinks,
   NavbarRoot,
   BagContainer,
+  Logo,
 } from "./Navbar.styles";
 import Search from "../icons/search.svg";
 import Profile from "../icons/profile.svg";
@@ -16,8 +15,9 @@ import useUser from "../../hooks/useUser";
 import { Filters } from "../../types/common";
 import { MenuIcon } from "../MenuIcon";
 import { LaptopLVisible, MobileVisible } from "../../styles/layout";
-import { MobileMenu } from "../MobileMenu";
 import { useRouter } from "next/router";
+import { MobileMenu } from "./MobileMenu.component";
+import LogoImg from "../icons/logo.svg";
 
 export interface NavbarProps {
   filters: Filters;
@@ -31,7 +31,7 @@ export const Navbar = ({ filters }) => {
 
   useEffect(() => {
     setOpenedState(false);
-  }, [query?.slug]);
+  }, [query]);
 
   return (
     <>
@@ -43,11 +43,11 @@ export const Navbar = ({ filters }) => {
         <NavbarContainer>
           <Link href="/">
             <Logo>
-              <NextImage src="/logo.png" alt="home" layout="fill" />
+              <LogoImg />
             </Logo>
           </Link>
           <NavbarLinks>
-            <Link href="/catalogue">
+            <Link href="/catalogue?_sort=views:DESC">
               <a>Каталог</a>
             </Link>
             <Link href="/offer">

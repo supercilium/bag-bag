@@ -27,6 +27,7 @@ export const BannerImage = styled.div<{ $url: string }>`
     url(${({ $url }) => $url}), #ebebeb;
   background-blend-mode: normal, overlay, multiply, normal, normal;
   background-size: auto, auto, auto, cover, auto;
+  background-position-x: center;
   color: ${({ theme }) => theme.colors.white};
   padding: 4.4rem 6.6rem;
   display: flex;
@@ -70,13 +71,13 @@ export const BrandsBlock = styled.div`
   height: 66.3rem;
   padding: 19rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  overflow: hidden;
+  max-width: 100%;
 `;
 
 export const BrandsLine = styled.div`
   text-transform: uppercase;
   white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
 
   & span {
     position: relative;

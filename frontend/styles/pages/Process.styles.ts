@@ -1,31 +1,75 @@
 import ReactMarkdown from "react-markdown";
 import styled from "styled-components";
-import { Box } from "../layout";
-import { buttonText, primaryText } from "../typography";
+import { device, size } from "../constants";
+import { buttonText, PreviousPrice, primaryText } from "../typography";
 
-export const ProcessGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 75rem;
-  grid-gap: 3.6rem;
-  margin-bottom: 43rem;
-  align-items: flex-start;
-`;
+export type ActiveTab = "shipping" | "payment" | "result";
 
 export const ProductsList = styled.div`
   & > div + div {
     margin-top: 3.6rem;
   }
 
-  & > ${Box} {
-    padding: 1.5rem;
+  @media (max-width: ${size.laptopL}px) {
+    & > div {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 100px auto;
+    }
+  } 
+`
+
+export const PaymentBlock = styled.div`
+  @media (max-width: ${size.laptopL}px) {
+    order: -1;
+    margin-bottom: 18px;
+  }
+  @media ${device.laptopL} {
+    display: none;
+  }
+`
+
+export const ProcessGrid = styled.div<{ $activeTab: ActiveTab }>`
+  margin-bottom: 43rem;
+  align-items: flex-start;
+  margin-top: 30px;
+  display: grid;
+  
+  @media ${device.laptopL} {
+    grid-template-columns: 1fr 75rem;
+    grid-gap: 3.6rem;
+    margin-top: 0;
   }
 
-`
+  @media (max-width: ${size.laptopL}px) {
+    & > div {
+      overflow: hidden;
+    }
+
+    & > div:first-child {
+      order: -1;
+      margin-bottom: 18px;
+      height: ${({ $activeTab }) => $activeTab === 'shipping' ? 'auto' : 0};
+    }
+
+    & > div:last-child {
+      order: -1;
+    }
+
+    & > ${PaymentBlock} {
+      height: ${({ $activeTab }) => $activeTab === 'payment' ? 'auto' : 0};
+    }
+  } 
+`;
 
 export const ProcessRow = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   grid-gap: 3.6rem;
+  
+  @media ${device.laptopL} {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
 `;
 
 export const SummaryRow = styled.div`
@@ -38,32 +82,55 @@ export const SummaryRow = styled.div`
 `;
 
 export const NameBlock = styled.div`
-  padding: 4.5rem;
+
+  @media ${device.laptopL} {
+    padding: 4.5rem;
+    
+  }
 `;
 
 export const NameTitle = styled.p`
-  ${buttonText};
   text-transform: none;
-  color: ${({ theme }) => theme.colors.green};
   margin: 0;
+  font-size: 16px;
+  line-height: 120%;
+  
+  @media ${device.laptopL} {
+    ${buttonText};
+    color: ${({ theme }) => theme.colors.green};
+  }
 `;
 
 export const DescriptionBlock = styled.div`
-  display: grid;
+  display: none;
+  @media ${device.laptopL} {
+    display: grid;
+  }
 `;
 
 export const Details = styled.div`
-  display: grid;
-  grid-template-columns: 18rem 1fr;
-  grid-gap: 3.6rem;
-  align-items: flex-end;
+  @media ${device.laptopL} {
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+    grid-gap: 3.6rem;
+    align-items: flex-end;
+  }
 `;
 
 export const PriceRow = styled.div`
   ${primaryText};
-  text-align: right;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey3};
-  padding-bottom: 1.8rem;
+  margin-top: 9px;
+
+  & ${PreviousPrice} {
+    margin-right: 6px;
+  }
+  
+  @media ${device.laptopL} {
+    text-align: right;
+    border-bottom: 1px solid ${({ theme }) => theme.colors.grey3};
+    padding-bottom: 1.8rem;
+    margin-tops: 0;
+  }
 `;
 
 export const FullWidthLabel = styled.div`
@@ -75,14 +142,34 @@ export const FullWidthLabel = styled.div`
 
 export const DescriptionText = styled(ReactMarkdown)`
   ${primaryText};
+  
+  @media (max-width: ${size.laptopL}px) {
+    max-height: 28px;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `
 
 export const ImageContainer = styled.div`
-  width: 100%;
-  height: 58.1rem;
   position: relative;
-
+  height: 100px;
+  width: 100px;
+  
   & img {
+    width: 100%;
+    height: 58.1rem;
     border-radius: 2.4rem;
+  }
+`
+
+export const ButtonsBlock = styled.div`
+  display: flex;
+  justify-content: stretch;
+  flex-direction: column;
+  margin-top: 30px;
+
+  @media ${device.laptopL} {
+    display: none;
   }
 `

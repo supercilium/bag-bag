@@ -14,6 +14,7 @@ import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { ProductInterface } from "../types/product";
 import { BrandWithCount } from "../types/brand";
 import { CollectionInterface } from "../types/collection";
+import { SSRConfig } from "next-i18next";
 
 const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   products,
@@ -35,11 +36,15 @@ const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   );
 };
 
-export const getStaticProps: GetStaticProps<{
+interface HomePageInterface extends SSRConfig {
   products: ProductInterface[];
   brandsWithCounts: BrandWithCount[];
   collections: CollectionInterface[];
-}> = async ({ locale }) => {
+}
+
+export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
+  locale,
+}) => {
   const products = await getProducts();
   const collections = await getCollections({
     _limit: "3",

@@ -103,44 +103,44 @@ export class FetchError extends Error {
 
 export async function getCategories() {
   const categories = await fetchAPI<CommonProps[]>("/categories");
-  return categories;
+  return categories as CommonProps[];
 }
 
 export async function getFilters() {
   const categories = await fetchAPI<Filters>("/filters");
-  return categories;
+  return categories as Filters;
 }
 
 export async function getBrandsWithCounts() {
   const categories = await fetchAPI<BrandWithCount[]>("/brands-with-counts");
-  return categories;
+  return categories as BrandWithCount[];
 }
 
 export async function getCategory(slug: string) {
   const categories = await fetchAPI<CommonProps[]>(`/categories?slug=${slug}`);
-  return categories?.[0];
+  return categories?.[0] as CommonProps[];
 }
 
 export async function getProducts(query?: ParsedUrlQuery) {
   const querystring = getAsString(query)
   const products = await fetchAPI<ProductInterface[]>(`/products${querystring}`);
-  return products;
+  return products as ProductInterface[];
 }
 
 export async function getProduct(slug: string) {
   const products = await fetchAPI<ProductInterface>(`/products/${slug}`);
-  return products;
+  return products as ProductInterface;
 }
 
 export async function getCollection(slug: string) {
   const res = await fetchAPI<CollectionInterface>(`/collections/${slug}`);
-  return res;
+  return res as CollectionInterface;
 }
 
 export async function getCollections(query?: ParsedUrlQuery) {
   const querystring = getAsString(query)
   const res = await fetchAPI<CollectionInterface[]>(`/collections${querystring}`);
-  return res;
+  return res as CollectionInterface[];
 }
 
 export async function getProfile(token: string) {

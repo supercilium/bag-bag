@@ -8,6 +8,7 @@ import { CollectionInterface } from "../../types/collection";
 import { CollectionItem } from "../../components/CollectionItem";
 import { CollectionList } from "../../components/content/Collections/Collections.styles";
 import { MainContent } from "../../styles/pages/Collection.styles";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Page: FC<{ collections: CollectionInterface[] }> = ({ collections }) => {
   const { isFallback } = useRouter();
@@ -38,7 +39,12 @@ const Page: FC<{ collections: CollectionInterface[] }> = ({ collections }) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const collections = await getCollections(ctx.query);
-  return { props: { collections } };
+  const locales = await serverSideTranslations(ctx.locale, [
+    "common",
+    "footer",
+  ]);
+
+  return { props: { collections, ...locales } };
 };
 
 export default Page;

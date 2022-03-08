@@ -12,7 +12,7 @@ export interface CollectionsProps {
 
 export const Collections: React.FC<CollectionsProps> = ({ items }) => {
   return (
-    <ContentBlock>
+    <ContentBlock $hidePaddings={true}>
       <div className="container">
         <h2 className="h1">
           коллекции<span>collection</span>

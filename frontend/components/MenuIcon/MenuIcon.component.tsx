@@ -5,9 +5,13 @@ export interface MenuIconProps
   isOpen: boolean;
 }
 
-export const MenuIcon: React.FC<MenuIconProps> = ({ onClick, isOpen }) => {
+export const MenuIcon: React.FC<MenuIconProps> = ({
+  onClick,
+  isOpen,
+  ...rest
+}) => {
   return (
-    <MenuIconRoot onClick={onClick} $isOpen={isOpen}>
+    <MenuIconRoot onClick={onClick} $isOpen={isOpen} {...rest}>
       <div>
         <span />
         <span />
