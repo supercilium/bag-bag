@@ -31,6 +31,6 @@ module.exports = {
     } else {
       return ctx.send("Incorrect request", 400);
     }
-    return sanitizeEntity(entity, { model: strapi.models.request });
+    return sanitizeEntity({ id: entity.id }, { model: strapi.models.request });
   },
 };
