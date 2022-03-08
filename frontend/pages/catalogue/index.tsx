@@ -13,7 +13,6 @@ import {
 import { GRID_TEMPLATES } from "../../constants/catalogueGridTemplate";
 import { StyledHeader } from "../../styles/layout";
 import { FiltersMenu } from "../../components/Filters";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
   products,
@@ -52,12 +51,12 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const products = await getProducts(ctx.query);
-  const locales = await serverSideTranslations(ctx.locale, [
-    "common",
-    "footer",
-  ]);
+  // const locales = await serverSideTranslations(ctx.locale, [
+  //   "common",
+  //   "footer",
+  // ]);
 
-  return { props: { products, ...locales } };
+  return { props: { products } };
 };
 
 export default Catalogue;
