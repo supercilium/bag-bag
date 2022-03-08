@@ -6,6 +6,7 @@ export const size = {
   laptop: 1280,
   laptopL: 1440,
   wide: 1600,
+  hd: 1920,
 }
 
 export const device = {
@@ -14,4 +15,5 @@ export const device = {
   laptop: `(min-width: ${size.laptop}px)`,
   laptopL: `(min-width: ${size.laptopL}px)`,
   wide: `(min-width: ${size.wide}px)`,
+  hd: `(min-width: ${size.hd}px)`,
 }

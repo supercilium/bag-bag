@@ -1,9 +1,11 @@
 import { parseCookies, setCookie } from "nookies";
 import { ParsedUrlQuery } from "querystring";
 import { BrandWithCount } from "../types/brand";
-import { CommonProps, Filters } from "../types/common";
+import { CollectionInterface } from "../types/collection";
+import { CommonProps, ErrorRequest, Filters } from "../types/common";
 import { OrderInterface } from "../types/order";
 import { ProductInterface } from "../types/product";
+import { PromocodeInterface } from "../types/promocode";
 import { AuthResponse, User } from "../types/user";
 import { getAsString } from "./formatters";
 
@@ -11,7 +13,7 @@ export function getStrapiURL(path: RequestInfo) {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337"
     }${path}`;
 }
-export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit) => Promise<JSON>
+export type FetchType = <JSON = unknown>(input: RequestInfo, init?: RequestInit) => Promise<JSON | ErrorRequest>
 
 // Helper to make GET requests to Strapi
 export const fetchAPI: FetchType = async (input, init) => {
@@ -101,33 +103,44 @@ export class FetchError extends Error {
 
 export async function getCategories() {
   const categories = await fetchAPI<CommonProps[]>("/categories");
-  return categories;
+  return categories as CommonProps[];
 }
 
 export async function getFilters() {
   const categories = await fetchAPI<Filters>("/filters");
-  return categories;
+  return categories as Filters;
 }
 
 export async function getBrandsWithCounts() {
   const categories = await fetchAPI<BrandWithCount[]>("/brands-with-counts");
-  return categories;
+  return categories as BrandWithCount[];
 }
 
 export async function getCategory(slug: string) {
   const categories = await fetchAPI<CommonProps[]>(`/categories?slug=${slug}`);
-  return categories?.[0];
+  return categories?.[0] as CommonProps[];
 }
 
 export async function getProducts(query?: ParsedUrlQuery) {
   const querystring = getAsString(query)
   const products = await fetchAPI<ProductInterface[]>(`/products${querystring}`);
-  return products;
+  return products as ProductInterface[];
 }
 
 export async function getProduct(slug: string) {
-  const products = await fetchAPI<ProductInterface[]>(`/products/${slug}`);
-  return products;
+  const products = await fetchAPI<ProductInterface>(`/products/${slug}`);
+  return products as ProductInterface;
+}
+
+export async function getCollection(slug: string) {
+  const res = await fetchAPI<CollectionInterface>(`/collections/${slug}`);
+  return res as CollectionInterface;
+}
+
+export async function getCollections(query?: ParsedUrlQuery) {
+  const querystring = getAsString(query)
+  const res = await fetchAPI<CollectionInterface[]>(`/collections${querystring}`);
+  return res as CollectionInterface[];
 }
 
 export async function getProfile(token: string) {
@@ -146,11 +159,11 @@ interface LoginParams {
 export const login = async (body: LoginParams) => {
   const {
     user, jwt
-  } = await fetchAPI<AuthResponse>("/auth/local", {
+  } = (await fetchAPI<AuthResponse>("/auth/local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  });
+  }) as AuthResponse);
   setCookie(null, 'token', jwt, {
     maxAge: 30 * 24 * 60 * 60,
     path: '/',
@@ -167,11 +180,11 @@ export interface LoginFormInterface extends User {
 export const register = async (body: LoginFormInterface) => {
   const {
     user, jwt
-  } = await fetchAPI<AuthResponse>("/auth/local/register", {
+  } = (await fetchAPI<AuthResponse>("/auth/local/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
-  });
+  }) as AuthResponse);
   setCookie(null, 'token', jwt, {
     maxAge: 30 * 24 * 60 * 60,
     path: '/',
@@ -239,4 +252,38 @@ export const createOrder = async (values: OrderFormValues) => {
   })
 
   return order;
+}
+
+export const createRequest = async (values: FormData) => {
+  const { token } = parseCookies()
+  const Authorization = token ? `Bearer ${token}` : null
+  const order = await fetchAPI<OrderInterface>('/requests', {
+    method: 'POST',
+    headers: { Authorization },
+    body: values,
+  })
+
+  return order;
+}
+
+export interface SubscriberInterface {
+  email: string;
+}
+
+export const createSubscriber = async (values: SubscriberInterface) => {
+  const res = await fetchAPI<string>('/subscribers', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  })
+  return res;
+}
+
+export const checkPromoCode = async (code: string) => {
+  const { token } = parseCookies()
+  const res = await fetchAPI<PromocodeInterface>(`/promocodes/check/${code}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+  });
+  return res
 }

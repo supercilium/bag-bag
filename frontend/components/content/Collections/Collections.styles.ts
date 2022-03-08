@@ -1,12 +1,17 @@
 import styled from "styled-components";
+import { device } from "../../../styles/constants";
 import { Button } from "../../Button";
 
 export const CollectionList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: flex-start;
-  grid-gap: 3.6rem;
   margin-top: 5rem;
+  width: 100%;
+  
+  @media ${device.laptopL} {
+    grid-gap: 3.6rem;
+    display: grid;
+    grid-template-columns: repeat(3, minMax(0, 1fr));
+    align-items: flex-start;
+  }
 `;
 
 export const BigButton = styled(Button)`
@@ -15,9 +20,14 @@ export const BigButton = styled(Button)`
   border-radius: 50%;
   padding-left: 0;
   padding-right: 0;
+  margin-top: 80px;
 
   & > svg {
     margin-top: 7px;
+  }
+
+  @media ${device.laptopL} {
+    margin-top: 0
   }
 `;
 

@@ -1,5 +1,11 @@
 import React from "react";
-import { Discount, Condition, ItemRoot, NameBlock } from "./Item.styles";
+import {
+  Discount,
+  Condition,
+  ItemRoot,
+  NameBlock,
+  ImageContainer,
+} from "./Item.styles";
 import NextImage from "../Image";
 import Link from "next/link";
 import { PreviousPrice } from "../../styles/typography";
@@ -13,7 +19,9 @@ export const Item: React.FC<ProductInterface> = (props) => {
   return (
     <Link href={`/products/${slug}`}>
       <ItemRoot>
-        <NextImage media={image} />
+        <ImageContainer>
+          <NextImage layout="fill" objectFit="cover" media={image} />
+        </ImageContainer>
         {discount && (
           <Discount className="align-center">
             <i>{`-${discount}%`}</i>

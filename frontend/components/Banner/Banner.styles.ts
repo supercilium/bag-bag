@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device, TRANSITION } from "../../styles/constants";
 import { Container } from "../../styles/layout";
 
 export const BannerRoot = styled.div`
@@ -15,6 +16,7 @@ export const BannerImageContainer = styled.div`
   padding: 1.4rem;
   border-right: 1px solid ${({ theme }) => theme.colors.black};
   display: flex;
+  width: 100%;
 `;
 
 export const BannerImage = styled.div<{ $url: string }>`
@@ -25,12 +27,14 @@ export const BannerImage = styled.div<{ $url: string }>`
     url(${({ $url }) => $url}), #ebebeb;
   background-blend-mode: normal, overlay, multiply, normal, normal;
   background-size: auto, auto, auto, cover, auto;
+  background-position-x: center;
   color: ${({ theme }) => theme.colors.white};
   padding: 4.4rem 6.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  width: 100%;
 
   & > div {
     display: flex;
@@ -41,16 +45,25 @@ export const BannerImage = styled.div<{ $url: string }>`
 `;
 
 export const BannerActions = styled.div`
-  display: flex;
+  display: none;
 
-  & button + button {
-    margin-left: 3rem;
+  @media ${device.laptopL} {
+    display: flex;
+
+    & button + button {
+      margin-left: 3rem;
+    }
   }
 `;
 
 export const BannerAside = styled.div`
-  width: 8.8rem;
-  flex-shrink: 0;
+  display: none;
+
+  @media ${device.laptopL} {
+    display: flex;
+    width: 8.8rem;
+    flex-shrink: 0;
+  }
 `;
 
 export const BrandsBlock = styled.div`
@@ -58,22 +71,28 @@ export const BrandsBlock = styled.div`
   height: 66.3rem;
   padding: 19rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
+  overflow: hidden;
+  max-width: 100%;
 `;
 
 export const BrandsLine = styled.div`
   text-transform: uppercase;
   white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
 
   & span {
     position: relative;
     cursor: pointer;
+    transition: color ${TRANSITION};
+  }
+
+  & span:hover {
+    color: ${({ theme }) => theme.colors.green};
   }
 
   & span:nth-child(odd) {
     font-style: italic;
     font-family: New York Extra Large, serif;
+    font-weight: 400;
   }
 
   & span:after {
@@ -96,16 +115,21 @@ export const BrandsLine = styled.div`
 `;
 
 export const FloatingImage = styled.div`
-  position: absolute;
-  top: -4.4rem;
-  left: 50%;
-  margin-left: -16.5rem;
-  width: 33rem;
-  height: 33rem;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  background: ${({ theme }) => theme.colors.white};
-  box-sizing: border-box;
-  border-radius: 36px;
-  padding: 1.5rem;
-  z-index: 1;
+  display: none;
+
+  @media ${device.laptopL} {
+    position: absolute;
+    top: -4.4rem;
+    left: 50%;
+    margin-left: -16.5rem;
+    width: 33rem;
+    height: 33rem;
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    background: ${({ theme }) => theme.colors.white};
+    box-sizing: border-box;
+    border-radius: 36px;
+    padding: 1.5rem;
+    z-index: 1;
+    display: block;
+  }
 `;

@@ -9,4 +9,11 @@ export interface CommonProps {
 export interface Filters {
     brands: CommonProps[];
     categories: CommonProps[];
+    collections: CommonProps[];
+}
+
+export interface ErrorRequest {
+    error: string;
+    message: string;
+    statusCode: number;
 }

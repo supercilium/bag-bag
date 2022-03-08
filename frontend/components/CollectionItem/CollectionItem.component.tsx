@@ -1,29 +1,53 @@
 import React from "react";
-import { CollectionItemRoot, Tag } from "./CollectionItem.styles";
+import {
+  CollectionBanner,
+  CollectionItemRoot,
+  Description,
+  ImageContainer,
+  Tag,
+  TagColumn,
+} from "./CollectionItem.styles";
 import NextImage from "../Image";
+import { CollectionInterface } from "../../types/collection";
+import Link from "next/link";
+import Leto from "../icons/leto.svg";
 
-export interface CollectionItemProps {
+export interface CollectionItemProps extends CollectionInterface {
   halfHeight?: boolean;
 }
 
 export const CollectionItem: React.FC<CollectionItemProps> = ({
   halfHeight,
+  ...item
 }) => {
   return (
-    <CollectionItemRoot $halfHeight={halfHeight}>
-      <NextImage
-        src="/dummy-collection.png"
-        alt="Купим вашу сумку"
-        height={halfHeight ? 327 : 732}
-        width="592"
-        className="image"
-      />
-      <h4>
-        ликвидация
-        <br />
-        -15% на все зимние сумки
-      </h4>
-      <Tag>ЗИМА</Tag>
-    </CollectionItemRoot>
+    <Link href={`/collection/${item.slug}`}>
+      <CollectionItemRoot $halfHeight={halfHeight}>
+        <CollectionBanner>
+          <ImageContainer>
+            <NextImage
+              media={item.preview}
+              height={halfHeight ? 327 : 732}
+              layout="fill"
+              objectFit="cover"
+            />
+          </ImageContainer>
+          <TagColumn>
+            {[0, 1, 2, 3, 4].map((key) => (
+              <>
+                <Leto width="22" height="22" />
+                <span key={key}>{item.season}</span>
+              </>
+            ))}
+          </TagColumn>
+        </CollectionBanner>
+        <h4>
+          {item.name}
+          <br />
+          <Description>{item.description}</Description>
+        </h4>
+        <Tag>{item.season}</Tag>
+      </CollectionItemRoot>
+    </Link>
   );
 };

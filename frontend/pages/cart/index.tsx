@@ -8,6 +8,7 @@ import {
   Description,
   DescriptionRow,
   DescriptionText,
+  ImageContainer,
   Left,
   MainContent,
   PriceSummary,
@@ -61,7 +62,7 @@ const Cart = () => {
       </Head>
       <div className="container m32">
         <StyledHeader $buttonPosition="right">
-          <h1 className="align-center">
+          <h1>
             корзина
             {user?.shopping_bag?.products?.length > 0 && (
               <i className="h2">({user?.shopping_bag?.products.length})</i>
@@ -74,9 +75,15 @@ const Cart = () => {
             <MainContent>
               {user?.shopping_bag?.products.map((item) => (
                 <CartItem key={item.id}>
-                  <NextImage
-                    media={item.images?.[0].formats?.medium || item.images?.[0]}
-                  />
+                  <ImageContainer>
+                    <NextImage
+                      layout="fill"
+                      objectFit="cover"
+                      media={
+                        item.images?.[0].formats?.medium || item.images?.[0]
+                      }
+                    />
+                  </ImageContainer>
                   <Left>
                     <TopBlock>
                       <div>

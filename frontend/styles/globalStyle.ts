@@ -13,9 +13,13 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    position: relative;
   }
   a {
     text-decoration: none;
+    appearance: none;
+    color: ${({ theme }) => theme.colors.black};
+    cursor: pointer;
   }
   i {
     font-family: 'New York Extra Large', -apple-system-ui-serif, ui-serif, 'Georgia', serif;
@@ -29,28 +33,29 @@ export const GlobalStyle = createGlobalStyle`
   button {
     font-family: 'Graphik LC', sans-serif;
     font-style: normal;
+    text-transform: lowercase;
+    cursor: pointer;
   }
   h1, .h1 {
     font-weight: 500;
-    font-size: 12.9rem;
+    font-size: 4.5rem;
     line-height: 89%;
 
     letter-spacing: -0.005em;
   }
   h2, .h2 {
     font-weight: 500;
-    font-size: 7.2rem;
+    font-size: 4.8rem;
     line-height: 90%;
   }
   h3, .h3 {
     font-weight: 500;
-    font-size: 4.8rem;
-    line-height: 140%;
-    letter-spacing: 0.03em;
+    font-size: 45px;
+    line-height: 95%;
   }
   h4, .h4 {
     font-weight: 500;
-    font-size: 2.4rem;
+    font-size: 24px;
     line-height: 110%;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -86,8 +91,31 @@ export const GlobalStyle = createGlobalStyle`
     padding-left: 3.2rem;
     padding-right: 3.2rem;
   }
-  
-  @media screen and ${device.wide} {
+
+  @media ${device.laptopL} {
+    h1, .h1 {
+      font-size: 12.9rem;
+      line-height: 89%;
+    }
+    h2, .h2 {
+      font-size: 7.2rem;
+      line-height: 90%;
+    }
+    html {
+      font-size: 9px;
+    }
+    h4, .h4 {
+      font-size: 2.4rem;
+      line-height: 110%;
+    }
+    h3, .h3 {
+      font-size: 4.8rem;
+      line-height: 140%;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  @media ${device.wide} {
     html {
       font-size: 10px;
     }

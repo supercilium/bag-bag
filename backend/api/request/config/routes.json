@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/subscrubers",
-      "handler": "subscruber.find",
+      "path": "/requests",
+      "handler": "request.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/subscrubers/count",
-      "handler": "subscruber.count",
+      "path": "/requests/count",
+      "handler": "request.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/subscrubers/:id",
-      "handler": "subscruber.findOne",
+      "path": "/requests/:id",
+      "handler": "request.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/subscrubers",
-      "handler": "subscruber.create",
+      "path": "/requests",
+      "handler": "request.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/subscrubers/:id",
-      "handler": "subscruber.update",
+      "path": "/requests/:id",
+      "handler": "request.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/subscrubers/:id",
-      "handler": "subscruber.delete",
+      "path": "/requests/:id",
+      "handler": "request.delete",
       "config": {
         "policies": []
       }

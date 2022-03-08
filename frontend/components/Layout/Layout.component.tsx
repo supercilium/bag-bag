@@ -12,7 +12,7 @@ export interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children, filters }) => {
   const { user, mutateUser } = useUser();
   return (
-    <LayoutRoot>
+    <LayoutRoot id="layout">
       <Navbar filters={filters} />
       <div className="flex-grow">{children}</div>
       <Footer />

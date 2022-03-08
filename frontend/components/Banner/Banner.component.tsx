@@ -53,9 +53,16 @@ export const Banner: React.FC<BannerProps> = ({ brandsWithCounts }) => {
           <NextImage src="/floating-bag.png" width="330" height="330" />
         </FloatingImage>
         {[1, 2, 3].map((row) => (
-          <BrandsLine key={row} className="h3">
+          <BrandsLine
+            key={row}
+            style={{ transform: `translateX(-${row * 300}px)` }}
+            className="h3"
+          >
             {brandsWithCounts?.map((brand) => (
-              <Link href={`/catalogue?brand.id=${brand.id}`} key={brand.id}>
+              <Link
+                href={`/catalogue?brand.id=${brand.id}&_sort=views:DESC`}
+                key={brand.id}
+              >
                 <span>
                   {brand.name}
                   {brand.products > 0 && <sup>{brand.products}</sup>}

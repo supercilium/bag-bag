@@ -8,6 +8,7 @@ import {
   removeFromFavorite,
 } from "../../utils/api";
 import useUser from "../../hooks/useUser";
+import { User } from "../../types/user";
 
 export interface PurchaseButtonsProps
   extends React.DetailedHTMLProps<
@@ -33,12 +34,12 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
     const data = await (isInFavorite ? removeFromFavorite : addToFavorite)(
       productId
     );
-    await mutateUser(data, false);
+    await mutateUser(data as User, false);
   };
 
   const onClickBuyButton = async () => {
     const data = await addToShoppingBag(productId);
-    await mutateUser(data, false);
+    await mutateUser(data as User, false);
   };
 
   return (

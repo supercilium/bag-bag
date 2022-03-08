@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../styles/constants";
 import { PreviousPrice, subtitle } from "../../styles/typography";
 import { PurchaseButtons } from "../PurchaseButtons/";
 
@@ -7,8 +8,7 @@ export const HidingPurchaseButtons = styled(PurchaseButtons)`
 `;
 
 export const FavoriteRoot = styled.div`
-  width: 67rem;
-  height: 67rem;
+  height: 63rem;
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 3.6rem;
   padding: 1.5rem;
@@ -16,14 +16,43 @@ export const FavoriteRoot = styled.div`
   flex-direction: column;
   justify-items: space-between;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.black};
-
-    ${HidingPurchaseButtons} {
+  & ${HidingPurchaseButtons} {
       display: grid;
+  }
+
+
+  @media ${device.laptopL} {
+    /* width: 67rem; */
+    height: 67rem;
+
+    & ${HidingPurchaseButtons} {
+        display: none;
+    }
+
+    &:hover {
+      border-color: ${({ theme }) => theme.colors.black};
+  
+      ${HidingPurchaseButtons} {
+        display: grid;
+      }
     }
   }
+
 `;
+
+export const ImageContainer = styled.div`
+  width: 100%;
+  height: 37rem;
+  position: relative;
+  
+  & img {
+    border-radius: 3.6rem;
+  }
+  
+  @media ${device.laptopL} {
+    height: 72rem;
+  }
+`
 
 export const NameBlock = styled.div`
   margin: 3.6rem 1.1rem 2rem;

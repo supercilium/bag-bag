@@ -81,7 +81,7 @@ const Login = () => {
       <Head>
         <title>Login (ex)bags</title>
       </Head>
-      <LoginRoot className="align-center">
+      <LoginRoot className="align-center m32">
         <FormBlock>
           <Tabs>
             <Tab $isActive={activeTabLogin} onClick={() => setActiveTab(true)}>

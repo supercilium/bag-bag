@@ -3,6 +3,7 @@ import Router from "next/router";
 import useSWR from "swr";
 import { User } from "../types/user";
 import { fetchWithToken } from "../utils/api";
+import { ErrorRequest } from "../types/common";
 
 export default function useUser({
   redirectTo = "",
@@ -12,7 +13,7 @@ export default function useUser({
     data,
     error,
     mutate: mutateUser,
-  } = useSWR<User>("/profile", fetchWithToken, {
+  } = useSWR<User | ErrorRequest, unknown, string>("/profile", fetchWithToken, {
     shouldRetryOnError: false,
     revalidateIfStale: false,
     revalidateOnFocus: false,
@@ -32,5 +33,5 @@ export default function useUser({
     }
   }, [data, redirectIfFound, redirectTo]);
 
-  return { user: data, mutateUser };
+  return { user: data as User, mutateUser };
 }

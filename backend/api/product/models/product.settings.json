@@ -16,7 +16,7 @@
       "required": true
     },
     "description": {
-      "type": "string",
+      "type": "text",
       "required": true
     },
     "price": {
@@ -114,6 +114,10 @@
       "default": 0,
       "required": true,
       "min": 0
+    },
+    "collections": {
+      "via": "products",
+      "collection": "collection"
     }
   }
 }

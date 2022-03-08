@@ -6,4 +6,7 @@ export const StyledButton = styled.button`
   background: none;
   ${primaryText};
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 `;

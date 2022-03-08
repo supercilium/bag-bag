@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../../styles/constants";
 import { Theme } from "../../styles/theme";
 import { primaryText } from "../../styles/typography";
 
@@ -30,9 +31,7 @@ export const EditIndicator = styled.div`
   display: none;
 `;
 
-export const FileInputRoot = styled.div<{ $state: State }>`
-  width: 25.2rem;
-  height: 25.2rem;
+export const FileInputRoot = styled.label<{ $state: State }>`
   border-radius: 3.6rem;
   padding: 1.5rem;
   display: flex;
@@ -40,9 +39,9 @@ export const FileInputRoot = styled.div<{ $state: State }>`
   flex-direction: column;
   justify-content: center;
   position: relative;
-  border: 1px ${({ $state }) => ($state === "empty" ? "dashed" : "solid")}
-    ${({ $state, theme }) => theme.colors[StateToColor[$state]]};
-
+  border: 1px ${({ $state }) => ($state === "empty" ? "dashed" : "solid")} ${({ $state, theme }) => theme.colors[StateToColor[$state]]};
+  height: 230px;
+  
   & input {
     display: none;
   }
@@ -56,6 +55,11 @@ export const FileInputRoot = styled.div<{ $state: State }>`
 
   &:hover ${EditIndicator} {
     display: flex;
+  }
+
+  @media ${device.laptopL} {
+    width: 25.2rem;
+    height: 25.2rem;
   }
 `;
 

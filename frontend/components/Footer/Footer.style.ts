@@ -1,15 +1,12 @@
 import styled from "styled-components";
-import { TRANSITION } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { subtitle } from "../../styles/typography";
 
 export const FooterRoot = styled.footer`
-  height: 50.4rem;
   background-color: ${({ theme }) => theme.colors.black};
-  padding: 14.3rem 0 0;
+  padding: 90px 0;
   color: ${({ theme }) => theme.colors.white};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  text-align: center;
 
   & > div {
     padding: 0 6rem;
@@ -19,41 +16,69 @@ export const FooterRoot = styled.footer`
     line-height: 150%;
     font-style: normal;
     flex-grow: 1;
-    white-space: pre-line;
+    color: ${({ theme }) => theme.colors.grey};
+    margin: 30px 0;
+    font-size: 16px;
+    text-transform: none;
+  }
+
+  @media ${device.laptopL} {
+    display: flex;
+    padding: 14.3rem 0 0;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    height: 50.4rem;
+
+    address {
+      white-space: pre-line;
+      color: ${({ theme }) => theme.colors.white};
+      margin: 0;
+    }
   }
 `;
 
-export const FooterEmail = styled.div`
-  font-family: "New York Extra Large", sans-serif;
-  font-size: 4.8rem;
-  line-height: 140%;
-  font-style: italic;
-`;
-
 export const FooterBottom = styled.div`
-  height: 8.9rem;
-  border-top: 1px solid ${({ theme }) => theme.colors.white};
-  display: flex;
-  align-items: center;
+  display: none;
+
+  @media ${device.laptopL} {
+    height: 8.9rem;
+    border-top: 1px solid ${({ theme }) => theme.colors.white};
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const FooterTop = styled.div`
-  display: flex;
+  @media ${device.laptopL} {
+    display: flex;
+  }
 `;
 
 export const FooterLink = styled.a`
   ${subtitle}
   margin-right: 6.3rem;
   transition: color ${TRANSITION};
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
     color: ${({ theme }) => theme.colors.grey3};
   }
 `;
 
+export const SocialContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  @media ${device.laptopL} {
+    margin-bottom: 0;
+  }
+`
+
 export const SocialLink = styled.a`
-  width: 12.9rem;
-  height: 12.9rem;
+  width: 100px;
+  height: 100px;
   border: 1px solid ${({ theme }) => theme.colors.white};
   border-radius: 50%;
   display: flex;
@@ -61,6 +86,7 @@ export const SocialLink = styled.a`
   justify-content: center;
   transition: background-color ${TRANSITION}, color ${TRANSITION},
     border-color ${TRANSITION};
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
     color: ${({ theme }) => theme.colors.black};
@@ -70,6 +96,16 @@ export const SocialLink = styled.a`
     & svg {
       fill: ${({ theme }) => theme.colors.black};
     }
+  }
+
+  & svg {
+    height: 60px;
+    width: 60px;
+  }
+
+  @media ${device.laptopL} {
+    width: 12.9rem;
+    height: 12.9rem;
   }
 `;
 
@@ -83,6 +119,24 @@ export const Copyright = styled.span`
 `;
 
 export const InfoBlock = styled.div`
-  flex-basis: 46rem;
-  margin-right: 6rem;
+  & > div {
+    font-size: 24px;
+    line-height: 110%;
+  }
+
+  & > div + div {
+    margin-top: 8px;
+  }
+
+  @media ${device.laptopL} {
+    flex-basis: 46rem;
+    margin-right: 6rem;
+
+    & > div {
+      font-size: 4.8rem;
+    }
+    & > div + div {
+     margin-top: 0;
+    }
+  }
 `;
