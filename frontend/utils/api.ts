@@ -256,10 +256,10 @@ export const createOrder = async (values: OrderFormValues) => {
 
 export const createRequest = async (values: FormData) => {
   const { token } = parseCookies()
-  const Authorization = token ? `Bearer ${token}` : null
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
   const order = await fetchAPI<OrderInterface>('/requests', {
     method: 'POST',
-    headers: { Authorization },
+    headers,
     body: values,
   })
 
