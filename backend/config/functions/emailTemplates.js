@@ -7,17 +7,17 @@ const { makeHTML } = require("./emailTemplateHTML");
 const getSubscriberGreetingEmail = (email) => {
   return {
     to: email,
-    bcc: process.env.EMAIL_ADDRESS_FROM,
+    // bcc: process.env.EMAIL_ADDRESS_FROM,
     from:
-      `Lovedbag ${process.env.EMAIL_ADDRESS_FROM}` ||
-      "Lovedbag <lovedbag@bagbag.guru>",
-    subject: "Subscription | Lovedbag",
+      `(Ex)Bags ${process.env.EMAIL_ADDRESS_FROM}` ||
+      "(Ex)Bags <lovedbag@bagbag.guru>",
+    subject: "Subscription | (Ex)Bags",
     text: `Hey @${email}, Thanks for subscribing to our NewsLetter`,
-    html: makeHTML({
-      title: "Welcome to Lovedbag!",
-      buttonTitle: "Visit out store",
-      buttonUrl: process.env.FRONTEND_URL,
-    }),
+    // html: makeHTML({
+    //   title: "Welcome to Lovedbag!",
+    //   buttonTitle: "Visit out store",
+    //   buttonUrl: process.env.FRONTEND_URL,
+    // }),
   };
 };
 

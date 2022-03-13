@@ -28,9 +28,9 @@ export const Subscribe: React.FC = () => {
   const onSubmit: SubmitHandler<SubscriberInterface> = async (values) => {
     try {
       const res = await createSubscriber(values);
-      if (typeof res === "string") {
-        setSubmitMessage(res);
-        toastSuccess(res);
+      if ("subscribe" in res) {
+        setSubmitMessage(res.subscribe);
+        toastSuccess(res.subscribe);
       } else if ("message" in res) {
         setSubmitError(res?.message);
         toastError(res?.message);
