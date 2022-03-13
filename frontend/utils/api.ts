@@ -151,6 +151,17 @@ export async function getProfile(token: string) {
   return profile;
 }
 
+export async function putProfile(profile: User & { password?: string }) {
+  const { token } = parseCookies()
+
+  const res = await fetchAPI<User>('/profile', {
+    method: "PUT",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+    body: JSON.stringify(profile),
+  });
+  return res;
+}
+
 interface LoginParams {
   password: string;
   identifier: string;
@@ -239,6 +250,7 @@ export const clearShoppingBag = async () => {
 
 export interface OrderFormValues extends Partial<OrderInterface>, Pick<User, 'last_name' | 'email' | 'phone' | 'address'> {
   shipping_date?: Date;
+  shipping_time?: Date;
   commentary?: string;
 }
 

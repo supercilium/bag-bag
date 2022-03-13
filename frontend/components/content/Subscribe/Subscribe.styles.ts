@@ -21,9 +21,13 @@ export const SubscribeBlock = styled.form`
       text-transform: uppercase;
       line-height: 100%;
     }
+
   }
 
   @media ${device.laptopL} {
+    & h2 {
+      display: none;
+    }
     & > div {
       display: flex;
       align-items: flex-start;

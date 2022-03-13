@@ -9,6 +9,8 @@ import {
 } from "../../utils/api";
 import useUser from "../../hooks/useUser";
 import { User } from "../../types/user";
+import { ERROR_UNKNOWN } from "../../constants/errorMessages";
+import { toastError, toastSuccess } from "../../utils/toasts";
 
 export interface PurchaseButtonsProps
   extends React.DetailedHTMLProps<
@@ -31,24 +33,42 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
   }, [user, productId]);
 
   const onClick = async () => {
-    const data = await (isInFavorite ? removeFromFavorite : addToFavorite)(
-      productId
-    );
-    await mutateUser(data as User, false);
+    try {
+      const data = await (isInFavorite ? removeFromFavorite : addToFavorite)(
+        productId
+      );
+      await mutateUser(data as User, false);
+      if ("message" in data) {
+        toastError(ERROR_UNKNOWN);
+      } else {
+        toastSuccess(`Товар успешно ${isInFavorite ? "удалён" : "добавлен"}.`);
+      }
+    } catch (err) {
+      toastError(ERROR_UNKNOWN);
+    }
   };
 
   const onClickBuyButton = async () => {
-    const data = await addToShoppingBag(productId);
-    await mutateUser(data as User, false);
+    try {
+      const data = await addToShoppingBag(productId);
+      await mutateUser(data as User, false);
+      if ("message" in data) {
+        toastError(ERROR_UNKNOWN);
+      } else {
+        toastSuccess("Товар успешно добавлен в корзину");
+      }
+    } catch (err) {
+      toastError(ERROR_UNKNOWN);
+    }
   };
 
   return (
     <ButtonsBlock className={className}>
-      <Button $size="s" onClick={onClickBuyButton}>
+      <Button type="button" $size="s" onClick={onClickBuyButton}>
         Купить
       </Button>
       {user && (
-        <Button $size="s" $round onClick={onClick}>
+        <Button type="button" $size="s" $round onClick={onClick}>
           <LikeButton $isInFavorite={isInFavorite}>
             <Like />
           </LikeButton>

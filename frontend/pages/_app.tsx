@@ -3,11 +3,13 @@ import Head from "next/head";
 import { SWRConfig } from "swr";
 import { Layout } from "../components/Layout";
 import { fetchJson, getFilters } from "../utils/api";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/index.css";
 import { THEME } from "../styles/theme";
 import { GlobalStyle } from "../styles/globalStyle";
 import { ThemeProvider } from "styled-components";
 import { appWithTranslation } from "next-i18next";
+import { ToastContainer } from "react-toastify";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -20,6 +22,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           },
         }}
       >
+        <ToastContainer
+          position="top-right"
+          autoClose={8000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          draggable={false}
+        />
+
         <GlobalStyle />
         <Layout filters={pageProps.filters}>
           <Head>

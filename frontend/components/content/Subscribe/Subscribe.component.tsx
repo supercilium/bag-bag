@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import {
+  VALIDATION_EMAIL_FORMAT,
+  VALIDATION_REQUIRED,
+} from "../../../constants/errorMessages";
+import { REGEXP_EMAIL } from "../../../constants/regex";
 import { createSubscriber, SubscriberInterface } from "../../../utils/api";
 import { Button } from "../../Button";
 import { Input } from "../../Input";
 import { SubscribeBlock } from "./Subscribe.styles";
+import { toastError, toastSuccess } from "../../../utils/toasts";
 
 export const Subscribe: React.FC = () => {
   const {
@@ -24,10 +30,13 @@ export const Subscribe: React.FC = () => {
       const res = await createSubscriber(values);
       if (typeof res === "string") {
         setSubmitMessage(res);
+        toastSuccess(res);
       } else if ("message" in res) {
         setSubmitError(res?.message);
+        toastError(res?.message);
       }
     } catch (err) {
+      toastError(err?.message);
       setSubmitError(err.message);
     }
   };
@@ -43,17 +52,17 @@ export const Subscribe: React.FC = () => {
 
   return (
     <SubscribeBlock onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="h1">введите email для подписки НА выгодные акции</h2>
       <div>
         <Input
           {...register("email", {
-            required: "Email is required",
+            required: VALIDATION_REQUIRED,
             pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: "invalid email address",
+              value: REGEXP_EMAIL,
+              message: VALIDATION_EMAIL_FORMAT,
             },
           })}
           error={errors?.email?.message || submitError}
-          placeholder="введите email для подписки НА выгодные акции"
         />
         <Button type="submit">подписаться</Button>
       </div>

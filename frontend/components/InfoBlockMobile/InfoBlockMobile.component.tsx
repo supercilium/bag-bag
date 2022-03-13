@@ -22,9 +22,11 @@ export const InfoBlockMobile: React.FC<InfoBlockProps> = ({
   const [isOpen, setOpenedState] = useState(defaultOpened);
   return (
     <InfoBlockContainer>
-      <Title onClick={() => setOpenedState((prev) => !prev)}>{title}</Title>
+      <Title type="button" onClick={() => setOpenedState((prev) => !prev)}>
+        {title}
+      </Title>
       {isOpen && <Content>{content}</Content>}
-      <Border onClick={() => setOpenedState((prev) => !prev)}>
+      <Border type="button" onClick={() => setOpenedState((prev) => !prev)}>
         <hr />
         {isOpen ? <Minus /> : <Plus />}
       </Border>

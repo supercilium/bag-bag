@@ -92,6 +92,23 @@ export const GlobalStyle = createGlobalStyle`
     padding-right: 3.2rem;
   }
 
+  .Toastify__toast {
+    border-radius: 36px;
+    font-size: 1.8rem;
+    padding: 1.8rem;
+  }
+
+  .Toastify__toast--success {
+    border: 1px solid ${({ theme }) => theme.colors.green};
+  }
+  .Toastify__toast--error {
+    border: 1px solid ${({ theme }) => theme.colors.red};
+  }
+  .Toastify__toast-body {
+    padding: 0;
+    margin: 0;
+  }
+
   @media ${device.laptopL} {
     h1, .h1 {
       font-size: 12.9rem;

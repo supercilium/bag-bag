@@ -16,7 +16,7 @@ export const InfoBlock: React.FC<InfoBlockProps> = ({
   const [isOpen, setOpenedState] = useState(defaultOpened);
   return (
     <InfoBlockContainer>
-      <Title onClick={() => setOpenedState((prev) => !prev)}>
+      <Title type="button" onClick={() => setOpenedState((prev) => !prev)}>
         {title}
         <Icon $isOpen={isOpen}>
           <Arrow />

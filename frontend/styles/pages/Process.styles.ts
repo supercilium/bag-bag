@@ -29,6 +29,15 @@ export const PaymentBlock = styled.div`
   }
 `
 
+export const SummaryRow = styled.div`
+  margin-top: 6rem;
+
+  & button {
+    width: 100%;
+    margin-top: 6rem;
+  }
+`;
+
 export const ProcessGrid = styled.div<{ $activeTab: ActiveTab }>`
   margin-bottom: 43rem;
   align-items: flex-start;
@@ -39,11 +48,19 @@ export const ProcessGrid = styled.div<{ $activeTab: ActiveTab }>`
     grid-template-columns: 1fr 75rem;
     grid-gap: 3.6rem;
     margin-top: 0;
+
+    & > ${SummaryRow} {
+      display: none;
+    }
   }
 
   @media (max-width: ${size.laptopL}px) {
     & > div {
       overflow: hidden;
+
+      & > ${SummaryRow} {
+        display: none;
+      }
     }
 
     & > div:first-child {
@@ -72,20 +89,9 @@ export const ProcessRow = styled.div`
   }
 `;
 
-export const SummaryRow = styled.div`
-  margin-top: 6rem;
-
-  & button {
-    width: 100%;
-    margin-top: 6rem;
-  }
-`;
-
 export const NameBlock = styled.div`
-
   @media ${device.laptopL} {
     padding: 4.5rem;
-    
   }
 `;
 
@@ -157,9 +163,12 @@ export const ImageContainer = styled.div`
   width: 100px;
   
   & img {
+    border-radius: 2.4rem;
+  }
+  
+  @media ${device.laptopL} {
     width: 100%;
     height: 58.1rem;
-    border-radius: 2.4rem;
   }
 `
 
@@ -168,6 +177,15 @@ export const ButtonsBlock = styled.div`
   justify-content: stretch;
   flex-direction: column;
   margin-top: 30px;
+  text-align: center;
+
+  & svg {
+    transform: rotate(-180deg);
+  }
+
+  & button + button {
+    justify-content: center;
+  }
 
   @media ${device.laptopL} {
     display: none;
