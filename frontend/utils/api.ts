@@ -283,7 +283,7 @@ export interface SubscriberInterface {
 }
 
 export const createSubscriber = async (values: SubscriberInterface) => {
-  const res = await fetchAPI<string>('/subscribers', {
+  const res = await fetchAPI<{ subscribe: string }>('/subscribers', {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(values),

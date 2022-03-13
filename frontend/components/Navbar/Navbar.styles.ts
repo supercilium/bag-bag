@@ -104,7 +104,10 @@ export const Logo = styled.a`
 `
 
 export const BagContainer = styled.a`
-  position: relative;
+  & > span {
+    display: block;
+    position: relative;
+  }
 
   & b {
     position: absolute;
@@ -112,14 +115,14 @@ export const BagContainer = styled.a`
     height: 11px;
     line-height: 11px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.colors.pink};
+    /* background: ${({ theme }) => theme.colors.pink}; */
     display: flex;
     align-items: center;
     justify-content: center;
     font-style: normal;
     font-weight: normal;
-    bottom: 13px;
-    right: 12px;
+    bottom: 3px;
+    right: 1px;
   }
 
   @media ${device.laptopL} {
@@ -127,8 +130,8 @@ export const BagContainer = styled.a`
       width: 16px;
       height: 16px;
       line-height: 16px;
-      bottom: 25px;
-      right: 24px;
+      bottom: 5px;
+      right: 2px;
     }
   }
 `

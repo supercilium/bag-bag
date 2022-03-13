@@ -22,7 +22,9 @@ module.exports = {
       await strapi.plugins["email"].services.email.send(
         getSubscriberGreetingEmail(email)
       );
-      ctx.send("Подписка успешно оформлена. Проверьте пожалуйста почту.");
+      return ctx.send({
+        subscribe: "Подписка успешно оформлена. Проверьте, пожалуйста, почту.",
+      });
     } catch (error) {
       strapi.log.error(error);
     }
