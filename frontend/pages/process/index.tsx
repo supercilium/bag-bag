@@ -38,6 +38,14 @@ import { OrderFormValues, createOrder, checkPromoCode } from "../../utils/api";
 import { getTotalSumAndDiscount } from "../../utils/calculation";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import Arrow from "../../components/icons/arrow-simple-right.svg";
+import {
+  ERROR_UNKNOWN,
+  VALIDATION_EMAIL_FORMAT,
+  VALIDATION_PHONE_DIGITS,
+  VALIDATION_REQUIRED,
+} from "../../constants/errorMessages";
+import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
+import { toastError, toastSuccess } from "../../utils/toasts";
 
 /* TODO make dynamic value */
 const DELIVERY_COST = 1200;
@@ -56,7 +64,7 @@ const Process = () => {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
     setError,
     setValue,
@@ -72,6 +80,8 @@ const Process = () => {
       products: user?.shopping_bag?.products,
       total: totalSum,
       discount: totalDiscount,
+      shipping_date: undefined,
+      shipping_time: undefined,
     },
   });
 
@@ -86,6 +96,8 @@ const Process = () => {
       products: user?.shopping_bag?.products,
       total: totalSum,
       discount: totalDiscount,
+      shipping_date: undefined,
+      shipping_time: undefined,
     });
   }, [user, totalSum, totalDiscount, reset]);
 
@@ -118,11 +130,11 @@ const Process = () => {
   const onSubmit = async (values: OrderFormValues) => {
     try {
       const order = await createOrder(values);
-      console.log(order);
       await mutateUser();
       router.replace("/profile");
+      toastSuccess("Товар успешно оплачен. Ожидайте звонка менеджера.");
     } catch (err) {
-      console.log(err);
+      toastError(err?.message);
     }
   };
 
@@ -136,23 +148,29 @@ const Process = () => {
         }
         if ("id" in res) {
           setValue("promocode", res);
+          toastSuccess("Промокод успешно применён.");
         }
       } catch (err) {
-        console.log({ err });
         setError("promocode.code", { message: err?.message });
+        toastError(ERROR_UNKNOWN);
       }
     }
   };
 
   const handleClickNextButton = async () => {
-    await trigger(["address", "email", "phone", "shipping_date"]);
+    await trigger([
+      "address",
+      "email",
+      "phone",
+      "shipping_date",
+      "shipping_time",
+    ]);
 
     if (!Object.keys(errors).length) {
       setActiveTab("payment");
     }
   };
 
-  console.log(activeTab);
   return (
     <div>
       <Head>
@@ -181,17 +199,19 @@ const Process = () => {
                   <Input
                     label="Имя фамилия"
                     placeholder="Имя фамилия"
-                    {...register("last_name", { required: "Name is required" })}
+                    {...register("last_name", {
+                      required: VALIDATION_REQUIRED,
+                    })}
                     error={errors?.last_name?.message}
                   />
                   <Input
                     label="Эл. почта"
                     placeholder="Эл. почта"
                     {...register("email", {
-                      required: "Email is required",
+                      required: VALIDATION_REQUIRED,
                       pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: "invalid email address",
+                        value: REGEXP_EMAIL,
+                        message: VALIDATION_EMAIL_FORMAT,
                       },
                     })}
                     error={errors?.email?.message}
@@ -226,7 +246,13 @@ const Process = () => {
                   <Input
                     label="Телефон"
                     placeholder="+7 ____ ___-__-__"
-                    {...register("phone", { required: "Phone is required" })}
+                    {...register("phone", {
+                      required: VALIDATION_REQUIRED,
+                      pattern: {
+                        value: REGEXP_PHONE,
+                        message: VALIDATION_PHONE_DIGITS,
+                      },
+                    })}
                     error={errors?.phone?.message}
                   />
                 </ProcessRow>
@@ -238,7 +264,7 @@ const Process = () => {
                         {...register("address", {
                           required:
                             shippingMethod === "shipping" &&
-                            "Address is required",
+                            VALIDATION_REQUIRED,
                         })}
                         error={errors?.address?.message}
                       />
@@ -246,19 +272,21 @@ const Process = () => {
                     <ProcessRow>
                       <Input
                         placeholder="Дата"
+                        type="date"
                         {...register("shipping_date", {
                           required:
                             shippingMethod === "shipping" &&
-                            "Address is required",
+                            VALIDATION_REQUIRED,
                         })}
                         error={errors?.shipping_date?.message}
                       />
                       <Input
                         placeholder="Время"
-                        {...register("shipping_date", {
+                        type="time"
+                        {...register("shipping_time", {
                           required:
                             shippingMethod === "shipping" &&
-                            "Address is required",
+                            VALIDATION_REQUIRED,
                         })}
                         error={errors?.shipping_date?.message}
                       />
@@ -294,25 +322,53 @@ const Process = () => {
                   </div>
                 </LaptopLVisible>
               </Box>
+              <SummaryRow>
+                <ProcessRow>
+                  <Input
+                    placeholder="Промокод"
+                    value={promocodeString}
+                    onChange={({ currentTarget }) =>
+                      setPromocodeString(currentTarget.value)
+                    }
+                    onBlur={() => handleCheckPromocode()}
+                    error={errors?.promocode?.code?.message}
+                  />
+                  <PriceSummary>
+                    <span>сумма скидки</span>
+                    <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
+                    <span>Итого к оплате </span>
+                    <span>{formatSum(total - totalDiscount, "₽")}</span>
+                  </PriceSummary>
+                </ProcessRow>
+                <Button
+                  disabled={!isValid}
+                  onClick={handleSubmit(onSubmit)}
+                  $size="s"
+                >
+                  оплатить
+                </Button>
+              </SummaryRow>
             </div>
             <PaymentBlock>
-              <Box>
-                <p className="subtitle">Оплата</p>
-                <div>
-                  <RadioButton
-                    value="card"
-                    labelText={<span>Банковской картой</span>}
-                    {...register("paymentMethod")}
-                    error={errors?.paymentMethod?.message}
-                  />
-                  <RadioButton
-                    value="cash"
-                    labelText="Оплата наличными или при получении в шоуруме"
-                    {...register("paymentMethod")}
-                    error={errors?.paymentMethod?.message}
-                  />
-                </div>
-              </Box>
+              {activeTab === "payment" && (
+                <Box>
+                  <p className="subtitle">Оплата</p>
+                  <div>
+                    <RadioButton
+                      value="card"
+                      labelText={<span>Банковской картой</span>}
+                      {...register("paymentMethod")}
+                      error={errors?.paymentMethod?.message}
+                    />
+                    <RadioButton
+                      value="cash"
+                      labelText="Оплата наличными или при получении в шоуруме"
+                      {...register("paymentMethod")}
+                      error={errors?.paymentMethod?.message}
+                    />
+                  </div>
+                </Box>
+              )}
             </PaymentBlock>
             <SummaryRow>
               <ProcessRow>
@@ -332,23 +388,29 @@ const Process = () => {
                   <span>{formatSum(total - totalDiscount, "₽")}</span>
                 </PriceSummary>
               </ProcessRow>
-              <LaptopLVisible>
-                <Button onClick={handleSubmit(onSubmit)} $size="s">
-                  оплатить
-                </Button>
-                <ButtonText
-                  type="button"
-                  onClick={() => setActiveTab("payment")}
-                >
-                  <Arrow width="22" height="22" />
-                  Вернуться назад
-                </ButtonText>
-              </LaptopLVisible>
+              <ButtonsBlock>
+                {activeTab === "payment" && (
+                  <>
+                    <Button onClick={handleSubmit(onSubmit)} $size="s">
+                      оплатить
+                    </Button>
+                    <ButtonText
+                      type="button"
+                      onClick={() => setActiveTab("shipping")}
+                    >
+                      <Arrow width="22" height="22" />
+                      Вернуться назад
+                    </ButtonText>
+                  </>
+                )}
+              </ButtonsBlock>
             </SummaryRow>
             <ButtonsBlock>
-              <Button onClick={handleClickNextButton} type="button" $size="s">
-                далее
-              </Button>
+              {activeTab === "shipping" && (
+                <Button onClick={handleClickNextButton} type="button" $size="s">
+                  далее
+                </Button>
+              )}
             </ButtonsBlock>
             <ProductsList>
               {shopping_bag?.products?.length > 0 &&

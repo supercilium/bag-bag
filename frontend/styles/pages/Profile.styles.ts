@@ -3,7 +3,7 @@ import styled, { DefaultTheme } from "styled-components";
 import { device } from "../constants";
 import { Icon } from "../../components/InfoBlock/InfoBlock.styles";
 
-export const ProfileRoot = styled.div`
+export const ProfileRoot = styled.form`
   margin-bottom: 12rem;
   
   @media ${device.laptopL} {
@@ -15,9 +15,10 @@ export const ProfileRoot = styled.div`
 
 export const InfoTab = styled.div`
   padding: 1.8rem;
+  display: grid;
+  grid-gap: 20px;
 
   @media ${device.laptopL} {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 3.6rem;
     padding: 0;
@@ -155,4 +156,10 @@ export const PreviousPrice = styled.div`
 
 export const StatusHighlight = styled.div<{ highlight?: keyof DefaultTheme['colors'] }>`
   color: ${({ highlight, theme }) => theme.colors[highlight]};
+`
+
+export const NoOrders = styled.p`
+  ${primaryText};
+  text-align: center;
+  color: ${({ theme }) => theme.colors.grey2};
 `

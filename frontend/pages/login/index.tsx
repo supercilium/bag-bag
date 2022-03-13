@@ -17,6 +17,11 @@ import {
   Tab,
   Tabs,
 } from "../../styles/pages/Login.styles";
+import {
+  VALIDATION_EMAIL_FORMAT,
+  VALIDATION_REQUIRED,
+} from "../../constants/errorMessages";
+import { REGEXP_EMAIL } from "../../constants/regex";
 
 const Login = () => {
   const [activeTabLogin, setActiveTab] = useState(true);
@@ -63,7 +68,7 @@ const Login = () => {
           email: data.email,
           identifier: data.email,
           username: data.email,
-          name: data.name,
+          last_name: data.last_name,
           password: data.password,
         })
       );
@@ -99,10 +104,10 @@ const Login = () => {
               <Input
                 placeholder="Введите эл. почту"
                 {...register("email", {
-                  required: "Email is required",
+                  required: VALIDATION_REQUIRED,
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "invalid email address",
+                    value: REGEXP_EMAIL,
+                    message: VALIDATION_EMAIL_FORMAT,
                   },
                 })}
                 error={errors?.email?.message}
@@ -111,7 +116,7 @@ const Login = () => {
                 type="password"
                 placeholder="Пароль"
                 {...register("password", {
-                  required: "Password is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.password?.message}
               />
@@ -121,16 +126,16 @@ const Login = () => {
             <FormRoot onSubmit={handleSubmit(onSubmitRegister)} noValidate>
               <Input
                 placeholder="Имя Фамилия"
-                {...register("name", { required: "Name is required" })}
-                error={errors?.name?.message}
+                {...register("last_name", { required: VALIDATION_REQUIRED })}
+                error={errors?.last_name?.message}
               />
               <Input
                 placeholder="Эл. почта"
                 {...register("email", {
-                  required: "Email is required",
+                  required: VALIDATION_REQUIRED,
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "invalid email address",
+                    value: REGEXP_EMAIL,
+                    message: VALIDATION_EMAIL_FORMAT,
                   },
                 })}
                 error={errors?.email?.message}
@@ -139,7 +144,7 @@ const Login = () => {
                 type="password"
                 placeholder="Пароль"
                 {...register("password", {
-                  required: "Password is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.password?.message}
               />

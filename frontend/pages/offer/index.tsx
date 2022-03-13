@@ -30,6 +30,14 @@ import Check from "../../components/icons/check-outline.svg";
 import { useDimensions } from "../../hooks/useDimensions";
 import { size } from "../../styles/constants";
 import { formatSum } from "../../utils/formatters";
+import {
+  ERROR_UNKNOWN,
+  VALIDATION_EMAIL_FORMAT,
+  VALIDATION_PHONE_DIGITS,
+  VALIDATION_REQUIRED,
+} from "../../constants/errorMessages";
+import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
+import { toastError, toastSuccess } from "../../utils/toasts";
 
 interface OfferProps {
   filters: Filters;
@@ -110,9 +118,13 @@ const Offer: FC<OfferProps> = ({ filters }) => {
       const res = await createRequest(formData);
       if ("id" in res) {
         setActiveTab("result");
+        toastSuccess("Товар успешно отправлен. Ожидайте звонка менеджера.");
+      }
+      if ("message" in res) {
+        toastError(res.message);
       }
     } catch (error) {
-      console.log(error);
+      toastError(ERROR_UNKNOWN);
     } finally {
       setIsLoading(false);
     }
@@ -149,7 +161,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                   </option>
                 ))}
                 name="brand"
-                {...register("data.brand", { required: "Name is required" })}
+                {...register("data.brand", { required: VALIDATION_REQUIRED })}
                 error={errors?.data?.brand?.message}
               />
               <Select
@@ -161,7 +173,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                   </>
                 }
                 {...register("data.condition", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.data?.condition?.message}
               />
@@ -171,7 +183,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                 label="Модель"
                 placeholder="Введите модель сумки"
                 {...register("data.model", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.data?.model?.message}
               />
@@ -180,7 +192,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                 placeholder="Введите сумму"
                 type="number"
                 {...register("data.price", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                   min: 0,
                 })}
                 error={errors?.data?.price?.message}
@@ -190,23 +202,29 @@ const Offer: FC<OfferProps> = ({ filters }) => {
               <Input
                 label="Ваше имя"
                 placeholder="Введите имя"
-                {...register("data.name", { required: "Name is required" })}
+                {...register("data.name", { required: VALIDATION_REQUIRED })}
                 error={errors?.data?.name?.message}
               />
               <Input
                 label="Ваш телефон"
                 placeholder="+7 _____ ____-__-__"
-                {...register("data.phone", { required: "Name is required" })}
+                {...register("data.phone", {
+                  required: VALIDATION_REQUIRED,
+                  pattern: {
+                    value: REGEXP_PHONE,
+                    message: VALIDATION_PHONE_DIGITS,
+                  },
+                })}
                 error={errors?.data?.phone?.message}
               />
               <Input
                 label="Ваш email"
                 placeholder="Введите email"
                 {...register("data.email", {
-                  required: "Email is required",
+                  required: VALIDATION_REQUIRED,
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "invalid email address",
+                    value: REGEXP_EMAIL,
+                    message: VALIDATION_EMAIL_FORMAT,
                   },
                 })}
                 error={errors?.data?.email?.message}
@@ -244,21 +262,21 @@ const Offer: FC<OfferProps> = ({ filters }) => {
               <FileInput
                 labelText="серийный номер*"
                 {...register("files.photo_serial_number", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_serial_number?.message}
               />
               <FileInput
                 labelText="логотип*"
                 {...register("files.photo_logo_inside", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_logo_inside?.message}
               />
               <FileInput
                 labelText="внутри*"
                 {...register("files.photo_inside", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_inside?.message}
               />
@@ -268,42 +286,42 @@ const Offer: FC<OfferProps> = ({ filters }) => {
               <FileInput
                 labelText="спереди*"
                 {...register("files.photo_front", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_front?.message}
               />
               <FileInput
                 labelText="сзади*"
                 {...register("files.photo_back", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_back?.message}
               />
               <FileInput
                 labelText="сбоку*"
                 {...register("files.photo_side", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_side?.message}
               />
               <FileInput
                 labelText="снизу*"
                 {...register("files.photo_bottom", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_bottom?.message}
               />
               <FileInput
                 labelText="замок*"
                 {...register("files.photo_fastener", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_fastener?.message}
               />
               <FileInput
                 labelText="логотип*"
                 {...register("files.photo_logo", {
-                  required: "Name is required",
+                  required: VALIDATION_REQUIRED,
                 })}
                 error={errors?.files?.photo_logo?.message}
               />

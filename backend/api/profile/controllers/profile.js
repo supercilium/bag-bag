@@ -341,6 +341,22 @@ module.exports = {
         return ctx.badRequest("No products found");
       }
     }
+    let shoppingBagId = userFromContext.shopping_bag?.id;
+
+    if (typeof shoppingBagId === "undefined" || shoppingBagId === null) {
+      await strapi.plugins["users-permissions"].services.user.edit(
+        { id: userFromContext.id },
+        {
+          shopping_bag: {
+            product_id: id,
+          },
+        }
+      );
+      shoppingBagId = await strapi.plugins[
+        "users-permissions"
+      ].services.user.fetch({ id: userFromContext.id }, ["shopping_bag"])
+        ?.shopping_bag.id;
+    }
 
     const knex = strapi.connections.default;
 

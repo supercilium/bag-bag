@@ -13,7 +13,7 @@ module.exports = {
     const { email } = ctx.request.body;
     const existingSub = await strapi.services.subscriber.findOne({ email });
     if (existingSub) {
-      return ctx.badRequest("Email is already used");
+      return ctx.badRequest("Пользователь с такой почтой уже существует.");
     }
 
     await strapi.services.subscriber.create(ctx.request.body);
@@ -22,7 +22,7 @@ module.exports = {
       await strapi.plugins["email"].services.email.send(
         getSubscriberGreetingEmail(email)
       );
-      ctx.send("Subscribed");
+      ctx.send("Подписка успешно оформлена. Проверьте пожалуйста почту.");
     } catch (error) {
       strapi.log.error(error);
     }
