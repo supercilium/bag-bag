@@ -75,8 +75,10 @@ export const Navbar = ({ filters }) => {
             </Link>
             <Link href="/cart">
               <BagContainer>
-                <Bag height="40" width="40" />
-                <b>{user?.shopping_bag?.products?.length}</b>
+                <span>
+                  <Bag height="40" width="40" />
+                  <b>{user?.shopping_bag?.products?.length}</b>
+                </span>
               </BagContainer>
             </Link>
           </NavbarActions>
