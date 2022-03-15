@@ -16,7 +16,7 @@ import {
   ResultRow,
   ImageGrid,
 } from "../../styles/pages/Offer.styles";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import useUser from "../../hooks/useUser";
 import { RequestBagInterface } from "../../types/request";
 import { FC, useEffect, useState } from "react";
@@ -58,6 +58,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
     trigger,
     getValues,
     formState: { errors },
+    control,
   } = useForm<RequestBagInterface>({
     shouldFocusError: false,
     defaultValues: {
@@ -108,7 +109,14 @@ const Offer: FC<OfferProps> = ({ filters }) => {
   const onSubmit: SubmitHandler<RequestBagInterface> = async (values) => {
     setIsLoading(true);
     const formData = new FormData();
-    formData.append("data", JSON.stringify(values.data));
+    formData.append(
+      "data",
+      JSON.stringify({
+        ...values.data,
+        brand: +values.data.brand.value,
+        condition: values.data.condition.value,
+      })
+    );
 
     for (const key in values.files) {
       formData.append(`files.${key}`, values.files[key][0]);
@@ -153,29 +161,40 @@ const Offer: FC<OfferProps> = ({ filters }) => {
         <div>
           <Box>
             <OfferRow>
-              <Select
-                label="Бренд"
-                options={filters.brands.map((brand) => (
-                  <option key={brand.id} value={brand.id}>
-                    {brand.name}
-                  </option>
-                ))}
-                name="brand"
-                {...register("data.brand", { required: VALIDATION_REQUIRED })}
-                error={errors?.data?.brand?.message}
+              <Controller
+                control={control}
+                name="data.brand"
+                rules={{ required: VALIDATION_REQUIRED }}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    label="Бренд"
+                    placeholder="Выберите бренд"
+                    options={filters.brands.map((brand) => ({
+                      value: "" + brand.id,
+                      label: brand.name,
+                    }))}
+                    // {...register("data.brand", { required: VALIDATION_REQUIRED })}
+                    error={errors?.data?.brand?.value?.message}
+                  />
+                )}
               />
-              <Select
-                label="Состояние"
-                options={
-                  <>
-                    <option value="new">new</option>
-                    <option value="ex">ex</option>
-                  </>
-                }
-                {...register("data.condition", {
-                  required: VALIDATION_REQUIRED,
-                })}
-                error={errors?.data?.condition?.message}
+              <Controller
+                control={control}
+                name="data.condition"
+                rules={{ required: VALIDATION_REQUIRED }}
+                render={({ field }) => (
+                  <Select
+                    label="Состояние"
+                    placeholder="Выберите"
+                    {...field}
+                    options={[
+                      { value: "new", label: "new" },
+                      { value: "ex", label: "ex" },
+                    ]}
+                    error={errors?.data?.condition?.value?.message}
+                  />
+                )}
               />
             </OfferRow>
             <OfferRow>
@@ -359,12 +378,13 @@ const Offer: FC<OfferProps> = ({ filters }) => {
             <Box>
               <ResultRow>
                 {
-                  filters.brands?.find(({ id }) => id === values?.data?.brand)
-                    ?.name
+                  filters.brands?.find(
+                    ({ id }) => id === +values?.data?.brand?.value
+                  )?.name
                 }
               </ResultRow>
               <ResultRow>
-                {values?.data?.condition === "ex"
+                {values?.data?.condition?.value === "ex"
                   ? "Б/У"
                   : "Отличное состояние"}
               </ResultRow>

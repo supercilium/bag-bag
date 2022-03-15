@@ -3,9 +3,9 @@ import { ProductInterface } from "./product";
 export interface RequestBagInterface {
     data: {
         commentary?: string;
-        brand: number;
+        brand: { value: number };
         model: string;
-        condition: ProductInterface['condition'];
+        condition: { value: ProductInterface['condition'] };
         price: number;
         status: 'new' | 'confirmed' | 'refused';
         name: string;

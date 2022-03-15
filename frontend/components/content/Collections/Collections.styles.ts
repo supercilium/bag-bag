@@ -3,7 +3,7 @@ import { device } from "../../../styles/constants";
 import { Button } from "../../Button";
 
 export const CollectionList = styled.div`
-  margin-top: 5rem;
+  margin: 5rem 0 11rem;
   width: 100%;
   
   @media ${device.laptopL} {
