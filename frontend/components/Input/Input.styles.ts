@@ -9,6 +9,15 @@ export const InputRoot = styled.input`
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   height: 6.3rem;
+  font-size: 18px;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus {
+    border-bottom: 1px solid ${({ theme }) => theme.colors.green};
+  }
 `;
 
 export const InputBlock = styled.div<{ $hasError: boolean }>`

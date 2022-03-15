@@ -61,13 +61,13 @@ export const Navbar = ({ filters }) => {
             </Link>
           </NavbarLinks>
           <NavbarActions>
-            <LaptopLVisible>
+            {/* <LaptopLVisible>
               <Link href="/">
                 <a>
                   <Search height="36" width="36" />
                 </a>
               </Link>
-            </LaptopLVisible>
+            </LaptopLVisible> */}
             <Link href="/profile">
               <a>
                 <Profile />

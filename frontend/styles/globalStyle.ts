@@ -100,9 +100,11 @@ export const GlobalStyle = createGlobalStyle`
 
   .Toastify__toast--success {
     border: 1px solid ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.green};
   }
   .Toastify__toast--error {
     border: 1px solid ${({ theme }) => theme.colors.red};
+    color: ${({ theme }) => theme.colors.red};
   }
   .Toastify__toast-body {
     padding: 0;
