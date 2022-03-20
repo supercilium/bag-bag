@@ -8,7 +8,9 @@ const { sanitizeEntity } = require("strapi-utils");
 
 module.exports = {
   async find(ctx) {
-    const entity = await strapi.services.promotion.find(ctx.query, [
+    // eslint-disable-next-line no-unused-vars
+    const { slug, ...query } = ctx.query;
+    const entity = await strapi.services.promotion.find(query, [
       "products.brand",
       "products.images",
       "banner",

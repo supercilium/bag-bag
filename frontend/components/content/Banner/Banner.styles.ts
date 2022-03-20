@@ -35,6 +35,10 @@ export const BannerImage = styled.div<{ $url: string }>`
     display: none;
   }
 
+  & > h2 {
+    margin: 0;
+  }
+
   @media ${device.laptopL} {
     padding: 4.4rem 6.6rem;
     align-items: flex-start;
