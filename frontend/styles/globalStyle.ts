@@ -40,7 +40,6 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 500;
     font-size: 48px;
     line-height: 89%;
-    margin: 0;
 
     letter-spacing: -0.005em;
   }
