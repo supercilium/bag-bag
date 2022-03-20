@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { device, TRANSITION } from "../../styles/constants";
-import { Container } from "../../styles/layout";
+import { device, TRANSITION } from "../../../styles/constants";
+import { Container } from "../../../styles/layout";
 
 export const BannerRoot = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
@@ -8,15 +8,9 @@ export const BannerRoot = styled.div`
 
 export const BannerContainer = styled.div`
   height: 89.8rem;
-  display: flex;
+  position: relative;
+  /* display: flex; */
   ${Container}
-`;
-
-export const BannerImageContainer = styled.div`
-  padding: 1.4rem;
-  border-right: 1px solid ${({ theme }) => theme.colors.black};
-  display: flex;
-  width: 100%;
 `;
 
 export const BannerImage = styled.div<{ $url: string }>`
@@ -29,18 +23,28 @@ export const BannerImage = styled.div<{ $url: string }>`
   background-size: auto, auto, auto, cover, auto;
   background-position-x: center;
   color: ${({ theme }) => theme.colors.white};
-  padding: 4.4rem 6.6rem;
+  padding: 21px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
+  align-items: stretch;
+  height: 100%;
+  border: 1.4rem solid ${({ theme }) => theme.colors.white};
 
   & > div {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: flex-end;
+    display: none;
+  }
+
+  @media ${device.laptopL} {
+    padding: 4.4rem 6.6rem;
+    align-items: flex-start;
+
+    & > div {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
   }
 `;
 
@@ -49,6 +53,9 @@ export const BannerActions = styled.div`
 
   @media ${device.laptopL} {
     display: flex;
+    position: absolute;
+    bottom: 9rem;
+    right: 9rem;
 
     & button + button {
       margin-left: 3rem;
@@ -56,15 +63,22 @@ export const BannerActions = styled.div`
   }
 `;
 
-export const BannerAside = styled.div`
-  display: none;
+export const BannerDot = styled.li<{ active: boolean }>`
+  transform: rotate(-90deg);
+  background-color: ${({ theme }) => theme.colors.white};
+  z-index: 1;
 
-  @media ${device.laptopL} {
-    display: flex;
-    width: 8.8rem;
-    flex-shrink: 0;
+  & button {
+    border: none;
+    padding: 0;
+    background-color: unset;
+    transition: font ${TRANSITION};
+    font-size: ${({ active }) => active ? '1.8rem' : '1.2rem'};
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: ${({ active, theme }) => active ? theme.colors.green : theme.colors.black};
   }
-`;
+`
 
 export const BrandsBlock = styled.div`
   position: relative;

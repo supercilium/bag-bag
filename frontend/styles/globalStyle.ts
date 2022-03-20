@@ -38,8 +38,9 @@ export const GlobalStyle = createGlobalStyle`
   }
   h1, .h1 {
     font-weight: 500;
-    font-size: 4.5rem;
+    font-size: 48px;
     line-height: 89%;
+    margin: 0;
 
     letter-spacing: -0.005em;
   }
@@ -111,6 +112,21 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 
+  .banner {
+    /* padding: 1.4rem; */
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  .dot-list {
+    display: none;
+  }
+
+  .item-class {
+    width: calc(100vw - 8.8rem);
+  }
+
   @media ${device.laptopL} {
     h1, .h1 {
       font-size: 12.9rem;
@@ -132,6 +148,35 @@ export const GlobalStyle = createGlobalStyle`
       line-height: 140%;
       letter-spacing: 0.03em;
     }
+    .banner {
+      border-right: 1px solid ${({ theme }) => theme.colors.black};
+      width: calc(100vw - 8.8rem);
+    }
+    .dot-list {
+      display: flex;
+      width: 8.8rem;
+      flex-shrink: 0;
+      background-color: ${({ theme }) => theme.colors.white};
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: auto;
+      flex-direction: column-reverse;
+      justify-content: space-between;
+      padding: 9rem 0;
+
+      &:after {
+        content: '';
+        width: 1px;
+        background-color: ${({ theme }) => theme.colors.black};
+        position: absolute;
+        right: 50%;
+        top: 9rem;
+        bottom: 9rem;
+      }
+    }
+
+
   }
 
   @media ${device.wide} {

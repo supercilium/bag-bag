@@ -1,12 +1,17 @@
 import Head from "next/head";
 import React, { FC } from "react";
-import { Banner } from "../components/Banner";
-import { getBrandsWithCounts, getCollections, getProducts } from "../utils/api";
+import {
+  getBrandsWithCounts,
+  getCollections,
+  getProducts,
+  getPromotions,
+} from "../utils/api";
 import {
   Collections,
   NewArrivals,
   QualityAssurance,
   Sell,
+  Banner,
 } from "../components/content";
 import { Subscribe } from "../components/content/Subscribe";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -15,18 +20,21 @@ import { ProductInterface } from "../types/product";
 import { BrandWithCount } from "../types/brand";
 import { CollectionInterface } from "../types/collection";
 import { SSRConfig } from "next-i18next";
+import { PromotionInterface } from "../types/promotion";
+import "react-multi-carousel/lib/styles.css";
 
 const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   products,
   brandsWithCounts,
   collections,
+  promotions,
 }) => {
   return (
     <div>
       <Head>
         <title>(ex)bags</title>
       </Head>
-      <Banner brandsWithCounts={brandsWithCounts} />
+      <Banner promotions={promotions} brandsWithCounts={brandsWithCounts} />
       <NewArrivals products={products} />
       <Collections items={collections} />
       <Sell />
@@ -40,6 +48,7 @@ interface HomePageInterface extends SSRConfig {
   products: ProductInterface[];
   brandsWithCounts: BrandWithCount[];
   collections: CollectionInterface[];
+  promotions: PromotionInterface[];
 }
 
 export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
@@ -50,6 +59,10 @@ export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
     _limit: "3",
     _sort: "created_at:DESC",
   });
+  const promotions = await getPromotions({
+    _limit: "4",
+    _sort: "created_at:DESC",
+  });
   const brandsWithCounts = await getBrandsWithCounts();
   const locales = await serverSideTranslations(locale, ["common", "footer"]);
   return {
@@ -57,6 +70,7 @@ export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
       products,
       brandsWithCounts,
       collections,
+      promotions,
       ...locales,
     },
   };

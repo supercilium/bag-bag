@@ -6,6 +6,7 @@ import { CommonProps, ErrorRequest, Filters } from "../types/common";
 import { OrderInterface } from "../types/order";
 import { ProductInterface } from "../types/product";
 import { PromocodeInterface } from "../types/promocode";
+import { PromotionInterface } from "../types/promotion";
 import { AuthResponse, User } from "../types/user";
 import { getAsString } from "./formatters";
 
@@ -141,6 +142,12 @@ export async function getCollections(query?: ParsedUrlQuery) {
   const querystring = getAsString(query)
   const res = await fetchAPI<CollectionInterface[]>(`/collections${querystring}`);
   return res as CollectionInterface[];
+}
+
+export async function getPromotions(query?: ParsedUrlQuery) {
+  const querystring = getAsString(query)
+  const res = await fetchAPI<PromotionInterface[]>(`/promotions${querystring}`);
+  return res as PromotionInterface[];
 }
 
 export async function getProfile(token: string) {

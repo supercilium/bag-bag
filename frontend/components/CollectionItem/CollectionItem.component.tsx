@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   CollectionBanner,
   CollectionItemRoot,
@@ -34,10 +34,10 @@ export const CollectionItem: React.FC<CollectionItemProps> = ({
           </ImageContainer>
           <TagColumn>
             {[0, 1, 2, 3, 4].map((key) => (
-              <>
+              <Fragment key={key}>
                 <Leto width="22" height="22" />
                 <span key={key}>{item.season}</span>
-              </>
+              </Fragment>
             ))}
           </TagColumn>
         </CollectionBanner>
