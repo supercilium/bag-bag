@@ -112,10 +112,7 @@ export const Banner: React.FC<BannerProps> = ({
             customButtonGroup={<BannerButtons />}
           >
             {promotions?.map((promo) => (
-              <BannerImage
-                key={promo.id}
-                $url={getStrapiURL(promo?.banner?.url)}
-              >
+              <BannerImage key={promo.id} $url={promo?.banner?.url}>
                 <h2 className="h1">{promo.name}</h2>
                 <div>
                   <Star />

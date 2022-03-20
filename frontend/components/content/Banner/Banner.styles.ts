@@ -39,6 +39,10 @@ export const BannerImage = styled.div<{ $url: string }>`
     padding: 4.4rem 6.6rem;
     align-items: flex-start;
 
+    & > button {
+      display: none;
+    }
+
     & > div {
       display: flex;
       width: 100%;
