@@ -118,6 +118,10 @@
     "collections": {
       "via": "products",
       "collection": "collection"
+    },
+    "promotions": {
+      "via": "products",
+      "collection": "promotion"
     }
   }
 }

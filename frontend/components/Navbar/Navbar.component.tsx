@@ -39,7 +39,7 @@ export const Navbar = ({ filters }) => {
         isOpen={isOpen}
         onClick={() => setOpenedState((prev) => !prev)}
       />
-      <NavbarRoot>
+      <NavbarRoot id="top-menu">
         <NavbarContainer>
           <Link href="/">
             <Logo>

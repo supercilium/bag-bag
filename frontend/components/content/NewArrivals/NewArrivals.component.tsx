@@ -7,7 +7,6 @@ import { ProductInterface } from "../../../types/product";
 import { useDimensions } from "../../../hooks/useDimensions";
 import { size } from "../../../styles/constants";
 import { CarouselButtonGroup } from "../../CarouselButtonGroup";
-import "react-multi-carousel/lib/styles.css";
 
 export interface NewArrivalsProps {
   products: ProductInterface[];

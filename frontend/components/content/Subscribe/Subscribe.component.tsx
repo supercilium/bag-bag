@@ -52,7 +52,7 @@ export const Subscribe: React.FC = () => {
 
   return (
     <SubscribeBlock onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="h1">введите email для подписки НА выгодные акции</h2>
+      <h2 className="h4">подпишитесь, чтобы не пропустить выгодные акции</h2>
       <div>
         <Input
           {...register("email", {
