@@ -17,7 +17,7 @@ export const FavoriteRoot = styled.div`
   justify-items: space-between;
 
   & ${HidingPurchaseButtons} {
-      display: grid;
+      display: flex;
   }
 
 
@@ -33,7 +33,7 @@ export const FavoriteRoot = styled.div`
       border-color: ${({ theme }) => theme.colors.black};
   
       ${HidingPurchaseButtons} {
-        display: grid;
+        display: flex;
       }
     }
   }

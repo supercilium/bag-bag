@@ -22,7 +22,7 @@ export const ItemRoot = styled.div`
   cursor: pointer;
 
   &:hover ${HidingPurchaseButtons} {
-    display: grid;
+    display: flex;
   }
 
   @media ${device.laptopL} {
