@@ -23,7 +23,7 @@ export const BigButton = styled(Button)`
   margin-top: 80px;
 
   & > svg {
-    margin-top: 7px;
+    margin-top: 14px;
   }
 
   @media ${device.laptopL} {

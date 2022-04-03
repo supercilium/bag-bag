@@ -46,7 +46,7 @@ export const QualityAssurance: React.FC = (props) => {
             </p>
           </QualityAssuranceContent>
         </div>
-        <Link href="/offer">
+        <Link href="/offer" passHref>
           <Button>подробнее</Button>
         </Link>
       </ContentBlock>

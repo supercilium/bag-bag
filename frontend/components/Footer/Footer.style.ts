@@ -43,6 +43,7 @@ export const FooterBottom = styled.div`
 
   @media ${device.laptopL} {
     height: 8.9rem;
+    gap: 6.3rem;
     border-top: 1px solid ${({ theme }) => theme.colors.white};
     display: flex;
     align-items: center;
@@ -57,7 +58,6 @@ export const FooterTop = styled.div`
 
 export const FooterLink = styled.a`
   ${subtitle}
-  margin-right: 6.3rem;
   transition: color ${TRANSITION};
   color: ${({ theme }) => theme.colors.white};
 
@@ -119,24 +119,30 @@ export const Copyright = styled.span`
 `;
 
 export const InfoBlock = styled.div`
-  & > div {
+  gap : 8px;
+  display: flex;
+  flex-direction: column;
+
+  & > a {
+    color: ${({ theme }) => theme.colors.white};
     font-size: 24px;
     line-height: 110%;
   }
 
-  & > div + div {
-    margin-top: 8px;
+  & a[href*="mailto"] {
+    font-weight: normal;
+  }
+  & a[href*="tel"] {
+    font-weight: 500;
   }
 
   @media ${device.laptopL} {
     flex-basis: 46rem;
     margin-right: 6rem;
+    gap: 0;
 
-    & > div {
+    & > a {
       font-size: 4.8rem;
-    }
-    & > div + div {
-     margin-top: 0;
     }
   }
 `;

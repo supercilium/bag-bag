@@ -1,23 +1,23 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import {
   BannerActions,
   BannerContainer,
   BannerDot,
   BannerImage,
   BannerRoot,
+  BrandItem,
   BrandsBlock,
   BrandsLine,
-  FloatingImage,
+  Root,
 } from "./Banner.styles";
 import { Button } from "../../Button";
-import Star from "../../icons/star2.svg";
+import Star from "../../icons/star3.svg";
 import Arrow from "../../icons/arrow-big-right.svg";
-import NextImage from "../../Image";
 import { BrandWithCount } from "../../../types/brand";
 import Link from "next/link";
 import { PromotionInterface } from "../../../types/promotion";
 import MultiCarousel, { CarouselInternalState } from "react-multi-carousel";
-import { getStrapiURL } from "../../../utils/api";
+import { chunk } from "lodash-es";
 
 export interface BannerProps {
   brandsWithCounts: BrandWithCount[];
@@ -76,7 +76,10 @@ export const Banner: React.FC<BannerProps> = ({
           <Button $round onClick={() => next?.()}>
             <Arrow height="54" width="54" />
           </Button>
-          <Link href={`/promotions?slug=${promotions?.[currentSlide]?.slug}`}>
+          <Link
+            href={`/promotions?slug=${promotions?.[currentSlide]?.slug}`}
+            passHref
+          >
             <Button>подробнее</Button>
           </Link>
         </BannerActions>
@@ -85,8 +88,13 @@ export const Banner: React.FC<BannerProps> = ({
     [promotions]
   );
 
+  const brandRows = useMemo(
+    () => chunk(brandsWithCounts, Math.ceil(brandsWithCounts.length / 3)),
+    [brandsWithCounts]
+  );
+
   return (
-    <>
+    <Root>
       <BannerRoot>
         <BannerContainer>
           <MultiCarousel
@@ -95,7 +103,7 @@ export const Banner: React.FC<BannerProps> = ({
             draggable={false}
             showDots={true}
             ssr={true} // means to render carousel on server-side.
-            infinite={false}
+            infinite={true}
             autoPlay={false}
             autoPlaySpeed={100000}
             keyBoardControl={true}
@@ -115,9 +123,9 @@ export const Banner: React.FC<BannerProps> = ({
               <BannerImage key={promo.id} $url={promo?.banner?.url}>
                 <h2 className="h1">{promo.name}</h2>
                 <div>
-                  <Star />
+                  <Star height={345} width={367} />
                 </div>
-                <Link href={`/promotions?slug=${promo.slug}`}>
+                <Link href={`/promotions?slug=${promo.slug}`} passHref>
                   <Button $size="m">подробнее</Button>
                 </Link>
               </BannerImage>
@@ -126,29 +134,23 @@ export const Banner: React.FC<BannerProps> = ({
         </BannerContainer>
       </BannerRoot>
       <BrandsBlock>
-        <FloatingImage>
-          <NextImage src="/floating-bag.png" width="330" height="330" />
-        </FloatingImage>
-        {[1, 2, 3].map((row) => (
-          <BrandsLine
-            key={row}
-            style={{ transform: `translateX(-${row * 300}px)` }}
-            className="h3"
-          >
-            {brandsWithCounts?.map((brand) => (
+        {brandRows.map((row, i) => (
+          <BrandsLine key={i} className="h3">
+            {row?.map((brand) => (
               <Link
                 href={`/catalogue?brand.id=${brand.id}&_sort=views:DESC`}
                 key={brand.id}
+                passHref
               >
-                <span>
+                <BrandItem $preview={brand?.preview?.thumbnail?.url}>
                   {brand.name}
                   {brand.products > 0 && <sup>{brand.products}</sup>}
-                </span>
+                </BrandItem>
               </Link>
             ))}
           </BrandsLine>
         ))}
       </BrandsBlock>
-    </>
+    </Root>
   );
 };

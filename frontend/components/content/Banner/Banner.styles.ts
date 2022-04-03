@@ -93,7 +93,6 @@ export const BrandsBlock = styled.div`
   height: 66.3rem;
   padding: 19rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-  overflow: hidden;
   max-width: 100%;
 `;
 
@@ -105,6 +104,7 @@ export const BrandsLine = styled.div`
     position: relative;
     cursor: pointer;
     transition: color ${TRANSITION};
+    letter-spacing: 0.07em;
   }
 
   & span:hover {
@@ -155,3 +155,35 @@ export const FloatingImage = styled.div`
     display: block;
   }
 `;
+
+export const BrandItem = styled.span<{ $preview: string }>`
+  position: relative;
+  
+  @media ${device.laptopL} {
+    &::before {
+      content: '';
+      position: absolute;
+      display: none;
+      background: #fff url(${({ $preview }) => $preview});
+      background-size: cover;
+      bottom: 100%;
+      left: 50%;
+      margin-left: -16.5rem;
+      width: 33rem;
+      height: 33rem;
+      outline: 1px solid ${({ theme }) => theme.colors.black};
+      border: 15px solid ${({ theme }) => theme.colors.white};
+      box-sizing: border-box;
+      border-radius: 36px;
+      padding: 1.5rem;
+    }
+  
+    &:hover::before {
+      display: block;
+    }
+  }
+`
+
+export const Root = styled.div`
+  overflow: hidden;
+`

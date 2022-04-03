@@ -31,14 +31,12 @@ export const SubscribeBlock = styled.form`
 
     & input {
       height: 8.6rem;
+      background-color: transparent;
     }
+  }
 
-    & input::placeholder {
-      color: ${({ theme }) => theme.colors.grey2};
-      font-size: 4rem;
-      text-transform: uppercase;
-      line-height: 100%;
-    }
+  & input::placeholder {
+    color: transparent;
   }
 
   & > div {
@@ -51,6 +49,13 @@ export const SubscribeBlock = styled.form`
   @media ${device.laptopL} {
     background-color: unset;
     min-height: unset;
+
+    & input::placeholder {
+      color: ${({ theme }) => theme.colors.grey2};
+      font-size: 4rem;
+      text-transform: uppercase;
+      line-height: 100%;
+    }
 
     & h2 {
       display: none;

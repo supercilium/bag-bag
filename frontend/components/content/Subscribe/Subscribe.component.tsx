@@ -55,6 +55,7 @@ export const Subscribe: React.FC = () => {
       <h2 className="h4">подпишитесь, чтобы не пропустить выгодные акции</h2>
       <div>
         <Input
+          placeholder="введите email для подписки НА выгодные акции"
           {...register("email", {
             required: VALIDATION_REQUIRED,
             pattern: {

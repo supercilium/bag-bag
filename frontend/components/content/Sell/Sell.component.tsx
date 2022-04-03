@@ -1,8 +1,14 @@
 import React from "react";
-import { SellBlock, SellButtons, SellRoot } from "./Sell.styles";
+import {
+  BlockWithImage,
+  SellBlock,
+  SellButtons,
+  SellRoot,
+} from "./Sell.styles";
 import NextImage from "../../Image";
 import { Button } from "../../Button";
 import Link from "next/link";
+import Star from "../../icons/star2.svg";
 
 // export interface SellProps {};
 
@@ -30,16 +36,17 @@ export const Sell: React.FC = () => {
               <br /> и найдем ей новую <br />
               <i>хозяйку</i>
             </h3>
-            <div className="align-center">
+            <BlockWithImage>
               <NextImage
                 src="/sell-bag.png"
                 alt="Купим вашу сумку"
                 height="610"
                 width="945"
               />
-            </div>
+              <Star />
+            </BlockWithImage>
             <SellButtons>
-              <Link href="/offer">
+              <Link href="/offer" passHref>
                 <Button>продать сумку</Button>
               </Link>
               <p className="primary-text">
