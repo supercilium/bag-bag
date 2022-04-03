@@ -26,7 +26,7 @@ module.exports = {
         )
       )
       .leftJoin("products", "brands.id", "products.brand")
-      .groupByRaw("brands.id, brands.name, brands.slug");
+      .groupByRaw("brands.id, brands.name, brands.slug, preview");
 
     try {
       ctx.body = brands.map((item) => ({

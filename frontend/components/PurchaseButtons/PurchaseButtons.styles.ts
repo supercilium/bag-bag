@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { TRANSITION } from "../../styles/constants";
 
 export const ButtonsBlock = styled.div`
-  display: grid;
-  grid-gap: 12px;
-  grid-template-columns: 1fr 5.4rem;
-  width: 100%;
+  display: flex;
+  gap: 12px;
 
   & > button:first-child {
     flex-grow: 1;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   & svg {
