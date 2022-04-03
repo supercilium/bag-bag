@@ -9,8 +9,9 @@ import {
   SocialContainer,
 } from "./Footer.style";
 import Link from "next/link";
-import Instagram from "../icons/insta.svg";
-import Facebook from "../icons/fb.svg";
+// import Instagram from "../icons/insta.svg";
+// import Facebook from "../icons/fb.svg";
+// import Telegram from "../icons/telegram.svg";
 import { useTranslation } from "next-i18next";
 import { MobileVisible } from "../../styles/layout";
 import NextImage from "../Image";
@@ -31,6 +32,11 @@ export const Footer = () => {
         <SocialContainer>
           <Link passHref href="/">
             <SocialLink>
+              <NextImage src="/telegram.png" width="60" height="60" />
+            </SocialLink>
+          </Link>
+          {/* <Link passHref href="/">
+            <SocialLink>
               <Instagram />
             </SocialLink>
           </Link>
@@ -38,7 +44,7 @@ export const Footer = () => {
             <SocialLink style={{ marginLeft: "3.6rem" }}>
               <Facebook />
             </SocialLink>
-          </Link>
+          </Link> */}
         </SocialContainer>
         <MobileVisible>
           <Copyright>© (ex)bags 2021</Copyright>

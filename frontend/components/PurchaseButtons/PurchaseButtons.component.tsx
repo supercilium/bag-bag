@@ -18,11 +18,15 @@ export interface PurchaseButtonsProps
     HTMLDivElement
   > {
   productId: number;
+  buttonTitle?: string;
+  onButtonClick?: () => void;
 }
 
 export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
   productId,
   className,
+  buttonTitle,
+  onButtonClick,
 }) => {
   const { user, mutateUser } = useUser();
 
@@ -32,7 +36,8 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
     setIsFavorite(user?.favorites?.some((item) => item.id === productId));
   }, [user, productId]);
 
-  const onClick = async () => {
+  const onClick: React.MouseEventHandler = async (event) => {
+    event.stopPropagation();
     try {
       const data = await (isInFavorite ? removeFromFavorite : addToFavorite)(
         productId
@@ -64,8 +69,12 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
 
   return (
     <ButtonsBlock className={className}>
-      <Button type="button" $size="s" onClick={onClickBuyButton}>
-        Купить
+      <Button
+        type="button"
+        $size="s"
+        onClick={onButtonClick || onClickBuyButton}
+      >
+        {buttonTitle || "Купить"}
       </Button>
       {user && (
         <Button type="button" $size="s" $round onClick={onClick}>

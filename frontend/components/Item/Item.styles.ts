@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { device } from "../../styles/constants";
 import { PreviousPrice, subtitle } from "../../styles/typography";
+import { PurchaseButtons } from "../PurchaseButtons";
+
+export const HidingPurchaseButtons = styled(PurchaseButtons)`
+  display: none;
+  margin-top: 21px;
+`;
 
 export const ItemRoot = styled.div`
   min-width: 339px;
@@ -14,6 +20,10 @@ export const ItemRoot = styled.div`
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+
+  &:hover ${HidingPurchaseButtons} {
+    display: grid;
+  }
 
   @media ${device.laptopL} {
     width: 100%;

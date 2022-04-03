@@ -9,6 +9,12 @@ const BUTTON_SIZE: Record<ButtonProps["$size"], string> = {
   m: "8.6rem",
 };
 
+const BUTTON_PADDINGS: Record<ButtonProps["$size"], string> = {
+  l: ".4rem 6.9rem 1.2rem",
+  s: ".4rem 6.9rem 1.2rem",
+  m: ".8rem 6.9rem 1.9rem",
+};
+
 const FONT_SIZES_MOBILE: Record<ButtonProps["$size"], string> = {
   s: "18px",
   m: "3rem",
@@ -25,7 +31,7 @@ export const StyledButton = styled.button<{
   $round?: boolean;
   $size?: ButtonProps["$size"];
 }>`
-  padding: ${({ $round }) => ($round ? 0 : ".7rem 6.9rem 1.8rem")};
+  padding: ${({ $round, $size }) => ($round ? 0 : BUTTON_PADDINGS[$size])};
   min-width: ${({ $size }) => BUTTON_SIZE[$size]};
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 9.4rem;
