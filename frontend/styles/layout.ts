@@ -46,6 +46,7 @@ export const StyledHeader = styled.header<{ $buttonPosition?: 'left' | 'right' }
       h1 {
         text-align: center;
         justify-content: center;
+        margin: 6rem 0 5rem;
       }
       button {
         max-width: none;

@@ -13,6 +13,7 @@ import Instagram from "../icons/insta.svg";
 import Facebook from "../icons/fb.svg";
 import { useTranslation } from "next-i18next";
 import { MobileVisible } from "../../styles/layout";
+import NextImage from "../Image";
 
 export const Footer = () => {
   const { t } = useTranslation("footer");
@@ -21,19 +22,19 @@ export const Footer = () => {
     <FooterRoot>
       <FooterTop>
         <InfoBlock>
-          <div>+7 999 355-35-35</div>
-          <div>
+          <a href="tel:+79993553535">+7 999 355-35-35</a>
+          <a href="mailto:hello@exbags.ru">
             <i>hello@exbags.ru</i>
-          </div>
+          </a>
         </InfoBlock>
         <address className="h4">{t("address")}</address>
         <SocialContainer>
-          <Link href="/">
+          <Link passHref href="/">
             <SocialLink>
               <Instagram />
             </SocialLink>
           </Link>
-          <Link href="/">
+          <Link passHref href="/">
             <SocialLink style={{ marginLeft: "3.6rem" }}>
               <Facebook />
             </SocialLink>
@@ -44,27 +45,28 @@ export const Footer = () => {
         </MobileVisible>
       </FooterTop>
       <FooterBottom>
-        <Link href="/">
+        <Link passHref href="/">
           <FooterLink>{t("catalogue")}</FooterLink>
         </Link>
-        <Link href="/">
+        <Link passHref href="/">
           <FooterLink>{t("sell")}</FooterLink>
         </Link>
-        <Link href="/">
+        <Link passHref href="/">
           <FooterLink>{t("payment")}</FooterLink>
         </Link>
-        <Link href="/">
+        <Link passHref href="/">
           <FooterLink>{t("shipping")}</FooterLink>
         </Link>
-        <Link href="/">
+        <Link passHref href="/">
           <FooterLink>{t("support")}</FooterLink>
         </Link>
-        <Link href="/">
-          <FooterLink>visa</FooterLink>
-        </Link>
-        <Link href="/">
-          <FooterLink>mastercard</FooterLink>
-        </Link>
+        <NextImage src="/visa-footer.png" alt="visa" height="20" width="62" />
+        <NextImage
+          src="/mastercard-footer.png"
+          alt="mastercard"
+          height="30"
+          width="158"
+        />
         <Copyright>© (ex)bags 2021</Copyright>
       </FooterBottom>
     </FooterRoot>

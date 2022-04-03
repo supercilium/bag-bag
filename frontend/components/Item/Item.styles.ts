@@ -33,13 +33,17 @@ export const Discount = styled.div`
 `;
 
 export const Condition = styled.span`
-  color: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.colors.black};
   margin-left: auto;
+
+  & i {
+    color: ${({ theme }) => theme.colors.green};
+  }
 `;
 
 export const ImageContainer = styled.div`
   width: 100%;
-  height: 40.5rem;
+  height: 47.6rem;
   position: relative;
 
   & img {
@@ -55,6 +59,7 @@ export const NameBlock = styled.div`
   }
 
   & h4 {
+    margin-top: 0;
     margin-bottom: 1.3rem;
   }
 

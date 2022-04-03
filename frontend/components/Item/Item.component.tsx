@@ -17,7 +17,7 @@ export const Item: React.FC<ProductInterface> = (props) => {
 
   const image = images?.[0];
   return (
-    <Link href={`/products/${slug}`}>
+    <Link href={`/products/${slug}`} passHref>
       <ItemRoot>
         <ImageContainer>
           <NextImage layout="fill" objectFit="cover" media={image} />

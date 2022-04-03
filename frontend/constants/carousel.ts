@@ -1,0 +1,1 @@
+export const BUTTONS_VISIBLE_ITEMS_MIN_LENGTH = 4;

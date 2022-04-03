@@ -8,6 +8,8 @@ export const SellRoot = styled.div`
   & h3 {
     text-align: center;
     margin: 24px 0;
+    letter-spacing: 0;
+    line-height: 90%;
   }
 
   @media ${device.laptopL} {
@@ -42,7 +44,7 @@ export const SellBlock = styled.div`
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 4.2rem 6rem 6rem;
+      padding: 90px 18px 90px;
       border-radius: 60px;
       border: 1px solid${({ theme }) => theme.colors.black};
 
@@ -70,6 +72,11 @@ export const SellBlock = styled.div`
       & > div {
         border: none;
         border-radius: none;
+        padding: 4.2rem 6rem 6rem;
+
+        & > h3 {
+          align-self: flex-start;
+        }
 
         & > h3 + div {
           order: 0;
@@ -87,6 +94,7 @@ export const SellButtons = styled.div`
   gap: 63px;
 
   & > p {
+    color: ${({ theme }) => theme.colors.black};
     margin: 0;
   }
   @media ${device.laptopL} {
@@ -97,3 +105,29 @@ export const SellButtons = styled.div`
     margin-top: 6.8rem;
   }
 `;
+
+export const BlockWithImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  & > svg {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    width: 84px;
+    height: 84px;
+  }
+
+  @media ${device.laptopL} {
+    & > svg {
+      top: unset;
+      left: unset;
+      right: 0;
+      bottom: 25%;
+      width: 204px;
+      height: 201px;
+    }
+  }
+`

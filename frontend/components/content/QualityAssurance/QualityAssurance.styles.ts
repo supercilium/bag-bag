@@ -11,10 +11,19 @@ export const TitleBlock = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  & h2 {
+    margin: 24px 0;
+  }
   
   @media ${device.laptopL} {
     border-bottom: 1px solid ${({ theme }) => theme.colors.black};
     padding: 9.5rem 3.6rem 11.8rem;
+    text-align: left;
+
+    & h2 {
+      margin: 0;
+    }
 
     & > div {
       display: flex;
@@ -45,6 +54,7 @@ export const ContentBlock = styled.div`
   
   @media ${device.laptopL} {
     padding-bottom: 0;
+    text-align: left;
 
     & > div {
       height: 72rem;
