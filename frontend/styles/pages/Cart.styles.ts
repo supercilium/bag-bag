@@ -145,3 +145,9 @@ export const ImageContainer = styled.div`
     border-radius: 2.4rem;
   }
 `
+export const NoItems = styled.p`
+  ${primaryText};
+  text-align: center;
+  color: ${({ theme }) => theme.colors.grey2};
+  margin: 11rem 0;
+`

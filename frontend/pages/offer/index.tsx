@@ -359,7 +359,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
             <FileInput {...register("files.photo_damage")} />
           </Box>
           <Button type="submit" $size="s" disabled={isLoading}>
-            продать
+            Отправить
           </Button>
 
           <MobileButtons>
@@ -412,7 +412,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                     return null;
                   })}
               </ImageGrid>
-              <Link href="/">
+              <Link href="/" passHref>
                 <Button $size="s">на главную</Button>
               </Link>
             </Box>

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
@@ -15,13 +15,14 @@ import {
   PreviousPrice,
   ProfileRoot,
   StatusHighlight,
+  StyledProfileHeader,
   Tab,
   Tabs,
   TitleRow,
 } from "../../styles/pages/Profile.styles";
 import { FavoriteItem } from "../../components/FavoriteItem";
 import { InfoBlock } from "../../components/InfoBlock";
-import { Box, LaptopLVisible, StyledHeader } from "../../styles/layout";
+import { Box, LaptopLVisible } from "../../styles/layout";
 import { User } from "../../types/user";
 import { useForm } from "react-hook-form";
 import useUser from "../../hooks/useUser";
@@ -110,12 +111,12 @@ const Profile = () => {
         <title>Профиль (ex)bags</title>
       </Head>
       <div className="container m32">
-        <StyledHeader $buttonPosition="right">
+        <StyledProfileHeader $buttonPosition="right">
           <h1>мой аккаунт</h1>
           <ButtonText onClick={onLogout}>
             <Quit /> Выйти
           </ButtonText>
-        </StyledHeader>
+        </StyledProfileHeader>
         <ProfileRoot onSubmit={handleSubmit(onSubmit)}>
           <Tabs>
             <Tab

@@ -7,11 +7,11 @@ import {
   SocialLink,
   InfoBlock,
   SocialContainer,
+  TelegramIcon,
 } from "./Footer.style";
 import Link from "next/link";
 // import Instagram from "../icons/insta.svg";
 // import Facebook from "../icons/fb.svg";
-// import Telegram from "../icons/telegram.svg";
 import { useTranslation } from "next-i18next";
 import { MobileVisible } from "../../styles/layout";
 import NextImage from "../Image";
@@ -32,7 +32,7 @@ export const Footer = () => {
         <SocialContainer>
           <Link passHref href="/">
             <SocialLink>
-              <NextImage src="/telegram.png" width="60" height="60" />
+              <TelegramIcon />
             </SocialLink>
           </Link>
           {/* <Link passHref href="/">
