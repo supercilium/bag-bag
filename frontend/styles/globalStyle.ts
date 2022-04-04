@@ -126,6 +126,10 @@ export const GlobalStyle = createGlobalStyle`
     width: calc(100vw - 8.8rem);
   }
 
+  :focus-visible {
+    outline: none;
+  }
+
   @media ${device.laptopL} {
     h1, .h1 {
       font-size: 12.9rem;
