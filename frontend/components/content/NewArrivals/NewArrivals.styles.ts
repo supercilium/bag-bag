@@ -6,7 +6,7 @@ export const Root = styled.div`
   padding: 80px 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 
-  h2 {
+  & h2 {
     padding: 0 18px;
     margin: 0;
     color: ${({ theme }) => theme.colors.green};
@@ -20,7 +20,7 @@ export const Root = styled.div`
   @media ${device.laptopL} {
     padding: 11.3rem 0 13.9rem;
 
-    h2 {
+    & h2 {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -29,7 +29,7 @@ export const Root = styled.div`
         display: block;
         color: ${({ theme }) => theme.colors.black};
         text-transform: lowercase;
-        ${buttonText}
+        ${buttonText};
       }
     }
   }

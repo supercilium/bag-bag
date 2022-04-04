@@ -57,6 +57,11 @@ export const DescriptionTitle = styled.div`
 
 export const Description = styled(ReactMarkdown)`
   ${primaryText};
+  color: ${({ theme }) => theme.colors.grey};
+
+  & > p {
+    margin-bottom: 0;
+  }
   
   @media ${device.laptopL} {
     padding-bottom: 3.6rem;
@@ -108,7 +113,7 @@ export const AccordionTitle = styled.div`
 
 export const CarouselContainer = styled.div`
   @media ${device.laptopL} {
-    margin: 0 -3.6rem;
+    margin: 0 -1.8rem;
   }
 `
 

@@ -100,7 +100,7 @@ const Profile = () => {
   };
 
   const onLogout = async () => {
-    destroyCookie(null, "token");
+    destroyCookie(null, "token", { path: "/" });
     await mutateUser(null, false);
   };
 
