@@ -136,26 +136,6 @@ export const BrandsLine = styled.div`
   }
 `;
 
-export const FloatingImage = styled.div`
-  display: none;
-
-  @media ${device.laptopL} {
-    position: absolute;
-    top: -4.4rem;
-    left: 50%;
-    margin-left: -16.5rem;
-    width: 33rem;
-    height: 33rem;
-    border: 1px solid ${({ theme }) => theme.colors.black};
-    background: ${({ theme }) => theme.colors.white};
-    box-sizing: border-box;
-    border-radius: 36px;
-    padding: 1.5rem;
-    z-index: 1;
-    display: block;
-  }
-`;
-
 export const BrandItem = styled.span<{ $preview: string }>`
   position: relative;
   
@@ -179,7 +159,7 @@ export const BrandItem = styled.span<{ $preview: string }>`
     }
   
     &:hover::before {
-      display: block;
+      display: ${({ $preview }) => $preview ? 'block' : 'none'};
     }
   }
 `

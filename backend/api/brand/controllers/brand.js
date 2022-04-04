@@ -31,7 +31,8 @@ module.exports = {
     try {
       ctx.body = brands.map((item) => ({
         ...item,
-        preview: item.preview ? JSON.parse(item.preview) : null,
+        preview:
+          item.preview === "string" ? JSON.parse(item.preview) : item.preview,
       }));
     } catch (err) {
       strapi.log.error(err);

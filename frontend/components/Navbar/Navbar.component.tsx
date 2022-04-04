@@ -7,8 +7,13 @@ import {
   NavbarRoot,
   BagContainer,
   Logo,
+  NavbarMainLink,
 } from "./Navbar.styles";
-import Search from "../icons/search.svg";
+// import Search from "../icons/search.svg";
+import CatalogueBorder from "../icons/hover-oval.svg";
+import OfferBorder from "../icons/hover.svg";
+import AboutBorder from "../icons/hover-round.svg";
+import ContactsBorder from "../icons/hover_zigzag.svg";
 import Profile from "../icons/profile.svg";
 import Bag from "../icons/bag.svg";
 import useUser from "../../hooks/useUser";
@@ -25,8 +30,7 @@ export interface NavbarProps {
 
 export const Navbar = ({ filters }) => {
   const { user } = useUser();
-  const { query } = useRouter();
-
+  const { query, route } = useRouter();
   const [isOpen, setOpenedState] = useState(false);
 
   useEffect(() => {
@@ -41,23 +45,34 @@ export const Navbar = ({ filters }) => {
       />
       <NavbarRoot id="top-menu">
         <NavbarContainer>
-          <Link href="/">
+          <Link href="/" passHref>
             <Logo>
               <LogoImg />
             </Logo>
           </Link>
           <NavbarLinks>
-            <Link href="/catalogue?_sort=views:DESC">
-              <a>Каталог</a>
+            <Link href="/catalogue?_sort=views:DESC" passHref>
+              <NavbarMainLink $selected={route === "/catalogue"}>
+                <CatalogueBorder />
+                Каталог
+              </NavbarMainLink>
             </Link>
-            <Link href="/offer">
-              <a>Продать</a>
+            <Link href="/offer" passHref>
+              <NavbarMainLink $selected={route === "/offer"}>
+                <OfferBorder />
+                Продать
+              </NavbarMainLink>
             </Link>
-            <Link href="/">
-              <a>О нас</a>
+            <Link href="/about" passHref>
+              <NavbarMainLink $selected={route === "/about"}>
+                <AboutBorder />О нас
+              </NavbarMainLink>
             </Link>
-            <Link href="/">
-              <a>Контакты</a>
+            <Link href="/contacts" passHref>
+              <NavbarMainLink $selected={route === "/contacts"}>
+                <ContactsBorder />
+                Контакты
+              </NavbarMainLink>
             </Link>
           </NavbarLinks>
           <NavbarActions>
@@ -73,7 +88,7 @@ export const Navbar = ({ filters }) => {
                 <Profile />
               </a>
             </Link>
-            <Link href="/cart">
+            <Link href="/cart" passHref>
               <BagContainer>
                 <span>
                   <Bag height="40" width="40" />
