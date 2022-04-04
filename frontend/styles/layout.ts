@@ -15,6 +15,7 @@ export const StyledHeader = styled.header<{ $buttonPosition?: 'left' | 'right' }
     position: relative;
 
     h1 {
+      margin: 19px 0 22px;
       display: flex;
       align-items: flex-end;
       color: ${({ theme }) => theme.colors.green};
