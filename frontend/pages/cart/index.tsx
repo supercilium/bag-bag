@@ -11,6 +11,7 @@ import {
   ImageContainer,
   Left,
   MainContent,
+  NoItems,
   PriceSummary,
   Summary,
   SummaryTop,
@@ -55,6 +56,8 @@ const Cart = () => {
     await mutateUser(data, false);
   };
 
+  const hasItems = user?.shopping_bag?.products?.length > 0;
+
   return (
     <div>
       <Head>
@@ -64,13 +67,15 @@ const Cart = () => {
         <StyledHeader $buttonPosition="right">
           <h1>
             корзина
-            {user?.shopping_bag?.products?.length > 0 && (
+            {hasItems && (
               <i className="h2">({user?.shopping_bag?.products.length})</i>
             )}
           </h1>
-          <ButtonText onClick={onClickClear}>Очистить корзину</ButtonText>
+          {hasItems && (
+            <ButtonText onClick={onClickClear}>Очистить корзину</ButtonText>
+          )}
         </StyledHeader>
-        {user?.shopping_bag?.products?.length > 0 && (
+        {hasItems ? (
           <>
             <MainContent>
               {user?.shopping_bag?.products.map((item) => (
@@ -144,6 +149,8 @@ const Cart = () => {
               </Button>
             </Summary>
           </>
+        ) : (
+          <NoItems>Корзина пуста</NoItems>
         )}
       </div>
     </div>

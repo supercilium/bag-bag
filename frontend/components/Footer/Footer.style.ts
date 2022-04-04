@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { device, TRANSITION } from "../../styles/constants";
 import { subtitle } from "../../styles/typography";
+import Telegram from "../icons/telegram.svg";
 
 export const FooterRoot = styled.footer`
   background-color: ${({ theme }) => theme.colors.black};
@@ -146,3 +147,8 @@ export const InfoBlock = styled.div`
     }
   }
 `;
+
+export const TelegramIcon = styled(Telegram)`
+  position: relative;
+  left: -3px;
+`

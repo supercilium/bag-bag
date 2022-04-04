@@ -2,6 +2,7 @@ import { primaryText, subtitle } from "../typography";
 import styled, { DefaultTheme } from "styled-components";
 import { device } from "../constants";
 import { Icon } from "../../components/InfoBlock/InfoBlock.styles";
+import { StyledHeader } from "../layout";
 
 export const ProfileRoot = styled.form`
   margin-bottom: 12rem;
@@ -12,6 +13,15 @@ export const ProfileRoot = styled.form`
     grid-gap: 3.6rem;
   }
 `;
+
+export const StyledProfileHeader = styled(StyledHeader)`
+  @media ${device.laptopL} {
+    h1 {
+      padding-left: calc(47.1rem - 0.07em);
+      justify-content: flex-start;
+    }
+  }
+`
 
 export const InfoTab = styled.div`
   padding: 1.8rem;
@@ -160,6 +170,5 @@ export const StatusHighlight = styled.div<{ highlight?: keyof DefaultTheme['colo
 
 export const NoOrders = styled.p`
   ${primaryText};
-  text-align: center;
   color: ${({ theme }) => theme.colors.grey2};
 `

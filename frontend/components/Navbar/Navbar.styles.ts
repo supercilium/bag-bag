@@ -130,14 +130,11 @@ export const NavbarMainLink = styled.a<{ $selected: boolean }>`
   color: ${({ theme, $selected }) => $selected ? theme.colors.green : theme.colors.black};
   position: relative;
   display: inline-block;
-  padding: ${({ $selected }) => $selected ? '11px 18px' : '11px 0'};
-  margin: 0 1.8rem;
-  transition: color ${TRANSITION}, padding ${TRANSITION};
+  padding: 11px 18px;
+  transition: color ${TRANSITION};
 
   &:hover {
     color: ${({ theme }) => theme.colors.green};
-    padding-left: 18px;
-    padding-right: 18px;
   }
 
   & > svg {
@@ -147,6 +144,11 @@ export const NavbarMainLink = styled.a<{ $selected: boolean }>`
     right: 0;
     bottom: 0;
     transition: opacity ${TRANSITION};
+  }
+
+  &:nth-child(even) > svg {
+    left: 18px;
+    right: 18px;
   }
 
   &:hover > svg {
