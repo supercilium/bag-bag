@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import get from "lodash-es/get";
-import debounce from "lodash-es/debounce";
+// import debounce from "lodash-es/debounce";
 import { useDimensions } from "../../hooks/useDimensions";
 import { size } from "../../styles/constants";
 import {
@@ -14,6 +14,7 @@ import {
   InputField,
   KeyTitle,
   LabelCondition,
+  LaptopSubmitButton,
   MobileSubmitButton,
   PriceRow,
   SelectedFilters,
@@ -139,25 +140,29 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
     [filters.brands]
   );
 
-  const handleSubmitByDebounce = useCallback(
-    debounce((values) => onSubmit(values), 300),
-    [onSubmit]
-  );
+  // const handleSubmitByDebounce = useCallback(
+  //   debounce((values) => onSubmit(values), 300),
+  //   [onSubmit]
+  // );
 
   const values = watch();
   const isWideScreen = width > size.laptopL;
 
-  useEffect(() => {
-    if (isWideScreen) {
-      handleSubmitByDebounce(values);
-    }
-  }, [
-    values["brand-id"],
-    values["category-id"],
-    values._sort,
-    values.condition,
-    isWideScreen,
-  ]);
+  // useEffect(() => {
+  //   if (isWideScreen) {
+  //     handleSubmitByDebounce(values);
+  //   }
+  // }, [
+  //   values["brand-id"],
+  //   values["category-id"],
+  //   values._sort,
+  //   values.condition,
+  //   isWideScreen,
+  // ]);
+
+  const handleDeleteFilterClick = (item: keyof FilterObjInterface) => {
+    onSubmit({ ...values, [item]: null });
+  };
 
   useEffect(() => {
     if (!isWideScreen) {
@@ -590,6 +595,13 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
                 )}
               </>
             )}
+            {openedFilter && openedFilter !== "price" && (
+              <LaptopSubmitButton>
+                <Button $size="s" type="submit">
+                  показать
+                </Button>
+              </LaptopSubmitButton>
+            )}
           </FiltersForm>
         )}
       </FiltersRoot>
@@ -598,7 +610,9 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
           {Object.keys(pick(values, "brand-id", "category-id")).map((item) =>
             values[item] ? (
               <button
-                onClick={() => setValue(item as keyof FilterObjInterface, "")}
+                onClick={() =>
+                  handleDeleteFilterClick(item as keyof FilterObjInterface)
+                }
                 key={item}
               >
                 {
@@ -612,7 +626,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
             ) : null
           )}
           {values.condition && (
-            <button onClick={() => setValue("condition", "")}>
+            <button onClick={() => handleDeleteFilterClick("condition")}>
               {values.condition}
               <Close width="16" height="16" />
             </button>

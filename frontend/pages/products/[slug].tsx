@@ -237,7 +237,7 @@ const ProductPage: FC<ProductPageInterface> = ({ product, recommended }) => {
       </ProductsRoot>
       <ContentBlock $hidePaddings={true}>
         <div className="container">
-          <h2>рекомендуем</h2>
+          <h2 className="h2">рекомендуем</h2>
           <CarouselContainer>
             {isWideScreen ? (
               <MultiCarousel

@@ -73,16 +73,6 @@ export const NavbarLinks = styled.div`
     display: flex;
     ${subtitle}
     justify-self: center;
-
-    a {
-      color: ${({ theme }) => theme.colors.black};
-      margin: 0 1.8rem;
-      transition: color ${TRANSITION};
-
-      &:hover {
-        color: ${({ theme }) => theme.colors.green};
-      }
-    }
   }
 `;
 
@@ -133,5 +123,33 @@ export const BagContainer = styled.a`
       bottom: 5px;
       right: 2px;
     }
+  }
+`
+
+export const NavbarMainLink = styled.a<{ $selected: boolean }>`
+  color: ${({ theme, $selected }) => $selected ? theme.colors.green : theme.colors.black};
+  position: relative;
+  display: inline-block;
+  padding: ${({ $selected }) => $selected ? '11px 18px' : '11px 0'};
+  margin: 0 1.8rem;
+  transition: color ${TRANSITION}, padding ${TRANSITION};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.green};
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  & > svg {
+    opacity: ${({ $selected }) => $selected ? '1' : '0'};
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity ${TRANSITION};
+  }
+
+  &:hover > svg {
+    opacity: 1;
   }
 `

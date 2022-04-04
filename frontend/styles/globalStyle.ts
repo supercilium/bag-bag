@@ -48,6 +48,9 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 4.8rem;
     line-height: 90%;
   }
+  .h2 {
+    margin: 0;
+  }
   h3, .h3 {
     font-weight: 500;
     font-size: 45px;
@@ -124,6 +127,10 @@ export const GlobalStyle = createGlobalStyle`
 
   .item-class {
     width: calc(100vw - 8.8rem);
+  }
+
+  :focus-visible {
+    outline: none;
   }
 
   @media ${device.laptopL} {

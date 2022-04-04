@@ -4,12 +4,13 @@ import { primaryText } from "../../styles/typography";
 import { Button } from "../Button";
 
 export const FiltersRoot = styled.div`
-    @media ${device.laptopL} {
-        padding: 0 3.6rem;
-        border: 1px solid ${({ theme }) => theme.colors.black};
-        border-radius: 3.5rem;
-        display: block;
-    }
+  @media ${device.laptopL} {
+    padding: 0 3.6rem;
+    border: 1px solid ${({ theme }) => theme.colors.black};
+    border-radius: 3.5rem;
+    display: block;
+    position: relative;
+  }
 `
 
 export const FilterButtons = styled.div`
@@ -46,6 +47,7 @@ export const CatalogButton = styled.button<{ $isOpen: boolean }>`
     transform: rotate(${({ $isOpen }) => $isOpen ? '-90deg' : '90deg'});
     padding: 3px;
     margin-left: 6px;
+    margin-top: 1px;
   }
 `
 
@@ -64,6 +66,7 @@ export const FiltersForm = styled.form`
       padding-bottom: 3.6rem;
       overflow-y: auto;
       max-height: 54.8rem;
+      padding-bottom: 98px;
   }
 `
 
@@ -189,9 +192,25 @@ export const KeyTitle = styled.div`
 `
 
 export const MobileSubmitButton = styled(Button)`
-    position: fixed;
-    left: 18px;
-    right: 18px;
-    bottom: 18px;
-    z-index: 12;
+  position: fixed;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  z-index: 12;
+`
+
+export const LaptopSubmitButton = styled.div`
+  display: none;
+
+  @media ${device.laptopL} {
+    display: flex;
+    justify-content: center;
+    padding: 24px 0;
+    background-color: ${({ theme }) => theme.colors.white};
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 3.5rem;
+  }
 `

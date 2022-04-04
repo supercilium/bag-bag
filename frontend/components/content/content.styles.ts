@@ -20,6 +20,7 @@ export const ContentBlock = styled.div<{ $hidePaddings?: boolean }>`
     padding: 11.3rem 3.6rem 13.9rem;
 
     h2 {
+      padding: 0;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
