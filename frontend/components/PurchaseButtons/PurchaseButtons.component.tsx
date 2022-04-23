@@ -78,7 +78,7 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
         type="button"
         $size="s"
         onClick={onButtonClick || onClickBuyButton}
-        disabled={isBagInCart}
+        disabled={!buttonTitle && isBagInCart}
       >
         {buttonTitle || "Купить"}
       </Button>

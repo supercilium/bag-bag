@@ -122,9 +122,6 @@ export const Banner: React.FC<BannerProps> = ({
             {promotions?.map((promo) => (
               <BannerImage key={promo.id} $url={promo?.banner?.url}>
                 <h2 className="h1">{promo.name}</h2>
-                <div>
-                  <Star height={345} width={367} />
-                </div>
                 <Link href={`/promotions?slug=${promo.slug}`} passHref>
                   <Button $size="m">подробнее</Button>
                 </Link>

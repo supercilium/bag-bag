@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../styles/constants";
+import { device, TRANSITION } from "../../styles/constants";
 import { PreviousPrice, subtitle } from "../../styles/typography";
 import { PurchaseButtons } from "../PurchaseButtons";
 
@@ -55,9 +55,11 @@ export const ImageContainer = styled.div`
   width: 100%;
   height: 47.6rem;
   position: relative;
+  transition: all ${TRANSITION};
 
   & img {
     border-radius: 2.4rem;
+    transition: all ${TRANSITION};
   }
 `
 

@@ -28,6 +28,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           hideProgressBar={true}
           newestOnTop={false}
           draggable={false}
+          icon={false}
         />
 
         <GlobalStyle />
