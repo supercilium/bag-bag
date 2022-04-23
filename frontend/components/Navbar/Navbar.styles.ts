@@ -100,19 +100,20 @@ export const BagContainer = styled.a`
   }
 
   & b {
+    font-family: Graphik LC, sans-serif;
     position: absolute;
     width: 11px;
     height: 11px;
-    line-height: 11px;
-    border-radius: 50%;
-    /* background: ${({ theme }) => theme.colors.pink}; */
+    line-height: 140.5%;
+    letter-spacing: 0.045em;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-style: normal;
-    font-weight: normal;
     bottom: 3px;
     right: 1px;
+    font-weight: 600;
+    font-size: 21px;
+    color: ${({ theme }) => theme.colors.green};
   }
 
   @media ${device.laptopL} {

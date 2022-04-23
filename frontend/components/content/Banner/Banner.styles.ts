@@ -37,6 +37,7 @@ export const BannerImage = styled.div<{ $url: string }>`
 
   & > h2 {
     margin: 0;
+    text-transform: lowercase;
   }
 
   @media ${device.laptopL} {
