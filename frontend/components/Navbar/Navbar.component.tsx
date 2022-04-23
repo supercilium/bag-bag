@@ -92,7 +92,7 @@ export const Navbar = ({ filters }) => {
               <BagContainer>
                 <span>
                   <Bag height="40" width="40" />
-                  <b>{user?.shopping_bag?.products?.length}</b>
+                  <b>{user?.shopping_bag?.products?.length || 0}</b>
                 </span>
               </BagContainer>
             </Link>
