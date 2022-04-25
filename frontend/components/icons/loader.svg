@@ -1,0 +1,35 @@
+<svg
+    id="L4"
+    x="0px"
+    y="0px"
+    viewBox="0 0 70 10"
+    enableBackground="new 0 0 0 0"
+  >
+    <rect fill="#000" stroke="none" x="0" y="0" width="10" height="10">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.1"
+      />
+    </rect>
+    <rect fill="#000" stroke="none" x="30" y="0" width="10" height="10">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.2"
+      />
+    </rect>
+    <rect fill="#000" stroke="none" x="60" y="0" width="10" height="10">
+      <animate
+        attributeName="opacity"
+        dur="1s"
+        values="0;1;0"
+        repeatCount="indefinite"
+        begin="0.3"
+      />
+    </rect>
+  </svg>

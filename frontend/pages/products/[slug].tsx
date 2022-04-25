@@ -1,7 +1,6 @@
 import Head from "next/head";
 import MultiCarousel from "react-multi-carousel";
 import Arrow from "../../components/icons/arrow-simple-right.svg";
-import { useRouter } from "next/router";
 import { ContentBlock } from "../../components/content/content.styles";
 import { Carousel } from "../../components/content/NewArrivals/NewArrivals.styles";
 import Pay from "../../components/icons/pay-outline.svg";
@@ -95,7 +94,6 @@ const ButtonGroup: React.FC<CarouselButtonGroupProps> = ({
 };
 
 const ProductPage: FC<ProductPageInterface> = ({ product, recommended }) => {
-  const router = useRouter();
   const screenSize = useDimensions();
   const isWideScreen = screenSize.width >= size.laptop;
   const carouselItems = useMemo(() => {
@@ -104,9 +102,6 @@ const ProductPage: FC<ProductPageInterface> = ({ product, recommended }) => {
     }
   }, [recommended, isWideScreen]);
 
-  if (router.isFallback) {
-    return <div>Loading product...</div>;
-  }
   if (!product) {
     return <div>Not found</div>;
   }

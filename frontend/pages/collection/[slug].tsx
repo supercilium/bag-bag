@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { FC } from "react";
 import { Item } from "../../components/Item";
 import { getCollection, getCollections } from "../../utils/api";
@@ -12,12 +11,6 @@ import { StyledHeader } from "../../styles/layout";
 import { CollectionInterface } from "../../types/collection";
 
 const Page: FC<{ collection: CollectionInterface }> = ({ collection }) => {
-  const { isFallback } = useRouter();
-
-  if (isFallback) {
-    return <div>Loading category...</div>;
-  }
-
   return (
     <div>
       <Head>

@@ -121,10 +121,6 @@ const Process = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
 
-  if (router.isFallback) {
-    return <div>Loading category...</div>;
-  }
-
   const { shopping_bag } = user || {};
 
   const onSubmit = async (values: OrderFormValues) => {

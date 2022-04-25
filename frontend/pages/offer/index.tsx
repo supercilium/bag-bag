@@ -44,8 +44,6 @@ interface OfferProps {
 }
 
 const Offer: FC<OfferProps> = ({ filters }) => {
-  const router = useRouter();
-
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState<TabName>("common");
   const { width } = useDimensions();
@@ -86,10 +84,6 @@ const Offer: FC<OfferProps> = ({ filters }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
-
-  if (router.isFallback) {
-    return <div>Loading category...</div>;
-  }
 
   const handleClickNextButton = async () => {
     await trigger([

@@ -10,6 +10,7 @@ import { GlobalStyle } from "../styles/globalStyle";
 import { ThemeProvider } from "styled-components";
 import { appWithTranslation } from "next-i18next";
 import { ToastContainer } from "react-toastify";
+import nextI18Config from "../next-i18next.config";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -62,4 +63,4 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
   };
 };
 
-export default appWithTranslation(MyApp);
+export default appWithTranslation(MyApp, nextI18Config);

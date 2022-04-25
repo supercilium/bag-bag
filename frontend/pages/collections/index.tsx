@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { FC } from "react";
 import { getCollections } from "../../utils/api";
 import { StyledHeader } from "../../styles/layout";
@@ -11,10 +10,6 @@ import { MainContent } from "../../styles/pages/Collection.styles";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Page: FC<{ collections: CollectionInterface[] }> = ({ collections }) => {
-  const { isFallback } = useRouter();
-  if (isFallback) {
-    return <div>Loading category...</div>;
-  }
   return (
     <div>
       <Head>

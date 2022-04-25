@@ -13,6 +13,7 @@ export default function useUser({
     data,
     error,
     mutate: mutateUser,
+    isValidating,
   } = useSWR<User | ErrorRequest, unknown, string>("/profile", fetchWithToken, {
     shouldRetryOnError: false,
     revalidateIfStale: false,
@@ -33,5 +34,5 @@ export default function useUser({
     }
   }, [data, redirectIfFound, redirectTo]);
 
-  return { user: data as User, mutateUser };
+  return { user: data as User, mutateUser, isLoading: isValidating };
 }
