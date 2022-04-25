@@ -38,6 +38,10 @@
       "plugin": "upload",
       "required": true,
       "pluginOptions": {}
+    },
+    "title": {
+      "type": "richtext",
+      "required": false
     }
   }
 }

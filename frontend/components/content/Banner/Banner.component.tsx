@@ -9,9 +9,9 @@ import {
   BrandsBlock,
   BrandsLine,
   Root,
+  TitleText,
 } from "./Banner.styles";
 import { Button } from "../../Button";
-import Star from "../../icons/star3.svg";
 import Arrow from "../../icons/arrow-big-right.svg";
 import { BrandWithCount } from "../../../types/brand";
 import Link from "next/link";
@@ -121,7 +121,9 @@ export const Banner: React.FC<BannerProps> = ({
           >
             {promotions?.map((promo) => (
               <BannerImage key={promo.id} $url={promo?.banner?.url}>
-                <h2 className="h1">{promo.name}</h2>
+                <TitleText className="h1">
+                  {promo.title || promo.name}
+                </TitleText>
                 <Link href={`/promotions?slug=${promo.slug}`} passHref>
                   <Button $size="m">подробнее</Button>
                 </Link>

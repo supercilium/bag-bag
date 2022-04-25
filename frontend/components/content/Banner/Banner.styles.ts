@@ -1,16 +1,30 @@
 import styled from "styled-components";
 import { device, TRANSITION } from "../../../styles/constants";
 import { Container } from "../../../styles/layout";
+import ReactMarkdown from "react-markdown";
 
 export const BannerRoot = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
 `;
 
+export const TitleText = styled(ReactMarkdown)`
+  text-transform: lowercase;
+  margin: 0;
+
+  & p {
+    margin: 0;
+  }
+`
+
 export const BannerContainer = styled.div`
-  height: 89.8rem;
+  height: calc(100vh - 53px);
   position: relative;
   /* display: flex; */
   ${Container}
+
+  @media ${device.laptopL} {
+    height: calc(100vh - 9rem);
+  }
 `;
 
 export const BannerImage = styled.div<{ $url: string }>`
@@ -31,28 +45,12 @@ export const BannerImage = styled.div<{ $url: string }>`
   height: 100%;
   border: 1.4rem solid ${({ theme }) => theme.colors.white};
 
-  & > div {
-    display: none;
-  }
-
-  & > h2 {
-    margin: 0;
-    text-transform: lowercase;
-  }
-
   @media ${device.laptopL} {
     padding: 4.4rem 6.6rem;
     align-items: flex-start;
 
     & > button {
       display: none;
-    }
-
-    & > div {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      align-items: flex-end;
     }
   }
 `;
