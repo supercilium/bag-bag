@@ -14,7 +14,7 @@ import { Item } from "../../components/Item";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Page: FC<{ promotions: PromotionInterface[] }> = ({ promotions }) => {
-  const { isFallback, query } = useRouter();
+  const { query } = useRouter();
   console.log(promotions);
 
   useEffect(() => {
@@ -30,10 +30,6 @@ const Page: FC<{ promotions: PromotionInterface[] }> = ({ promotions }) => {
       });
     }
   }, [query]);
-
-  if (isFallback) {
-    return <div>Loading category...</div>;
-  }
 
   return (
     <div>

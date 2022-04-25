@@ -17,7 +17,7 @@ import { MobileVisible } from "../../styles/layout";
 import NextImage from "../Image";
 
 export const Footer = () => {
-  const { t } = useTranslation("footer");
+  const { t, ready } = useTranslation("footer");
 
   return (
     <FooterRoot>
@@ -28,7 +28,7 @@ export const Footer = () => {
             <i>hello@exbags.ru</i>
           </a>
         </InfoBlock>
-        <address className="h4">{t("address")}</address>
+        <address className="h4">{ready ? t("address") : ""}</address>
         <SocialContainer>
           <Link passHref href="/">
             <SocialLink>
@@ -52,19 +52,19 @@ export const Footer = () => {
       </FooterTop>
       <FooterBottom>
         <Link passHref href="/">
-          <FooterLink>{t("catalogue")}</FooterLink>
+          <FooterLink>{ready ? t("catalogue") : ""}</FooterLink>
         </Link>
         <Link passHref href="/">
-          <FooterLink>{t("sell")}</FooterLink>
+          <FooterLink>{ready ? t("sell") : ""}</FooterLink>
         </Link>
         <Link passHref href="/">
-          <FooterLink>{t("payment")}</FooterLink>
+          <FooterLink>{ready ? t("payment") : ""}</FooterLink>
         </Link>
         <Link passHref href="/">
-          <FooterLink>{t("shipping")}</FooterLink>
+          <FooterLink>{ready ? t("shipping") : ""}</FooterLink>
         </Link>
         <Link passHref href="/">
-          <FooterLink>{t("support")}</FooterLink>
+          <FooterLink>{ready ? t("support") : ""}</FooterLink>
         </Link>
         <NextImage src="/visa-footer.png" alt="visa" height="20" width="62" />
         <NextImage

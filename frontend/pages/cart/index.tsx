@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import {
   Attribute,
   BottomBlock,
@@ -33,18 +32,12 @@ import { getTotalSumAndDiscount } from "../../utils/calculation";
 import { clearShoppingBag, removeFromShoppingBag } from "../../utils/api";
 
 const Cart = () => {
-  const router = useRouter();
-
   const { user, mutateUser } = useUser();
 
   const [totalSum, totalDiscount] = useMemo(
     () => getTotalSumAndDiscount(user?.shopping_bag?.products),
     [user?.shopping_bag?.products]
   );
-
-  if (router.isFallback) {
-    return <div>Loading category...</div>;
-  }
 
   const onClickRemove = async (id: number) => {
     const data = await removeFromShoppingBag(id);

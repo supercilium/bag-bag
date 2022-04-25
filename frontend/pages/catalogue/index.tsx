@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { FC } from "react";
 import { Item } from "../../components/Item";
 import { Filters } from "../../types/common";
@@ -18,12 +17,6 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
   products,
   filters,
 }) => {
-  const { isFallback } = useRouter();
-
-  if (isFallback) {
-    return <div>Loading category...</div>;
-  }
-
   return (
     <div>
       <Head>

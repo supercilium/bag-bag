@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
@@ -50,7 +49,6 @@ export type ActiveTab = "info" | "orders" | "favorite";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>("info");
-  const router = useRouter();
   const { user, mutateUser } = useUser({
     redirectTo: "/login",
   });
@@ -78,12 +76,6 @@ const Profile = () => {
       password: null,
     },
   });
-  if (!user) {
-    return <div>Loading...</div>;
-  }
-  if (router.isFallback) {
-    return <div>Loading category...</div>;
-  }
 
   const onSubmit = async (values: User & { password?: string }) => {
     try {

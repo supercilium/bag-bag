@@ -23,6 +23,7 @@ import { LaptopLVisible, MobileVisible } from "../../styles/layout";
 import { useRouter } from "next/router";
 import { MobileMenu } from "./MobileMenu.component";
 import LogoImg from "../icons/logo.svg";
+import { useTranslation } from "next-i18next";
 
 export interface NavbarProps {
   filters: Filters;
@@ -32,6 +33,7 @@ export const Navbar = ({ filters }) => {
   const { user } = useUser();
   const { query, route } = useRouter();
   const [isOpen, setOpenedState] = useState(false);
+  const { t, ready } = useTranslation("common");
 
   useEffect(() => {
     setOpenedState(false);
@@ -54,24 +56,25 @@ export const Navbar = ({ filters }) => {
             <Link href="/catalogue?_sort=views:DESC" passHref>
               <NavbarMainLink $selected={route === "/catalogue"}>
                 <CatalogueBorder />
-                Каталог
+                {ready ? t("catalog") : ""}
               </NavbarMainLink>
             </Link>
             <Link href="/offer" passHref>
               <NavbarMainLink $selected={route === "/offer"}>
                 <OfferBorder />
-                Продать
+                {ready ? t("sell") : ""}
               </NavbarMainLink>
             </Link>
             <Link href="/about" passHref>
               <NavbarMainLink $selected={route === "/about"}>
-                <AboutBorder />О нас
+                <AboutBorder />
+                {ready ? t("about") : ""}
               </NavbarMainLink>
             </Link>
             <Link href="/contacts" passHref>
               <NavbarMainLink $selected={route === "/contacts"}>
                 <ContactsBorder />
-                Контакты
+                {ready ? t("contacts") : ""}
               </NavbarMainLink>
             </Link>
           </NavbarLinks>

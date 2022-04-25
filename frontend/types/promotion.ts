@@ -5,4 +5,5 @@ import { Image } from './image'
 export interface PromotionInterface extends CommonProps {
     products: ProductInterface[];
     banner: Image;
+    title?: string;
 }
