@@ -14,12 +14,12 @@ import {
   Banner,
 } from "../components/content";
 import { Subscribe } from "../components/content/Subscribe";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+// import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { ProductInterface } from "../types/product";
 import { BrandWithCount } from "../types/brand";
 import { CollectionInterface } from "../types/collection";
-import { SSRConfig } from "next-i18next";
+// import { SSRConfig } from "next-i18next";
 import { PromotionInterface } from "../types/promotion";
 import "react-multi-carousel/lib/styles.css";
 
@@ -44,7 +44,8 @@ const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   );
 };
 
-interface HomePageInterface extends SSRConfig {
+// interface HomePageInterface extends SSRConfig {
+interface HomePageInterface {
   products: ProductInterface[];
   brandsWithCounts: BrandWithCount[];
   collections: CollectionInterface[];
@@ -64,14 +65,16 @@ export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
     _sort: "created_at:DESC",
   });
   const brandsWithCounts = await getBrandsWithCounts();
-  const locales = await serverSideTranslations(locale, ["common", "footer"]);
+  // const locales = await serverSideTranslations(locale, [
+  // "common", "footer"
+  // ]);
   return {
     props: {
       products,
       brandsWithCounts,
       collections,
       promotions,
-      ...locales,
+      // ...locales,
     },
   };
 };

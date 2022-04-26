@@ -15,6 +15,7 @@ module.exports = {
   },
   // debug: true,
   i18n: {
+    ns: ["common", "footer"],
     defaultLocale: "ru",
     locales: ["en", "ru"],
   },
