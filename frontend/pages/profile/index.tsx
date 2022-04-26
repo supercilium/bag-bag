@@ -44,12 +44,13 @@ import { Button } from "../../components/Button";
 import { putProfile } from "../../utils/api";
 import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
+import { Loader } from "../../components/Loader";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState<ActiveTab>("info");
-  const { user, mutateUser } = useUser({
+  const { user, mutateUser, isLoading } = useUser({
     redirectTo: "/login",
   });
 
@@ -76,6 +77,10 @@ const Profile = () => {
       password: null,
     },
   });
+
+  if (isLoading || !user) {
+    return <Loader />;
+  }
 
   const onSubmit = async (values: User & { password?: string }) => {
     try {

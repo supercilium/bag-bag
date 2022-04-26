@@ -30,14 +30,19 @@ import useUser from "../../hooks/useUser";
 import { useMemo } from "react";
 import { getTotalSumAndDiscount } from "../../utils/calculation";
 import { clearShoppingBag, removeFromShoppingBag } from "../../utils/api";
+import { Loader } from "../../components/Loader";
 
 const Cart = () => {
-  const { user, mutateUser } = useUser();
+  const { user, mutateUser, isLoading } = useUser();
 
   const [totalSum, totalDiscount] = useMemo(
     () => getTotalSumAndDiscount(user?.shopping_bag?.products),
     [user?.shopping_bag?.products]
   );
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const onClickRemove = async (id: number) => {
     const data = await removeFromShoppingBag(id);
