@@ -12,15 +12,13 @@ export interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children, filters }) => {
-  const { user, isLoading } = useUser();
+  const { user } = useUser();
   const { isFallback } = useRouter();
 
   return (
     <LayoutRoot id="layout">
       <Navbar filters={filters} />
-      <div className="flex-grow">
-        {isFallback || isLoading ? <Loader /> : children}
-      </div>
+      <div className="flex-grow">{isFallback ? <Loader /> : children}</div>
       <Footer />
     </LayoutRoot>
   );
