@@ -146,7 +146,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
   // );
 
   const values = watch();
-  const isWideScreen = width > size.laptopL;
+  const isWideScreen = width >= size.laptopL;
 
   // useEffect(() => {
   //   if (isWideScreen) {
