@@ -15,7 +15,7 @@ export const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
     return (
       <RadioInputRoot hasError={!!error}>
         <input type="radio" ref={ref} name={name} id={id} {...rest} />
-        <label htmlFor={id}>{labelText}</label>
+        <span>{labelText}</span>
         <span>{error && error}</span>
       </RadioInputRoot>
     );

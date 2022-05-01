@@ -8,15 +8,8 @@ export const InputRoot = styled.input`
   width: 100%;
   border: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-  border-radius: 0;
   height: 6.3rem;
   font-size: 18px;
-
-  &[type="date" i], &[type="time" i] {
-    font-size: 18px;
-    font-family: Graphik LC, sans-serif;
-    color: ${({ theme }) => theme.colors.grey2};
-  }
 
   &:focus-visible {
     outline: none;
@@ -42,15 +35,6 @@ export const InputBlock = styled.div<{ $hasError: boolean }>`
     height: 9rem;
   }
 `;
-
-export const IconContainer = styled.div`
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 6.3rem;
-  display: flex;
-  align-items: center;
-`
 
 export const ErrorMessage = styled.div`
   color: ${({ theme }) => theme.colors.red};

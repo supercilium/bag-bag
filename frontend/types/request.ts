@@ -13,15 +13,15 @@ export interface RequestBagInterface {
         phone: string;
     }
     files: {
-        photo_serial_number: File;
-        photo_logo: File;
-        photo_inside: File;
-        photo_front: File;
-        photo_back: File;
-        photo_side: File;
-        photo_bottom: File;
-        photo_fastener: File;
-        photo_logo_inside: File;
-        photo_damage?: File;
+        photo_serial_number: FileList;
+        photo_logo: FileList;
+        photo_inside: FileList;
+        photo_front: FileList;
+        photo_back: FileList;
+        photo_side: FileList;
+        photo_bottom: FileList;
+        photo_fastener: FileList;
+        photo_logo_inside: FileList;
+        photo_damage?: FileList;
     }
 }

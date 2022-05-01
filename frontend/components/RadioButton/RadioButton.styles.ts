@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { device, TRANSITION } from "../../styles/constants";
 import { primaryText } from "../../styles/typography";
 
-export const RadioInputRoot = styled.div<{ hasError: boolean }>`
+export const RadioInputRoot = styled.label<{ hasError: boolean }>`
   display: flex;
   width: 100%;
   margin-bottom: 18px;
@@ -33,7 +33,7 @@ export const RadioInputRoot = styled.div<{ hasError: boolean }>`
     }
   }
 
-  & label {
+  & span {
     display: flex;
     ${primaryText};
     text-transform: none;
@@ -51,7 +51,7 @@ export const RadioInputRoot = styled.div<{ hasError: boolean }>`
       height: 1.6rem;
     }
 
-    & label {
+    & span {
       line-height: 150%;
     }
   }

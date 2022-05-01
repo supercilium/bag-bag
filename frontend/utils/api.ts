@@ -158,10 +158,10 @@ export async function getProfile(token: string) {
   return profile;
 }
 
-export async function putProfile(profile: User & { password?: string }) {
+export async function putProfile(id: number, profile: Partial<User & { password?: string }>) {
   const { token } = parseCookies()
 
-  const res = await fetchAPI<User>('/profile', {
+  const res = await fetchAPI<User>(`/profile/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
     body: JSON.stringify(profile),
