@@ -21,6 +21,8 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
     <div>
       <Head>
         <title>Каталог (ex)bags</title>
+        <meta property="og:description" content="Каталог | (ex)bags" />
+        <meta property="og:title" content="Каталог | (ex)bags" />
       </Head>
       <div className="container m32">
         <StyledHeader>

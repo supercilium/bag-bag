@@ -23,3 +23,5 @@ export function getAsString(query: ParsedUrlQuery): string {
 
     return str ? '?' + str : '';
 }
+
+export const formatPhone = (str: string) => str ? str.replace(/\D/g, '') : null;

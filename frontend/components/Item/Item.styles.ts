@@ -21,8 +21,11 @@ export const ItemRoot = styled.div`
   justify-content: space-between;
   cursor: pointer;
 
-  &:hover ${HidingPurchaseButtons} {
-    display: flex;
+  /* mouse, touch pad */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover ${HidingPurchaseButtons} {
+      display: flex;
+    }
   }
 
   @media ${device.laptopL} {

@@ -18,3 +18,7 @@ export const SHIPPING_METHODS: Record<OrderInterface['shippingMethod'], string> 
     pickup: 'Самовывоз',
     shipping: 'Доставка курьером'
 }
+
+export const SHIPPING_ADDRESS = 'г. Москва, ул. Королева 20, к1, 2 этаж, 230 бутик';
+
+export const DELIVERY_COST = 1200;

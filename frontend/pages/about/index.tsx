@@ -6,6 +6,8 @@ const About = () => {
     <div>
       <Head>
         <title>О нас (ex)bags</title>
+        <meta property="og:description" content="О нас | (ex)bags" />
+        <meta property="og:title" content="О нас | (ex)bags" />
       </Head>
       <div className="container m32">
         <StyledHeader>

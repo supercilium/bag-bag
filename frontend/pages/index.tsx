@@ -32,7 +32,9 @@ const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   return (
     <div>
       <Head>
-        <title>(ex)bags</title>
+        <title>Ресейл (ex)bags</title>
+        <meta property="og:description" content="Ресейл сумок | (ex)bags" />
+        <meta property="og:title" content="Ресейл сумок | (ex)bags" />
       </Head>
       <Banner promotions={promotions} brandsWithCounts={brandsWithCounts} />
       <NewArrivals products={products} />

@@ -19,7 +19,7 @@ export const BreadcrumbsRoot = styled.div`
         top: 50%;
     }
 
-    @media ${device.laptopL} {
+    @media ${device.laptop} {
         display: none;
     }
 `

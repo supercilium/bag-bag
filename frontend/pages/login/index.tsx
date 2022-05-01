@@ -84,7 +84,15 @@ const Login = () => {
   return (
     <div>
       <Head>
-        <title>Login (ex)bags</title>
+        <title>Войти или зарегистрироваться (ex)bags</title>
+        <meta
+          property="og:description"
+          content="Войти или зарегистрироваться | (ex)bags"
+        />
+        <meta
+          property="og:title"
+          content="Войти или зарегистрироваться | (ex)bags"
+        />
       </Head>
       <LoginRoot className="align-center m32">
         <FormBlock>

@@ -46,7 +46,13 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
 
     return (
       <FileInputRoot $state={state}>
-        <input {...rest} ref={ref} onChange={handleChange} type="file" />
+        <input
+          accept="image/*"
+          {...rest}
+          ref={ref}
+          onChange={handleChange}
+          type="file"
+        />
         {file ? (
           <ImagePreview>
             <img src={URL.createObjectURL(file)} />

@@ -20,12 +20,14 @@ import {
   ActiveTab,
   ButtonsBlock,
   PaymentBlock,
+  PaymentMethodLabel,
 } from "../../styles/pages/Process.styles";
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
 import { PreviousPrice } from "../../styles/typography";
 import {
   formatDimensions,
+  formatPhone,
   formatSum,
   getActualSum,
 } from "../../utils/formatters";
@@ -33,11 +35,14 @@ import { PriceSummary } from "../../styles/pages/Cart.styles";
 import { Attribute, DescriptionRow } from "../../styles/pages/Products.styles";
 import { RadioButton } from "../../components/RadioButton";
 import useUser from "../../hooks/useUser";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { OrderFormValues, createOrder, checkPromoCode } from "../../utils/api";
 import { getTotalSumAndDiscount } from "../../utils/calculation";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import Arrow from "../../components/icons/arrow-simple-right.svg";
+import Visa from "../../components/icons/visa-colored.svg";
+import Mastercard from "../../components/icons/mastercard-color.svg";
+import MapIcon from "../../components/icons/map.svg";
 import {
   ERROR_UNKNOWN,
   VALIDATION_EMAIL_FORMAT,
@@ -46,9 +51,8 @@ import {
 } from "../../constants/errorMessages";
 import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
-
-/* TODO make dynamic value */
-const DELIVERY_COST = 1200;
+import { InputMask } from "../../components/InputMask";
+import { DELIVERY_COST, SHIPPING_ADDRESS } from "../../constants/order";
 
 const Process = () => {
   const router = useRouter();
@@ -69,11 +73,12 @@ const Process = () => {
     setError,
     setValue,
     trigger,
+    control,
   } = useForm<OrderFormValues>({
     shouldFocusError: false,
     defaultValues: {
       last_name: user?.last_name,
-      phone: user?.phone,
+      phone: user?.phone && user.phone.slice(1),
       email: user?.email,
       shippingMethod: "shipping",
       paymentMethod: "card",
@@ -89,7 +94,7 @@ const Process = () => {
     // https://stackoverflow.com/a/64307087/15152568
     reset({
       last_name: user?.last_name,
-      phone: user?.phone,
+      phone: user?.phone && user.phone.slice(1),
       email: user?.email,
       shippingMethod: "shipping",
       paymentMethod: "card",
@@ -107,7 +112,7 @@ const Process = () => {
     if (shippingMethod === "shipping") {
       setValue(
         "total",
-        totalSum + 1200 - totalSum * (promocode?.discount || 0) * 0.01
+        totalSum + DELIVERY_COST - totalSum * (promocode?.discount || 0) * 0.01
       );
     } else {
       setValue(
@@ -118,6 +123,14 @@ const Process = () => {
   }, [shippingMethod, setValue, totalSum, promocode]);
 
   useEffect(() => {
+    if (shippingMethod === "shipping") {
+      setValue("address", "");
+    } else {
+      setValue("address", SHIPPING_ADDRESS);
+    }
+  }, [shippingMethod, setValue]);
+
+  useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
 
@@ -125,7 +138,10 @@ const Process = () => {
 
   const onSubmit = async (values: OrderFormValues) => {
     try {
-      const order = await createOrder(values);
+      const order = await createOrder({
+        ...values,
+        phone: formatPhone(values.phone),
+      });
       await mutateUser();
       router.replace("/profile");
       toastSuccess("Товар успешно оплачен. Ожидайте звонка менеджера.");
@@ -171,6 +187,8 @@ const Process = () => {
     <div>
       <Head>
         <title>Оформление (ex)bags</title>
+        <meta property="og:description" content="Оформление | (ex)bags" />
+        <meta property="og:title" content="Оформление | (ex)bags" />
       </Head>
       <div className="container">
         <div className="m32">
@@ -239,17 +257,25 @@ const Process = () => {
                       {...register("shippingMethod")}
                     />
                   </div>
-                  <Input
-                    label="Телефон"
-                    placeholder="+7 ____ ___-__-__"
-                    {...register("phone", {
+                  <Controller
+                    render={({ field, fieldState: { error } }) => (
+                      <InputMask
+                        {...field}
+                        error={error?.message}
+                        label="Ваш телефон"
+                        placeholder="+7 ___ ___ __ __"
+                        mask="+7 (999) 999 99 99"
+                      />
+                    )}
+                    control={control}
+                    name="phone"
+                    rules={{
                       required: VALIDATION_REQUIRED,
                       pattern: {
                         value: REGEXP_PHONE,
                         message: VALIDATION_PHONE_DIGITS,
                       },
-                    })}
-                    error={errors?.phone?.message}
+                    }}
                   />
                 </ProcessRow>
                 {shippingMethod === "shipping" ? (
@@ -262,6 +288,7 @@ const Process = () => {
                             shippingMethod === "shipping" &&
                             VALIDATION_REQUIRED,
                         })}
+                        icon={<MapIcon width="22" height="22" />}
                         error={errors?.address?.message}
                       />
                     </div>
@@ -290,7 +317,12 @@ const Process = () => {
                   </>
                 ) : (
                   <div>
-                    <Input placeholder="Адрес" {...register("address")} />
+                    <Input
+                      placeholder="Адрес"
+                      icon={<MapIcon width="22" height="22" />}
+                      {...register("address")}
+                      error={errors?.address?.message}
+                    />
                   </div>
                 )}
                 <div>
@@ -305,7 +337,13 @@ const Process = () => {
                   <div>
                     <RadioButton
                       value="card"
-                      labelText={<span>Банковской картой</span>}
+                      labelText={
+                        <PaymentMethodLabel>
+                          Банковской картой
+                          <Visa width="57" height="19" />
+                          <Mastercard width="35" height="21" />
+                        </PaymentMethodLabel>
+                      }
                       {...register("paymentMethod")}
                       error={errors?.paymentMethod?.message}
                     />
@@ -331,13 +369,15 @@ const Process = () => {
                   />
                   <PriceSummary>
                     <span>сумма скидки</span>
-                    <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
+                    <PreviousPrice>
+                      {formatSum(totalDiscount, "₽")}
+                    </PreviousPrice>
                     <span>Итого к оплате </span>
                     <span>{formatSum(total - totalDiscount, "₽")}</span>
                   </PriceSummary>
                 </ProcessRow>
                 <Button
-                  disabled={!isValid}
+                  // disabled={!isValid}
                   onClick={handleSubmit(onSubmit)}
                   $size="s"
                 >
@@ -379,7 +419,7 @@ const Process = () => {
                 />
                 <PriceSummary>
                   <span>сумма скидки</span>
-                  <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
+                  <PreviousPrice>{formatSum(totalDiscount, "₽")}</PreviousPrice>
                   <span>Итого к оплате </span>
                   <span>{formatSum(total - totalDiscount, "₽")}</span>
                 </PriceSummary>

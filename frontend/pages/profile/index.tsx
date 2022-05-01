@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
 import Order from "../../components/icons/order.svg";
@@ -23,11 +23,11 @@ import { FavoriteItem } from "../../components/FavoriteItem";
 import { InfoBlock } from "../../components/InfoBlock";
 import { Box, LaptopLVisible } from "../../styles/layout";
 import { User } from "../../types/user";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import useUser from "../../hooks/useUser";
 import { destroyCookie } from "nookies";
 import { ORDER_DESCRIPTIONS, SHIPPING_METHODS } from "../../constants/order";
-import { formatDate, formatSum } from "../../utils/formatters";
+import { formatDate, formatPhone, formatSum } from "../../utils/formatters";
 import { getStatusColor } from "../../utils/profile";
 import { ButtonText } from "../../components/ButtonText";
 import Arrow from "../../components/icons/arrow-simple-right.svg";
@@ -45,6 +45,8 @@ import { putProfile } from "../../utils/api";
 import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { Loader } from "../../components/Loader";
+import { InputMask } from "../../components/InputMask";
+import pick from "lodash-es/pick";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
@@ -53,30 +55,29 @@ const Profile = () => {
   const { user, mutateUser, isLoading } = useUser({
     redirectTo: "/login",
   });
+  const [shouldShowButton, setButtonVisibility] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, dirtyFields },
-    clearErrors,
-    unregister,
-    getValues,
-    setError,
-  } = useForm<
+  const { register, handleSubmit, formState, reset, control } = useForm<
     Pick<User, "address" | "email" | "last_name" | "phone"> & {
       password?: string;
     }
   >({
-    mode: "onChange",
-    shouldFocusError: false,
+    mode: "all",
+    shouldFocusError: true,
     defaultValues: {
       last_name: user?.last_name,
       email: user?.email,
-      phone: user?.phone,
+      phone: user?.phone && user.phone.slice(1),
       address: user?.address,
-      password: null,
+      password: undefined,
     },
   });
+
+  const { errors, dirtyFields } = formState;
+
+  useEffect(() => {
+    setButtonVisibility(Object.keys(formState.dirtyFields).length > 0);
+  }, [formState]);
 
   if (isLoading || !user) {
     return <Loader />;
@@ -84,12 +85,17 @@ const Profile = () => {
 
   const onSubmit = async (values: User & { password?: string }) => {
     try {
-      const data = await putProfile(values);
+      const dataToSend = pick(values, Object.keys(dirtyFields));
+      const data = await putProfile(user?.id, {
+        ...dataToSend,
+        phone: formatPhone(dataToSend.phone),
+      });
       if ("message" in data) {
         toastError(data.message);
       }
       if ("id" in data) {
         mutateUser(data, false);
+        reset({ ...data, password: undefined });
         toastSuccess("Профиль успешно обновлён.");
       }
     } catch (err) {
@@ -106,6 +112,11 @@ const Profile = () => {
     <div>
       <Head>
         <title>Профиль (ex)bags</title>
+        <meta
+          property="og:description"
+          content="Профиль пользователя | (ex)bags"
+        />
+        <meta property="og:title" content="Профиль пользователя | (ex)bags" />
       </Head>
       <div className="container m32">
         <StyledProfileHeader $buttonPosition="right">
@@ -145,16 +156,25 @@ const Profile = () => {
                   })}
                   error={errors?.email?.message}
                 />
-                <Input
-                  label="Телефон"
-                  placeholder="+7 _____ ____-__-__"
-                  {...register("phone", {
+                <Controller
+                  render={({ field, fieldState: { error } }) => (
+                    <InputMask
+                      {...field}
+                      error={error?.message}
+                      label="Ваш телефон"
+                      placeholder="+7 ___ ___ __ __"
+                      mask="+7 (999) 999 99 99"
+                    />
+                  )}
+                  control={control}
+                  name="phone"
+                  rules={{
+                    required: VALIDATION_REQUIRED,
                     pattern: {
                       value: REGEXP_PHONE,
                       message: VALIDATION_PHONE_DIGITS,
                     },
-                  })}
-                  error={errors?.phone?.message}
+                  }}
                 />
                 <Input
                   label="пароль"
@@ -266,16 +286,25 @@ const Profile = () => {
                     })}
                     error={errors?.email?.message}
                   />
-                  <Input
-                    label="Телефон"
-                    placeholder="+7 _____ ____-__-__"
-                    {...register("phone", {
+                  <Controller
+                    render={({ field, fieldState: { error } }) => (
+                      <InputMask
+                        {...field}
+                        error={error?.message}
+                        label="Ваш телефон"
+                        placeholder="+7 ___ ___ __ __"
+                        mask="+7 (999) 999 99 99"
+                      />
+                    )}
+                    control={control}
+                    name="phone"
+                    rules={{
+                      required: VALIDATION_REQUIRED,
                       pattern: {
                         value: REGEXP_PHONE,
                         message: VALIDATION_PHONE_DIGITS,
                       },
-                    })}
-                    error={errors?.phone?.message}
+                    }}
                   />
                   <Input
                     label="пароль"
@@ -290,7 +319,7 @@ const Profile = () => {
                 <Box>
                   <Input label="адрес" {...register("address")} />
                 </Box>
-                {Object.keys(dirtyFields).length > 0 && (
+                {shouldShowButton && (
                   <Button $size="s" type="submit">
                     сохранить
                   </Button>

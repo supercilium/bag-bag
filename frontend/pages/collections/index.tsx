@@ -14,6 +14,8 @@ const Page: FC<{ collections: CollectionInterface[] }> = ({ collections }) => {
     <div>
       <Head>
         <title>Коллекции (ex)bags</title>
+        <meta property="og:description" content="Коллекции | (ex)bags" />
+        <meta property="og:title" content="Коллекции | (ex)bags" />
       </Head>
       <MainContent className="container m32">
         <StyledHeader>

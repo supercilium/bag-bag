@@ -6,13 +6,15 @@ import { buttonText, PreviousPrice, primaryText } from "../typography";
 export type ActiveTab = "shipping" | "payment" | "result";
 
 export const ProductsList = styled.div`
+  & > div {
+    padding: 1.5rem;
+  }
   & > div + div {
     margin-top: 3.6rem;
   }
 
-  @media (max-width: ${size.laptopL}px) {
+  @media (max-width: ${size.laptop}px) {
     & > div {
-      padding: 1.5rem;
       display: grid;
       grid-template-columns: 100px auto;
     }
@@ -20,11 +22,11 @@ export const ProductsList = styled.div`
 `
 
 export const PaymentBlock = styled.div`
-  @media (max-width: ${size.laptopL}px) {
+  @media (max-width: ${size.laptop}px) {
     order: -1;
     margin-bottom: 18px;
   }
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     display: none;
   }
 `
@@ -44,7 +46,7 @@ export const ProcessGrid = styled.div<{ $activeTab: ActiveTab }>`
   margin-top: 30px;
   display: grid;
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     grid-template-columns: 1fr 75rem;
     grid-gap: 3.6rem;
     margin-top: 0;
@@ -54,7 +56,7 @@ export const ProcessGrid = styled.div<{ $activeTab: ActiveTab }>`
     }
   }
 
-  @media (max-width: ${size.laptopL}px) {
+  @media (max-width: ${size.laptop}px) {
     & > div {
       overflow: hidden;
 
@@ -83,14 +85,14 @@ export const ProcessRow = styled.div`
   display: grid;
   grid-gap: 3.6rem;
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     grid-template-columns: repeat(2, 1fr);
 
   }
 `;
 
 export const NameBlock = styled.div`
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     padding: 4.5rem;
   }
 `;
@@ -101,7 +103,7 @@ export const NameTitle = styled.p`
   font-size: 16px;
   line-height: 120%;
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     ${buttonText};
     color: ${({ theme }) => theme.colors.green};
   }
@@ -109,13 +111,13 @@ export const NameTitle = styled.p`
 
 export const DescriptionBlock = styled.div`
   display: none;
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     display: grid;
   }
 `;
 
 export const Details = styled.div`
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     display: grid;
     grid-template-columns: 18rem 1fr;
     grid-gap: 3.6rem;
@@ -131,7 +133,7 @@ export const PriceRow = styled.div`
     margin-right: 6px;
   }
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     text-align: right;
     border-bottom: 1px solid ${({ theme }) => theme.colors.grey3};
     padding-bottom: 1.8rem;
@@ -149,7 +151,7 @@ export const FullWidthLabel = styled.div`
 export const DescriptionText = styled(ReactMarkdown)`
   ${primaryText};
   
-  @media (max-width: ${size.laptopL}px) {
+  @media (max-width: ${size.laptop}px) {
     max-height: 28px;
     font-size: 12px;
     overflow: hidden;
@@ -166,7 +168,7 @@ export const ImageContainer = styled.div`
     border-radius: 2.4rem;
   }
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     width: 100%;
     height: 58.1rem;
   }
@@ -187,7 +189,13 @@ export const ButtonsBlock = styled.div`
     justify-content: center;
   }
 
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     display: none;
   }
+`
+
+export const PaymentMethodLabel = styled.span`
+  display: flex;
+  align-items: center;
+  gap: 18px;
 `

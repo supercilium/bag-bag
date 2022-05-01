@@ -57,7 +57,7 @@ export const FileInputRoot = styled.label<{ $state: State }>`
     display: flex;
   }
 
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     width: 25.2rem;
     height: 25.2rem;
   }
