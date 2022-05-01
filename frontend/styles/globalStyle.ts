@@ -133,6 +133,10 @@ export const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
+  .overflowXScroll {
+    overflow-x: auto;
+  }
+
   @media ${device.laptopL} {
     h1, .h1 {
       font-size: 12.9rem;

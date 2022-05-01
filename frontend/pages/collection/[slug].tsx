@@ -15,6 +15,15 @@ const Page: FC<{ collection: CollectionInterface }> = ({ collection }) => {
     <div>
       <Head>
         <title>Коллекция (ex)bags</title>
+        <meta
+          property="og:image"
+          content={collection?.preview?.formats?.thumbnail?.url}
+        />
+        <meta property="og:description" content={collection.description} />
+        <meta
+          property="og:title"
+          content={`${collection.name} | ex(Bag) Online Store`}
+        />
       </Head>
       <div className="container m32">
         <StyledHeader>

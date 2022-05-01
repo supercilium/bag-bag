@@ -106,6 +106,11 @@ const Profile = () => {
     <div>
       <Head>
         <title>Профиль (ex)bags</title>
+        <meta
+          property="og:description"
+          content="Профиль пользователя | (ex)bags"
+        />
+        <meta property="og:title" content="Профиль пользователя | (ex)bags" />
       </Head>
       <div className="container m32">
         <StyledProfileHeader $buttonPosition="right">

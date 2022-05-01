@@ -30,7 +30,7 @@ export const OrderContainer = styled.form<{ $activeTab: TabName }>`
     height: ${({ $activeTab }) => $activeTab === 'result' ? 'auto' : 0};
   }
 
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     grid-gap: 3.6rem;
     margin: 0 3.6rem 25rem;
 
@@ -63,7 +63,7 @@ export const ImageInputsRow = styled.div`
   grid-auto-rows: auto;
   justify-content: stretch;
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     grid-template-columns: repeat(6, auto);
     justify-content: flex-start;
   }
@@ -75,7 +75,7 @@ export const OfferRow = styled.div`
   grid-gap: 3.6rem;
   grid-auto-rows: auto;
   
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     grid-template-columns: repeat(2, 1fr);
   }
 `
@@ -104,7 +104,7 @@ export const MobileButtons = styled.div`
     transform: rotate(-180deg);
   }
 
-  @media ${device.laptopL} {
+  @media ${device.laptop} {
     display: none;
   }
 `

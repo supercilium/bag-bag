@@ -20,6 +20,7 @@ import {
   ActiveTab,
   ButtonsBlock,
   PaymentBlock,
+  PaymentMethodLabel,
 } from "../../styles/pages/Process.styles";
 import NextImage from "../../components/Image";
 import { Input } from "../../components/Input";
@@ -38,6 +39,8 @@ import { OrderFormValues, createOrder, checkPromoCode } from "../../utils/api";
 import { getTotalSumAndDiscount } from "../../utils/calculation";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import Arrow from "../../components/icons/arrow-simple-right.svg";
+import Visa from "../../components/icons/visa-colored.svg";
+import Mastercard from "../../components/icons/mastercard-color.svg";
 import {
   ERROR_UNKNOWN,
   VALIDATION_EMAIL_FORMAT,
@@ -171,6 +174,8 @@ const Process = () => {
     <div>
       <Head>
         <title>Оформление (ex)bags</title>
+        <meta property="og:description" content="Оформление | (ex)bags" />
+        <meta property="og:title" content="Оформление | (ex)bags" />
       </Head>
       <div className="container">
         <div className="m32">
@@ -305,7 +310,13 @@ const Process = () => {
                   <div>
                     <RadioButton
                       value="card"
-                      labelText={<span>Банковской картой</span>}
+                      labelText={
+                        <PaymentMethodLabel>
+                          Банковской картой
+                          <Visa width="57" height="19" />
+                          <Mastercard width="35" height="21" />
+                        </PaymentMethodLabel>
+                      }
                       {...register("paymentMethod")}
                       error={errors?.paymentMethod?.message}
                     />
@@ -331,13 +342,15 @@ const Process = () => {
                   />
                   <PriceSummary>
                     <span>сумма скидки</span>
-                    <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
+                    <PreviousPrice>
+                      {formatSum(totalDiscount, "₽")}
+                    </PreviousPrice>
                     <span>Итого к оплате </span>
                     <span>{formatSum(total - totalDiscount, "₽")}</span>
                   </PriceSummary>
                 </ProcessRow>
                 <Button
-                  disabled={!isValid}
+                  // disabled={!isValid}
                   onClick={handleSubmit(onSubmit)}
                   $size="s"
                 >
@@ -379,7 +392,7 @@ const Process = () => {
                 />
                 <PriceSummary>
                   <span>сумма скидки</span>
-                  <PreviousPrice>{formatSum(total, "₽")}</PreviousPrice>
+                  <PreviousPrice>{formatSum(totalDiscount, "₽")}</PreviousPrice>
                   <span>Итого к оплате </span>
                   <span>{formatSum(total - totalDiscount, "₽")}</span>
                 </PriceSummary>

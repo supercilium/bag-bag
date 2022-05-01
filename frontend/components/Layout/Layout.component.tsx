@@ -34,7 +34,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, filters }) => {
       <Navbar filters={filters} />
       <div className="flex-grow">
         {!isFallback && children}
-        {(isLoading || isFallback) && <Loader />}
+        {isLoading && <Loader />}
       </div>
       <Footer />
     </LayoutRoot>

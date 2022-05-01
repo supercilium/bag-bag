@@ -112,7 +112,7 @@ export const BagContainer = styled.a`
     bottom: 3px;
     right: 1px;
     font-weight: 600;
-    font-size: 21px;
+    font-size: 12px;
     color: ${({ theme }) => theme.colors.green};
   }
 
@@ -123,6 +123,7 @@ export const BagContainer = styled.a`
       line-height: 16px;
       bottom: 5px;
       right: 2px;
+      font-size: 21px;
     }
   }
 `

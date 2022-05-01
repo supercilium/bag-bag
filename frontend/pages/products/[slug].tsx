@@ -109,7 +109,7 @@ const ProductPage: FC<ProductPageInterface> = ({ product, recommended }) => {
   return (
     <div>
       <Head>
-        <title>{product.title} product</title>
+        <title>{product.title} | (ex)bags</title>
         <meta
           property="og:image"
           content={product.images?.[0]?.formats?.thumbnail?.url}

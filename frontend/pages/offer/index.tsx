@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { Button } from "../../components/Button";
 import { FileInput } from "../../components/FileInput";
 import { Input } from "../../components/Input";
@@ -137,7 +136,12 @@ const Offer: FC<OfferProps> = ({ filters }) => {
   return (
     <div>
       <Head>
-        <title>Offer (ex)bags</title>
+        <title>Продать свою сумку (ex)bags</title>
+        <meta
+          property="og:description"
+          content="Продать свою сумку | (ex)bags"
+        />
+        <meta property="og:title" content="Продать свою сумку | (ex)bags" />
       </Head>
       <OfferTitle>
         <StyledHeader>
@@ -153,7 +157,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
       </OfferTitle>
       <OrderContainer onSubmit={handleSubmit(onSubmit)} $activeTab={activeTab}>
         <div>
-          <Box>
+          <Box className="overflowXScroll">
             <OfferRow>
               <Controller
                 control={control}
@@ -363,7 +367,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
             </ButtonText>
           </MobileButtons>
         </div>
-        {width < size.laptopL && (
+        {width <= size.laptop && (
           <div>
             <StatusBox $status="success">
               <Check width="22" height="22" />

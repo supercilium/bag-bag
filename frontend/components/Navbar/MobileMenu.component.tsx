@@ -6,8 +6,9 @@ import {
   SocialLink,
   SubMenu,
 } from "../MobileMenu/MobileMenu.styles";
-import Instagram from "../icons/insta.svg";
-import Facebook from "../icons/fb.svg";
+// import Instagram from "../icons/insta.svg";
+// import Facebook from "../icons/fb.svg";
+import TelegramIcon from "../icons/telegram.svg";
 import Arrow from "../icons/arrow-simple-right.svg";
 import { useEffect, useState } from "react";
 import { size } from "../../styles/constants";
@@ -54,12 +55,12 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link href="/">
+            <Link href="/about">
               <a>О нас</a>
             </Link>
           </MenuItem>
           <MenuItem>
-            <Link href="/">
+            <Link href="/contacts">
               <a>Контакты</a>
             </Link>
           </MenuItem>
@@ -115,7 +116,7 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
         </SubMenu>
       </menu>
       <MobileMenuFooter>
-        <Link href="/">
+        {/* <Link href="/">
           <SocialLink>
             <Instagram height="24" width="24" />
           </SocialLink>
@@ -124,7 +125,13 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
           <SocialLink>
             <Facebook height="24" width="24" />
           </SocialLink>
+        </Link> */}
+        <Link passHref href="/">
+          <SocialLink>
+            <TelegramIcon height="24" width="24" />
+          </SocialLink>
         </Link>
+
         <address>
           <p>+7 999 355-35-35</p>
           <p>
