@@ -22,12 +22,15 @@ import {
   VALIDATION_REQUIRED,
 } from "../../constants/errorMessages";
 import { REGEXP_EMAIL } from "../../constants/regex";
+import { Loader } from "../../components/Loader";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const { isFallback } = useRouter();
   const [activeTabLogin, setActiveTab] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   // here we just check if user is already logged in and redirect to profile
-  const { mutateUser } = useUser({
+  const { mutateUser, isLoading, user } = useUser({
     redirectTo: "/profile",
     redirectIfFound: true,
   });
@@ -36,10 +39,6 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    clearErrors,
-    unregister,
-    getValues,
-    setError,
   } = useForm<LoginFormInterface>({
     shouldFocusError: false,
   });
@@ -80,6 +79,10 @@ const Login = () => {
       }
     }
   };
+
+  if ((isLoading && !user) || isFallback) {
+    return <Loader />;
+  }
 
   return (
     <div>

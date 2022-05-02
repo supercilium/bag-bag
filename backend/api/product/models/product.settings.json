@@ -86,9 +86,9 @@
       "collection": "order"
     },
     "users": {
-      "private": true,
       "via": "favorites",
       "plugin": "users-permissions",
+      "private": true,
       "collection": "user"
     },
     "views": {

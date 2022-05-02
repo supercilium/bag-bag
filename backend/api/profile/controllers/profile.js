@@ -86,7 +86,7 @@ module.exports = {
       .get();
 
     const { id } = ctx.params;
-    const { email, username } = ctx.request.body;
+    const { email, username, phone } = ctx.request.body;
 
     if (_.has(ctx.request.body, "email") && !email) {
       return ctx.badRequest("email.notNull");
@@ -94,6 +94,10 @@ module.exports = {
 
     if (_.has(ctx.request.body, "username") && !username) {
       return ctx.badRequest("username.notNull");
+    }
+
+    if (_.has(ctx.request.body, "phone") && !phone) {
+      return ctx.badRequest("phone.notNull");
     }
 
     if (_.has(ctx.request.body, "username")) {

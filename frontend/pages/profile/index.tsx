@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
@@ -37,20 +38,21 @@ import { InfoBlockMobile } from "../../components/InfoBlockMobile";
 import {
   ERROR_UNKNOWN,
   VALIDATION_EMAIL_FORMAT,
-  VALIDATION_PHONE_DIGITS,
   VALIDATION_REQUIRED,
 } from "../../constants/errorMessages";
 import { Button } from "../../components/Button";
 import { putProfile } from "../../utils/api";
-import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
+import { REGEXP_EMAIL } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { Loader } from "../../components/Loader";
 import { InputMask } from "../../components/InputMask";
 import pick from "lodash-es/pick";
+import { validatePhone } from "../../utils/validation";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
 const Profile = () => {
+  const { isFallback } = useRouter();
   const [activeTab, setActiveTab] = useState<ActiveTab>("info");
   const { user, mutateUser, isLoading } = useUser({
     redirectTo: "/login",
@@ -62,7 +64,6 @@ const Profile = () => {
       password?: string;
     }
   >({
-    mode: "all",
     shouldFocusError: true,
     defaultValues: {
       last_name: user?.last_name,
@@ -73,13 +74,26 @@ const Profile = () => {
     },
   });
 
+  useEffect(() => {
+    // https://stackoverflow.com/a/64307087/15152568
+    if (user) {
+      reset({
+        last_name: user?.last_name,
+        email: user?.email,
+        phone: user?.phone && user.phone.slice(1),
+        address: user?.address,
+        password: undefined,
+      });
+    }
+  }, [user, reset]);
+
   const { errors, dirtyFields } = formState;
 
   useEffect(() => {
     setButtonVisibility(Object.keys(formState.dirtyFields).length > 0);
   }, [formState]);
 
-  if (isLoading || !user) {
+  if (isLoading || isFallback || !user) {
     return <Loader />;
   }
 
@@ -95,7 +109,6 @@ const Profile = () => {
       }
       if ("id" in data) {
         mutateUser(data, false);
-        reset({ ...data, password: undefined });
         toastSuccess("Профиль успешно обновлён.");
       }
     } catch (err) {
@@ -170,10 +183,7 @@ const Profile = () => {
                   name="phone"
                   rules={{
                     required: VALIDATION_REQUIRED,
-                    pattern: {
-                      value: REGEXP_PHONE,
-                      message: VALIDATION_PHONE_DIGITS,
-                    },
+                    validate: validatePhone,
                   }}
                 />
                 <Input
@@ -300,10 +310,7 @@ const Profile = () => {
                     name="phone"
                     rules={{
                       required: VALIDATION_REQUIRED,
-                      pattern: {
-                        value: REGEXP_PHONE,
-                        message: VALIDATION_PHONE_DIGITS,
-                      },
+                      validate: validatePhone,
                     }}
                   />
                   <Input

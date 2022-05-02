@@ -32,13 +32,12 @@ import { formatPhone, formatSum } from "../../utils/formatters";
 import {
   ERROR_UNKNOWN,
   VALIDATION_EMAIL_FORMAT,
-  VALIDATION_PHONE_DIGITS,
   VALIDATION_REQUIRED,
 } from "../../constants/errorMessages";
-import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
+import { REGEXP_EMAIL } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { InputMask } from "../../components/InputMask";
-import { validateFile } from "../../utils/validation";
+import { validateFile, validatePhone } from "../../utils/validation";
 
 interface OfferProps {
   filters: Filters;
@@ -239,10 +238,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                 name="data.phone"
                 rules={{
                   required: VALIDATION_REQUIRED,
-                  pattern: {
-                    value: REGEXP_PHONE,
-                    message: VALIDATION_PHONE_DIGITS,
-                  },
+                  validate: validatePhone,
                 }}
               />
               <Input

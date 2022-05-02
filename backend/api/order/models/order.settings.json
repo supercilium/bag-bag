@@ -51,9 +51,9 @@
       "via": "orders"
     },
     "user": {
-      "private": true,
       "via": "orders",
       "plugin": "users-permissions",
+      "private": true,
       "model": "user"
     },
     "shippingMethod": {
