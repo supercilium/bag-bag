@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Input } from "../../components/Input";
 import Info from "../../components/icons/info.svg";
@@ -51,6 +52,7 @@ import { validatePhone } from "../../utils/validation";
 export type ActiveTab = "info" | "orders" | "favorite";
 
 const Profile = () => {
+  const { isFallback } = useRouter();
   const [activeTab, setActiveTab] = useState<ActiveTab>("info");
   const { user, mutateUser, isLoading } = useUser({
     redirectTo: "/login",
@@ -72,13 +74,26 @@ const Profile = () => {
     },
   });
 
+  useEffect(() => {
+    // https://stackoverflow.com/a/64307087/15152568
+    if (user) {
+      reset({
+        last_name: user?.last_name,
+        email: user?.email,
+        phone: user?.phone && user.phone.slice(1),
+        address: user?.address,
+        password: undefined,
+      });
+    }
+  }, [user, reset]);
+
   const { errors, dirtyFields } = formState;
 
   useEffect(() => {
     setButtonVisibility(Object.keys(formState.dirtyFields).length > 0);
   }, [formState]);
 
-  if (isLoading || !user) {
+  if (isLoading || isFallback || !user) {
     return <Loader />;
   }
 
@@ -94,11 +109,6 @@ const Profile = () => {
       }
       if ("id" in data) {
         mutateUser(data, false);
-        reset({
-          ...data,
-          phone: data?.phone && data.phone.slice(1),
-          password: undefined,
-        });
         toastSuccess("Профиль успешно обновлён.");
       }
     } catch (err) {
