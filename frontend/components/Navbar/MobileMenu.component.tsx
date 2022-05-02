@@ -16,6 +16,8 @@ import { InfoBlock } from "../InfoBlock";
 import { Filters } from "../../types/common";
 import { MenuItem } from "../MobileMenu/components";
 import { useDimensions } from "../../hooks/useDimensions";
+import useLoading from "../../hooks/useLoader";
+import { Loader } from "../Loader";
 
 export interface MobileMenuProps {
   isOpen: boolean;
@@ -31,12 +33,16 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
   const [isSubMenuOpened, setSubMenuState] = useState(false);
   const screenSize = useDimensions();
   const isWideScreen = screenSize.width >= size.laptop;
+  const { isLoading } = useLoading();
 
   useEffect(() => {
     if (!isWideScreen) {
-      document.getElementById("layout").style.overflow = isOpen
-        ? "hidden"
-        : "unset";
+      if (isOpen) {
+        document.getElementById("layout").classList.add("layout-fixed");
+      } else {
+        document.getElementById("layout").classList.remove("layout-fixed");
+        setSubMenuState(false);
+      }
     }
   }, [isWideScreen, isOpen]);
 
@@ -113,7 +119,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
               </>
             }
           />
+          {isLoading && <Loader />}
         </SubMenu>
+        {isLoading && <Loader />}
       </menu>
       <MobileMenuFooter>
         {/* <Link href="/">

@@ -8,6 +8,7 @@ export const SubMenu = styled.div`
   background-color: #fff;
   display: grid;
   grid-gap: 15px;
+  position: relative;
 
   & a {
     color: ${({ theme }) => theme.colors.grey};
@@ -57,6 +58,7 @@ export const MobileMenuRoot = styled.div<{
         display: flex;
         padding: 0;
         margin: 0;
+        position: relative;
         
         & > div {
             padding: 24px 18px;
