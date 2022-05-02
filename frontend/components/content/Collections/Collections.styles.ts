@@ -22,8 +22,8 @@ export const BigButton = styled(Button)`
   padding-right: 0;
   margin-top: 80px;
 
-  & > svg {
-    margin-top: 14px;
+  & svg {
+    vertical-align: middle;
   }
 
   @media ${device.laptopL} {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PreviousPrice } from "../../styles/typography";
 import { ProductInterface } from "../../types/product";
 import { formatSum, getActualSum } from "../../utils/formatters";
@@ -15,29 +16,33 @@ export interface FavoriteItemProps extends ProductInterface {}
 
 export const FavoriteItem: React.FC<FavoriteItemProps> = (item) => {
   return (
-    <FavoriteRoot>
-      <ImageContainer>
-        <NextImage media={item.images?.[0]} layout="fill" objectFit="cover" />
-      </ImageContainer>
-      <NameBlock>
-        <h4>{item.title}</h4>
-        <div>
-          <span>{formatSum(getActualSum(item.price, item.discount), "₽")}</span>
-          {item.discount && (
-            <PreviousPrice>{formatSum(item.price, "₽")}</PreviousPrice>
-          )}
-          <Ex>
-            {item.condition === "ex" ? (
-              <span>(ex)</span>
-            ) : (
-              <span>
-                <i>new</i>
-              </span>
+    <Link href={`/products/${item.slug}`} passHref>
+      <FavoriteRoot>
+        <ImageContainer>
+          <NextImage media={item.images?.[0]} layout="fill" objectFit="cover" />
+        </ImageContainer>
+        <NameBlock>
+          <h4>{item.title}</h4>
+          <div>
+            <span>
+              {formatSum(getActualSum(item.price, item.discount), "₽")}
+            </span>
+            {item.discount && (
+              <PreviousPrice>{formatSum(item.price, "₽")}</PreviousPrice>
             )}
-          </Ex>
-        </div>
-      </NameBlock>
-      <HidingPurchaseButtons productId={item.id} />
-    </FavoriteRoot>
+            <Ex>
+              {item.condition === "ex" ? (
+                <span>(ex)</span>
+              ) : (
+                <span>
+                  <i>new</i>
+                </span>
+              )}
+            </Ex>
+          </div>
+        </NameBlock>
+        <HidingPurchaseButtons productId={item.id} />
+      </FavoriteRoot>
+    </Link>
   );
 };

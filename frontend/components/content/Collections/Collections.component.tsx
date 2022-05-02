@@ -25,8 +25,10 @@ export const Collections: React.FC<CollectionsProps> = ({ items }) => {
             <CollectionItem halfHeight {...items?.[2]} />
             <Link href="/collections" passHref>
               <BigButton $round $size="l">
-                еще
-                <Arrow width="36" height="36" />
+                <span>
+                  еще
+                  <Arrow width="36" height="36" />
+                </span>
               </BigButton>
             </Link>
           </RightColumn>

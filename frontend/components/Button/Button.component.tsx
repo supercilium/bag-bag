@@ -14,7 +14,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ children, $size = "m", href, ...rest }, ref) => {
     if (href) {
       return (
-        <Link href={href}>
+        <Link href={href} passHref>
           <StyledButton ref={ref} $size={$size} {...rest}>
             {children}
           </StyledButton>
