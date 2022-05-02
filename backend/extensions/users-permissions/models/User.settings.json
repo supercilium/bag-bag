@@ -80,7 +80,9 @@
     "phone": {
       "type": "string",
       "private": false,
-      "regex": "/^\\d*$/"
+      "regex": "^\\d*$",
+      "minLength": 10,
+      "maxLength": 11
     },
     "last_name": {
       "type": "string"

@@ -156,9 +156,9 @@
       "pluginOptions": {}
     },
     "user": {
+      "via": "requests",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "requests"
+      "model": "user"
     },
     "status": {
       "type": "enumeration",

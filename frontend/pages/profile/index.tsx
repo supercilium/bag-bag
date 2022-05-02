@@ -37,16 +37,16 @@ import { InfoBlockMobile } from "../../components/InfoBlockMobile";
 import {
   ERROR_UNKNOWN,
   VALIDATION_EMAIL_FORMAT,
-  VALIDATION_PHONE_DIGITS,
   VALIDATION_REQUIRED,
 } from "../../constants/errorMessages";
 import { Button } from "../../components/Button";
 import { putProfile } from "../../utils/api";
-import { REGEXP_EMAIL, REGEXP_PHONE } from "../../constants/regex";
+import { REGEXP_EMAIL } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { Loader } from "../../components/Loader";
 import { InputMask } from "../../components/InputMask";
 import pick from "lodash-es/pick";
+import { validatePhone } from "../../utils/validation";
 
 export type ActiveTab = "info" | "orders" | "favorite";
 
@@ -62,7 +62,6 @@ const Profile = () => {
       password?: string;
     }
   >({
-    mode: "all",
     shouldFocusError: true,
     defaultValues: {
       last_name: user?.last_name,
@@ -95,7 +94,11 @@ const Profile = () => {
       }
       if ("id" in data) {
         mutateUser(data, false);
-        reset({ ...data, password: undefined });
+        reset({
+          ...data,
+          phone: data?.phone && data.phone.slice(1),
+          password: undefined,
+        });
         toastSuccess("Профиль успешно обновлён.");
       }
     } catch (err) {
@@ -170,10 +173,7 @@ const Profile = () => {
                   name="phone"
                   rules={{
                     required: VALIDATION_REQUIRED,
-                    pattern: {
-                      value: REGEXP_PHONE,
-                      message: VALIDATION_PHONE_DIGITS,
-                    },
+                    validate: validatePhone,
                   }}
                 />
                 <Input
@@ -300,10 +300,7 @@ const Profile = () => {
                     name="phone"
                     rules={{
                       required: VALIDATION_REQUIRED,
-                      pattern: {
-                        value: REGEXP_PHONE,
-                        message: VALIDATION_PHONE_DIGITS,
-                      },
+                      validate: validatePhone,
                     }}
                   />
                   <Input
