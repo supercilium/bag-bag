@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useLoading from "../../hooks/useLoader";
 import useUser from "../../hooks/useUser";
 import { Filters } from "../../types/common";
 import { Footer } from "../Footer";
@@ -13,21 +14,8 @@ export interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children, filters }) => {
   const { user } = useUser();
-  const { events, isFallback } = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const handleRouteChange = () => setIsLoading((prev) => !prev);
-
-  useEffect(() => {
-    events.on("routeChangeStart", handleRouteChange);
-    events.on("routeChangeComplete", handleRouteChange);
-
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
-    return () => {
-      events.off("routeChangeStart", handleRouteChange);
-      events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [events]);
+  const { isFallback } = useRouter();
+  const { isLoading } = useLoading();
 
   return (
     <LayoutRoot id="layout">

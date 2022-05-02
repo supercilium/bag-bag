@@ -137,6 +137,12 @@ export const GlobalStyle = createGlobalStyle`
     overflow-x: auto;
   }
 
+  .layout-fixed {
+    overflow: hidden;
+    min-height: 100vh !important;
+    height: 100vh;
+  }
+
   @media ${device.laptopL} {
     h1, .h1 {
       font-size: 12.9rem;

@@ -19,6 +19,10 @@ export const MenuItemRoot = styled.button`
   font-size: 18px;
   line-height: 22px;
 
+  & a {
+    flex-grow: 1;
+  }
+
   & svg {
     height: 22px;
     width: 22px;

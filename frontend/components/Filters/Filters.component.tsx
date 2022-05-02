@@ -37,6 +37,8 @@ import { MenuIcon } from "../MenuIcon";
 import { MenuItem } from "../MobileMenu/components";
 import pick from "lodash-es/pick";
 import { formatSum } from "../../utils/formatters";
+import useLoading from "../../hooks/useLoader";
+import { Loader } from "../Loader";
 
 export interface FiltersProps {
   filters: Filters;
@@ -79,10 +81,10 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
   const { query, push } = useRouter();
   const [openedMenu, setOpenedMenu] = useState<"filters" | "sort">(null);
   const [openedFilter, setOpenedFilter] = useState<OpenedFilter>(null);
-  const { register, handleSubmit, reset, watch, setValue } =
-    useForm<FilterObjInterface>({
-      shouldFocusError: false,
-    });
+  const { register, handleSubmit, reset, watch } = useForm<FilterObjInterface>({
+    shouldFocusError: false,
+  });
+  const { isLoading } = useLoading();
 
   useEffect(() => {
     // https://stackoverflow.com/a/64307087/15152568
@@ -166,9 +168,12 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
 
   useEffect(() => {
     if (!isWideScreen) {
-      document.getElementById("layout").style.overflow = !!openedMenu
-        ? "hidden"
-        : "unset";
+      if (openedMenu) {
+        document.getElementById("layout").classList.add("layout-fixed");
+      } else {
+        document.getElementById("layout").classList.remove("layout-fixed");
+        setOpenedFilter(null);
+      }
     }
   }, [isWideScreen, openedMenu]);
 
@@ -585,7 +590,9 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
                           </SortFieldset>
                         )}
                       </div>
+                      {isLoading && <Loader />}
                     </SubMenu>
+                    {isLoading && <Loader />}
                   </menu>
                 </MobileMenuRoot>
                 {(openedFilter || openedMenu === "sort") && (

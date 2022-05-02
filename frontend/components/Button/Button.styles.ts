@@ -33,6 +33,7 @@ export const StyledButton = styled.button<{
 }>`
   padding: ${({ $round, $size }) => ($round ? 0 : BUTTON_PADDINGS[$size])};
   min-width: ${({ $size }) => BUTTON_SIZE[$size]};
+  min-height: ${({ $size, $round }) => $round ? BUTTON_SIZE[$size] : 'unset'};
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 9.4rem;
   font-weight: 500;
