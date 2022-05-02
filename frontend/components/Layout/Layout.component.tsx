@@ -15,17 +15,18 @@ export const Layout: React.FC<LayoutProps> = ({ children, filters }) => {
   const { user } = useUser();
   const { events, isFallback } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const handleRouteChange = () => setIsLoading((prev) => !prev);
+  const enableLoader = () => setIsLoading(true);
+  const disableLoader = () => setIsLoading(false);
 
   useEffect(() => {
-    events.on("routeChangeStart", handleRouteChange);
-    events.on("routeChangeComplete", handleRouteChange);
+    events.on("routeChangeStart", enableLoader);
+    events.on("routeChangeComplete", disableLoader);
 
     // If the component is unmounted, unsubscribe
     // from the event with the `off` method:
     return () => {
-      events.off("routeChangeStart", handleRouteChange);
-      events.off("routeChangeComplete", handleRouteChange);
+      events.off("routeChangeStart", enableLoader);
+      events.off("routeChangeComplete", disableLoader);
     };
   }, [events]);
 
