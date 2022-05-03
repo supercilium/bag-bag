@@ -1,0 +1,562 @@
+[
+    {
+        "id": 1,
+        "type": "application",
+        "controller": "brand",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 3,
+        "type": "application",
+        "controller": "brand",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 5,
+        "type": "application",
+        "controller": "brand",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 7,
+        "type": "application",
+        "controller": "brand",
+        "action": "find",
+        "enabled": true
+    },
+    {
+        "id": 9,
+        "type": "application",
+        "controller": "brand",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 11,
+        "type": "application",
+        "controller": "brand",
+        "action": "findwithcounts",
+        "enabled": true
+    },
+    {
+        "id": 13,
+        "type": "application",
+        "controller": "brand",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 15,
+        "type": "application",
+        "controller": "category",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 17,
+        "type": "application",
+        "controller": "category",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 19,
+        "type": "application",
+        "controller": "category",
+        "action": "createlocalization",
+        "enabled": false
+    },
+    {
+        "id": 21,
+        "type": "application",
+        "controller": "category",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 23,
+        "type": "application",
+        "controller": "category",
+        "action": "find",
+        "enabled": true
+    },
+    {
+        "id": 25,
+        "type": "application",
+        "controller": "category",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 27,
+        "type": "application",
+        "controller": "category",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 29,
+        "type": "application",
+        "controller": "color",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 31,
+        "type": "application",
+        "controller": "color",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 33,
+        "type": "application",
+        "controller": "color",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 35,
+        "type": "application",
+        "controller": "color",
+        "action": "find",
+        "enabled": true
+    },
+    {
+        "id": 37,
+        "type": "application",
+        "controller": "color",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 39,
+        "type": "application",
+        "controller": "color",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 41,
+        "type": "application",
+        "controller": "filter",
+        "action": "find",
+        "enabled": true
+    },
+    {
+        "id": 43,
+        "type": "application",
+        "controller": "order",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 45,
+        "type": "application",
+        "controller": "order",
+        "action": "create",
+        "enabled": true
+    },
+    {
+        "id": 47,
+        "type": "application",
+        "controller": "order",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 49,
+        "type": "application",
+        "controller": "order",
+        "action": "find",
+        "enabled": false
+    },
+    {
+        "id": 51,
+        "type": "application",
+        "controller": "order",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 53,
+        "type": "application",
+        "controller": "order",
+        "action": "update",
+        "enabled": true
+    },
+    {
+        "id": 55,
+        "type": "application",
+        "controller": "pages",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 57,
+        "type": "application",
+        "controller": "pages",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 59,
+        "type": "application",
+        "controller": "pages",
+        "action": "createlocalization",
+        "enabled": false
+    },
+    {
+        "id": 61,
+        "type": "application",
+        "controller": "pages",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 63,
+        "type": "application",
+        "controller": "pages",
+        "action": "find",
+        "enabled": true
+    },
+    {
+        "id": 65,
+        "type": "application",
+        "controller": "pages",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 67,
+        "type": "application",
+        "controller": "pages",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 69,
+        "type": "application",
+        "controller": "product",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 71,
+        "type": "application",
+        "controller": "product",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 73,
+        "type": "application",
+        "controller": "product",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 75,
+        "type": "application",
+        "controller": "product",
+        "action": "find",
+        "enabled": true
+    },
+    {
+        "id": 77,
+        "type": "application",
+        "controller": "product",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 79,
+        "type": "application",
+        "controller": "product",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 81,
+        "type": "application",
+        "controller": "profile",
+        "action": "addtofavorite",
+        "enabled": true
+    },
+    {
+        "id": 83,
+        "type": "application",
+        "controller": "profile",
+        "action": "addtoshoppingbag",
+        "enabled": true
+    },
+    {
+        "id": 85,
+        "type": "application",
+        "controller": "profile",
+        "action": "changeaddress",
+        "enabled": true
+    },
+    {
+        "id": 87,
+        "type": "application",
+        "controller": "profile",
+        "action": "changepassword",
+        "enabled": true
+    },
+    {
+        "id": 89,
+        "type": "application",
+        "controller": "profile",
+        "action": "clearshoppingbag",
+        "enabled": true
+    },
+    {
+        "id": 91,
+        "type": "application",
+        "controller": "profile",
+        "action": "profile",
+        "enabled": true
+    },
+    {
+        "id": 93,
+        "type": "application",
+        "controller": "profile",
+        "action": "removefromfavorite",
+        "enabled": true
+    },
+    {
+        "id": 95,
+        "type": "application",
+        "controller": "profile",
+        "action": "removefromfshoppingbag",
+        "enabled": true
+    },
+    {
+        "id": 97,
+        "type": "application",
+        "controller": "profile",
+        "action": "update",
+        "enabled": true
+    },
+    {
+        "id": 99,
+        "type": "application",
+        "controller": "promocode",
+        "action": "check",
+        "enabled": true
+    },
+    {
+        "id": 101,
+        "type": "application",
+        "controller": "promocode",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 103,
+        "type": "application",
+        "controller": "promocode",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 105,
+        "type": "application",
+        "controller": "promocode",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 107,
+        "type": "application",
+        "controller": "promocode",
+        "action": "find",
+        "enabled": false
+    },
+    {
+        "id": 109,
+        "type": "application",
+        "controller": "promocode",
+        "action": "findone",
+        "enabled": true
+    },
+    {
+        "id": 111,
+        "type": "application",
+        "controller": "promocode",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 405,
+        "type": "application",
+        "controller": "collection",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 407,
+        "type": "application",
+        "controller": "collection",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 409,
+        "type": "application",
+        "controller": "collection",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 411,
+        "type": "application",
+        "controller": "collection",
+        "action": "find",
+        "enabled": false
+    },
+    {
+        "id": 413,
+        "type": "application",
+        "controller": "collection",
+        "action": "findone",
+        "enabled": false
+    },
+    {
+        "id": 415,
+        "type": "application",
+        "controller": "collection",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 417,
+        "type": "application",
+        "controller": "request",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 419,
+        "type": "application",
+        "controller": "request",
+        "action": "create",
+        "enabled": true
+    },
+    {
+        "id": 421,
+        "type": "application",
+        "controller": "request",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 423,
+        "type": "application",
+        "controller": "request",
+        "action": "find",
+        "enabled": false
+    },
+    {
+        "id": 425,
+        "type": "application",
+        "controller": "request",
+        "action": "findone",
+        "enabled": false
+    },
+    {
+        "id": 427,
+        "type": "application",
+        "controller": "request",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 429,
+        "type": "application",
+        "controller": "subscriber",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 431,
+        "type": "application",
+        "controller": "subscriber",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 433,
+        "type": "application",
+        "controller": "subscriber",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 435,
+        "type": "application",
+        "controller": "subscriber",
+        "action": "find",
+        "enabled": false
+    },
+    {
+        "id": 437,
+        "type": "application",
+        "controller": "subscriber",
+        "action": "findone",
+        "enabled": false
+    },
+    {
+        "id": 439,
+        "type": "application",
+        "controller": "subscriber",
+        "action": "update",
+        "enabled": false
+    },
+    {
+        "id": 441,
+        "type": "application",
+        "controller": "promotion",
+        "action": "count",
+        "enabled": false
+    },
+    {
+        "id": 443,
+        "type": "application",
+        "controller": "promotion",
+        "action": "create",
+        "enabled": false
+    },
+    {
+        "id": 445,
+        "type": "application",
+        "controller": "promotion",
+        "action": "delete",
+        "enabled": false
+    },
+    {
+        "id": 447,
+        "type": "application",
+        "controller": "promotion",
+        "action": "find",
+        "enabled": false
+    },
+    {
+        "id": 449,
+        "type": "application",
+        "controller": "promotion",
+        "action": "findone",
+        "enabled": false
+    },
+    {
+        "id": 451,
+        "type": "application",
+        "controller": "promotion",
+        "action": "update",
+        "enabled": false
+    }
+]

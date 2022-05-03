@@ -337,61 +337,70 @@ module.exports = {
     }
 
     const { id } = ctx.query;
-
-    const product = await strapi.query("product").findOne({ id });
-
-    if (!product) {
-      if (!userFromContext) {
-        return ctx.badRequest("No products found");
-      }
-    }
-    let shoppingBagId = userFromContext.shopping_bag?.id;
-
-    if (typeof shoppingBagId === "undefined" || shoppingBagId === null) {
-      await strapi.plugins["users-permissions"].services.user.edit(
-        { id: userFromContext.id },
-        {
-          shopping_bag: {
-            product_id: id,
-          },
-        }
-      );
-      shoppingBagId = await strapi.plugins[
-        "users-permissions"
-      ].services.user.fetch({ id: userFromContext.id }, ["shopping_bag"])
-        ?.shopping_bag.id;
-    }
-
     const knex = strapi.connections.default;
 
-    await knex("components_shopping_bag_shopping_bags__products")
-      .insert({
-        components_shopping_bag_shopping_bag_id:
-          userFromContext.shopping_bag?.id,
-        product_id: id,
-      })
-      .onConflict(["components_shopping_bag_shopping_bag_id", "product_id"])
-      .ignore();
+    return await knex.transaction(async (transacting) => {
+      const product = await strapi
+        .query("product")
+        .findOne({ id }, null, { transacting });
 
-    let data = await strapi.plugins["users-permissions"].services.user.fetch(
-      {
-        id: userFromContext.id,
-      },
-      [
-        "favorites",
-        "favorites.color",
-        "favorites.images",
-        "favorites.brand",
-        "favorites.category",
-      ]
-    );
+      if (!product) {
+        if (!userFromContext) {
+          return ctx.badRequest("No products found");
+        }
+      }
+      let shoppingBagId = userFromContext.shopping_bag?.id;
 
-    if (data) {
-      data = sanitizeUser(data);
-    }
+      if (typeof shoppingBagId === "undefined" || shoppingBagId === null) {
+        await strapi.query("user", "users-permissions").update(
+          { id: userFromContext.id },
+          {
+            shopping_bag: {
+              product_id: id,
+            },
+          },
+          { transacting }
+        );
 
-    // Send 200 `ok`
-    ctx.body = data;
+        shoppingBagId = await strapi
+          .query("user", "users-permissions")
+          .findOne({ id: userFromContext.id }, ["shopping_bag"], {
+            transacting,
+          })?.shopping_bag?.id;
+      }
+
+      await knex("components_shopping_bag_shopping_bags__products")
+        .transacting(transacting)
+        .insert({
+          components_shopping_bag_shopping_bag_id:
+            userFromContext.shopping_bag?.id,
+          product_id: id,
+        })
+        .onConflict(["components_shopping_bag_shopping_bag_id", "product_id"])
+        .ignore()
+        .catch(transacting.rollback);
+
+      let data = await strapi.query("user", "users-permissions").findOne(
+        {
+          id: userFromContext.id,
+        },
+        [
+          "favorites",
+          "favorites.color",
+          "favorites.images",
+          "favorites.brand",
+          "favorites.category",
+        ],
+        { transacting }
+      );
+
+      if (data) {
+        data = sanitizeUser(data);
+      }
+
+      // Send 200 `ok`
+      ctx.body = data;
+    });
   },
   async clearShoppingBag(ctx) {
     const userFromContext = ctx.state.user;

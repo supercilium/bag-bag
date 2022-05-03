@@ -51,9 +51,9 @@
       "via": "orders"
     },
     "user": {
+      "private": true,
       "via": "orders",
       "plugin": "users-permissions",
-      "private": true,
       "model": "user"
     },
     "shippingMethod": {
@@ -79,10 +79,22 @@
       "default": 0
     },
     "shipping_date": {
-      "type": "date"
+      "type": "datetime"
     },
-    "shipping_time": {
-      "type": "time"
+    "address": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "foreign_order_id": {
+      "type": "string",
+      "unique": true
     }
   }
 }

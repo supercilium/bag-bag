@@ -259,6 +259,7 @@ export interface OrderFormValues extends Partial<OrderInterface>, Pick<User, 'la
   shipping_date?: Date;
   shipping_time?: Date;
   commentary?: string;
+  delivery_cost: number;
 }
 
 export const createOrder = async (values: OrderFormValues) => {

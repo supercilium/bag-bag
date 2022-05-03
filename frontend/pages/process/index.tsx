@@ -87,6 +87,7 @@ const Process = () => {
       discount: totalDiscount,
       shipping_date: undefined,
       shipping_time: undefined,
+      delivery_cost: DELIVERY_COST,
     },
   });
 
@@ -103,6 +104,7 @@ const Process = () => {
       discount: totalDiscount,
       shipping_date: undefined,
       shipping_time: undefined,
+      delivery_cost: DELIVERY_COST,
     });
   }, [user, totalSum, totalDiscount, reset]);
 
@@ -125,8 +127,10 @@ const Process = () => {
   useEffect(() => {
     if (shippingMethod === "shipping") {
       setValue("address", "");
+      setValue("delivery_cost", DELIVERY_COST);
     } else {
       setValue("address", SHIPPING_ADDRESS);
+      setValue("delivery_cost", 0);
     }
   }, [shippingMethod, setValue]);
 
@@ -140,11 +144,19 @@ const Process = () => {
     try {
       const order = await createOrder({
         ...values,
+        shipping_date: new Date(
+          `${values.shipping_date}T${values.shipping_time}`
+        ),
         phone: formatPhone(values.phone),
       });
-      await mutateUser();
-      router.replace("/profile");
-      toastSuccess("Товар успешно оплачен. Ожидайте звонка менеджера.");
+      if ("id" in order) {
+        // await mutateUser();
+        // toastSuccess("Товар успешно оплачен. Ожидайте звонка менеджера.");
+        router.replace(order.formUrl);
+      }
+      if ("message" in order) {
+        toastError(order.message);
+      }
     } catch (err) {
       toastError(err?.message);
     }
