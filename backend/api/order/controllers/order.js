@@ -44,7 +44,7 @@ module.exports = {
       return ctx.send(
         {
           products,
-          error: "Sorry, items in your bag is not available right now",
+          message: "Sorry, items in your bag is not available right now",
         },
         200
       );
@@ -55,7 +55,7 @@ module.exports = {
       return ctx.send(
         {
           products,
-          error: "Sorry, some items in your bag is not available right now",
+          message: "Sorry, some items in your bag is not available right now",
         },
         200
       );

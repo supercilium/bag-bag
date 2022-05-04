@@ -152,7 +152,7 @@ it("should get error when create order (unavailable item)", async () => {
     .expect(200)
     .then((data) => {
       expect(data.body).toBeDefined();
-      expect(data.body.error).toBe(
+      expect(data.body.message).toBe(
         "Sorry, items in your bag is not available right now"
       );
     });
@@ -198,7 +198,7 @@ it("should get error when create order (one of items is unavailable)", async () 
     .expect(200)
     .then((data) => {
       expect(data.body).toBeDefined();
-      expect(data.body.error).toBe(
+      expect(data.body.message).toBe(
         "Sorry, some items in your bag is not available right now"
       );
     });
