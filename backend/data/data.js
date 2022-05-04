@@ -60,6 +60,7 @@ module.exports = {
       year: 2021,
       images: null,
       views: 0,
+      is_available: true,
     },
     {
       brand: {
@@ -87,6 +88,7 @@ module.exports = {
       year: 2021,
       images: null,
       views: 0,
+      is_available: false,
     },
     {
       brand: {
@@ -114,6 +116,7 @@ module.exports = {
       year: 2021,
       images: null,
       views: 0,
+      is_available: false,
     },
   ],
   brands: [

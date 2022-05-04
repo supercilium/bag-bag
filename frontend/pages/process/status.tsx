@@ -1,11 +1,28 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import useUser from "../../hooks/useUser";
 import { StyledHeader } from "../../styles/layout";
+import { updateOrder } from "../../utils/api";
 
 const Page = () => {
-  const { query } = useRouter();
-  console.log(query);
+  const { query, push } = useRouter();
+  const { user } = useUser({ redirectTo: "/404" });
   const { status, id } = query;
+
+  useEffect(() => {
+    if (user && id) {
+      (async () => {
+        const order = await updateOrder(id as string);
+        console.log(order);
+      })();
+    }
+  }, [user, id]);
+
+  if (typeof window !== "undefined" && (!status || !id)) {
+    push("/404");
+  }
+
   return (
     <div>
       <Head>

@@ -31,6 +31,36 @@ module.exports = {
       shipping_date,
     } = ctx.request.body;
 
+    const items = await strapi
+      .query("product")
+      .find({ id_in: products.map((item) => item.id) });
+    strapi.log.debug("items ", items);
+
+    const availableItems = items?.filter((item) => item.is_available);
+    strapi.log.debug("availableItems ", availableItems);
+
+    if (!availableItems?.length) {
+      strapi.log.debug("No available products");
+      return ctx.send(
+        {
+          products,
+          error: "Sorry, items in your bag is not available right now",
+        },
+        200
+      );
+    }
+
+    if (availableItems?.length < products?.length) {
+      strapi.log.debug("Some products are unavailable");
+      return ctx.send(
+        {
+          products,
+          error: "Sorry, some items in your bag is not available right now",
+        },
+        200
+      );
+    }
+
     const knex = strapi.connections.default;
 
     try {
@@ -56,7 +86,7 @@ module.exports = {
             delivery_cost,
             email,
             phone,
-            products,
+            products: availableItems,
             user: userFromContext.id,
             paymentMethod,
             shippingMethod,
@@ -68,7 +98,23 @@ module.exports = {
           },
           { transacting }
         );
-        strapi.log.debug("created order", entity);
+        strapi.log.debug(
+          "created order",
+          entity.id,
+          entity.status,
+          entity.total,
+          entity.user.id
+        );
+
+        const availableItemsIds = availableItems?.map((item) => item.id);
+
+        await strapi
+          .query("product")
+          .model.query((qb) => {
+            qb.whereIn("id", availableItemsIds).update({ is_available: false });
+          })
+          .fetch({ transacting });
+        strapi.log.debug("making products unavailable ", availableItemsIds);
 
         // get redirect URL from sber
         const options = {
@@ -78,9 +124,11 @@ module.exports = {
             process.env.PAYMENT_USERNAME
           }&password=${process.env.PAYMENT_PASSWORD}&orderNumber=${
             entity?.id
-          }&amount=${total * 100}&returnUrl=${process.env.PAYMENT_RETURN_URL}/${
+          }&amount=${total * 100}&returnUrl=${
+            process.env.PAYMENT_RETURN_URL
+          }&id=${entity.id}&failUrl=${process.env.PAYMENT_FAIL_URL}&id=${
             entity.id
-          }&failUrl=${process.env.PAYMENT_FAIL_URL}/${entity.id}`,
+          }`,
           method: "POST",
         };
         // orderId Номер заказа в платежной системе.
@@ -126,6 +174,96 @@ module.exports = {
           entity = sanitizeEntity(entity, "order");
         }
         ctx.body = { ...entity, formUrl: paymentData.formUrl };
+      });
+    } catch (error) {
+      strapi.log.error(error);
+
+      return ctx.badRequest(error);
+    }
+  },
+  async update(ctx) {
+    const { id } = ctx.params;
+
+    const [order] = await strapi.services.order.find({
+      id,
+      "user.id": ctx.state.user.id,
+    });
+    if (!order) {
+      return ctx.unauthorized("You can't update this entry");
+    }
+    if (order?.status !== "new") {
+      ctx.status = 204;
+    }
+    strapi.log.debug("updating order ", order.id);
+    const knex = strapi.connections.default;
+    try {
+      return await knex.transaction(async (transacting) => {
+        // get redirect URL from sber
+        const options = {
+          hostname: process.env.PAYMENT_HOST,
+          port: 443,
+          path: `/payment/rest/getOrderStatusExtended.do?userName=${process.env.PAYMENT_USERNAME}&password=${process.env.PAYMENT_PASSWORD}&orderNumber=${order?.id}&orderId=${order.foreign_order_id}`,
+          method: "POST",
+        };
+        // https://securepayments.sberbank.ru/wiki/doku.php/integration:api:ws:requests:getorderstatusextended
+        // orderStatus
+        // 0 - заказ зарегистрирован, но не оплачен;
+        // 1 - предавторизованная сумма удержана (для двухстадийных платежей);
+        // 2 - проведена полная авторизация суммы заказа;
+        // 3 - авторизация отменена;
+        // 4 - по транзакции была проведена операция возврата;
+        // 5 - инициирована авторизация через сервер контроля доступа банка-эмитента;
+        // 6 - авторизация отклонена.
+        // actionCode
+        // actionCodeDescription
+        // errorCode
+        // errorMessage
+        const paymentData = await httpRequest(options);
+        strapi.log.debug("created order on processing: ");
+        strapi.log.debug("orderStatus: ", paymentData.orderStatus);
+        strapi.log.debug(
+          `actionCode: ${paymentData.actionCode} - ${paymentData.actionCodeDescription}`
+        );
+
+        // error on processing side
+        if (paymentData?.errorCode) {
+          strapi.log.error(paymentData?.errorMessage);
+          await transacting.rollback(paymentData?.errorMessage);
+        }
+        let status;
+
+        switch (paymentData.orderStatus) {
+          case 0:
+          case 5:
+            status = "new";
+            break;
+          case 1:
+          case 2:
+            status = "paid";
+            break;
+          case 3:
+          case 6:
+            status = "cancelled";
+            break;
+          case 4:
+            status = "return";
+            break;
+          default:
+            status = "new";
+        }
+
+        let entity = await strapi.query("order").update(
+          {
+            id,
+          },
+          {
+            status,
+          },
+          { transacting }
+        );
+        strapi.log.debug("updated order ", entity.status);
+
+        ctx.status = 204;
       });
     } catch (error) {
       return ctx.badRequest(error);

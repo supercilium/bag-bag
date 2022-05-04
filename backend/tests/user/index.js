@@ -62,7 +62,7 @@ it("should return users data for authenticated user", async () => {
 
 it("should add product to shopping bag", async () => {
   console.info("should add product to shopping bag");
-  const user = await strapi.plugins["users-permissions"].services.user.fetch({
+  let user = await strapi.plugins["users-permissions"].services.user.fetch({
     email: SUCCESS_USER.email,
     username: SUCCESS_USER.username,
   });
@@ -72,11 +72,10 @@ it("should add product to shopping bag", async () => {
   });
 
   await request(strapi.server) // app server is an instance of Class: http.Server
-    .put("/profile/add-to-shopping-bag")
+    .put(`/profile/add-to-shopping-bag?id=${DEFAULT_PRODUCT_ID}`)
     .set("accept", "application/json")
     .set("Content-Type", "application/json")
     .set("Authorization", "Bearer " + jwt)
-    .send({ id: DEFAULT_PRODUCT_ID })
     .expect("Content-Type", /json/)
     .expect(200)
     .then((data) => {
@@ -84,5 +83,15 @@ it("should add product to shopping bag", async () => {
       expect(data.body.id).toBe(user.id);
       expect(data.body.username).toBe(user.username);
       expect(data.body.email).toBe(user.email);
+      expect(data.body.shopping_bag.products.length).toBe(1);
     });
+
+  let data = await strapi.plugins["users-permissions"].services.user.fetch(
+    {
+      id: user.id,
+    },
+    ["shopping_bag.products.brand"]
+  );
+
+  expect(data.shopping_bag.products.length).toBe(1);
 });

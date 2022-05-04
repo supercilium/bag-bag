@@ -274,6 +274,17 @@ export const createOrder = async (values: OrderFormValues) => {
   return order;
 }
 
+export const updateOrder = async (id: string) => {
+  const { token } = parseCookies()
+
+  const order = await fetchAPI<OrderInterface>(`/orders?id=${id}`, {
+    method: 'PUT',
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+  })
+
+  return order;
+}
+
 export const createRequest = async (values: FormData) => {
   const { token } = parseCookies()
   const headers = token ? { Authorization: `Bearer ${token}` } : {}

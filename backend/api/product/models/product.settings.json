@@ -81,14 +81,14 @@
       "default": 2020
     },
     "orders": {
-      "via": "products",
       "private": true,
+      "via": "products",
       "collection": "order"
     },
     "users": {
+      "private": true,
       "via": "favorites",
       "plugin": "users-permissions",
-      "private": true,
       "collection": "user"
     },
     "views": {
@@ -122,6 +122,11 @@
     "promotions": {
       "via": "products",
       "collection": "promotion"
+    },
+    "is_available": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }

@@ -16,4 +16,5 @@ export interface ProductInterface extends CommonProps {
     product_height: number;
     product_length: number;
     year: number;
+    is_available: boolean;
 }

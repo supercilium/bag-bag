@@ -338,20 +338,21 @@ module.exports = {
 
     const { id } = ctx.query;
     const knex = strapi.connections.default;
+    strapi.log.debug("adding to shopping_bag product id", id);
+
+    const product = await strapi.query("product").findOne({ id });
+
+    if (!product) {
+      if (!userFromContext) {
+        return ctx.badRequest("No products found");
+      }
+    }
+    let shoppingBagId = userFromContext.shopping_bag?.id;
+    strapi.log.debug("sgopping bag ", userFromContext.shopping_bag);
 
     return await knex.transaction(async (transacting) => {
-      const product = await strapi
-        .query("product")
-        .findOne({ id }, null, { transacting });
-
-      if (!product) {
-        if (!userFromContext) {
-          return ctx.badRequest("No products found");
-        }
-      }
-      let shoppingBagId = userFromContext.shopping_bag?.id;
-
       if (typeof shoppingBagId === "undefined" || shoppingBagId === null) {
+        strapi.log.debug("creating new shopping_bag");
         await strapi.query("user", "users-permissions").update(
           { id: userFromContext.id },
           {
@@ -362,18 +363,19 @@ module.exports = {
           { transacting }
         );
 
-        shoppingBagId = await strapi
+        const user = await strapi
           .query("user", "users-permissions")
           .findOne({ id: userFromContext.id }, ["shopping_bag"], {
             transacting,
-          })?.shopping_bag?.id;
+          });
+        shoppingBagId = user.shopping_bag.id;
+        strapi.log.debug("created new shopping_bag ", shoppingBagId);
       }
 
       await knex("components_shopping_bag_shopping_bags__products")
         .transacting(transacting)
         .insert({
-          components_shopping_bag_shopping_bag_id:
-            userFromContext.shopping_bag?.id,
+          components_shopping_bag_shopping_bag_id: shoppingBagId,
           product_id: id,
         })
         .onConflict(["components_shopping_bag_shopping_bag_id", "product_id"])

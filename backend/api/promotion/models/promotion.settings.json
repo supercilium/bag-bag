@@ -23,8 +23,8 @@
       "required": true
     },
     "products": {
-      "collection": "product",
       "via": "promotions",
+      "collection": "product",
       "dominant": true
     },
     "banner": {

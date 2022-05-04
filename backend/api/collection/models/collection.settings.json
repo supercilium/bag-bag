@@ -28,8 +28,8 @@
       "unique": true
     },
     "products": {
-      "collection": "product",
       "via": "collections",
+      "collection": "product",
       "dominant": true
     },
     "description": {
