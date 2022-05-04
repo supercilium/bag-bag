@@ -1,6 +1,4 @@
 "use strict";
-const isPast = require("date-fns/isPast");
-const { sanitizeEntity } = require("strapi-utils");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -16,28 +14,12 @@ module.exports = {
       return ctx.unauthorized("Unauthorized");
     }
 
-    if (code) {
-      // move to functions
-      const promocode = await strapi.query("promocode").findOne({ code: code });
+    const { statusCode, data } = await strapi.services.promocode.check(
+      code,
+      user
+    );
+    strapi.log.debug("check promocode", data);
 
-      if (!promocode) {
-        return ctx.badRequest("Promo code is not found");
-      }
-
-      if (isPast(new Date(promocode.validTill))) {
-        return ctx.badRequest("Promo code is expired");
-      }
-      const knex = strapi.connections.default;
-      const count = await knex
-        .select(knex.raw("count(orders.id) as count"))
-        .from("orders")
-        .where({ user: user, promocode: promocode.id });
-
-      if (count?.[0]?.count > 0) {
-        return ctx.badRequest("Promo code is already used by you");
-      }
-      return sanitizeEntity(promocode, { model: strapi.models["promocode"] });
-    }
-    return ctx.badRequest("Code is empty");
+    return ctx.send(data, statusCode);
   },
 };

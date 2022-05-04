@@ -29,15 +29,16 @@ module.exports = {
       discount,
       address,
       shipping_date,
+      promo_code,
     } = ctx.request.body;
 
     const items = await strapi
       .query("product")
       .find({ id_in: products.map((item) => item.id) });
-    strapi.log.debug("items ", items);
+    // strapi.log.debug("items ", items);
 
     const availableItems = items?.filter((item) => item.is_available);
-    strapi.log.debug("availableItems ", availableItems);
+    // strapi.log.debug("availableItems ", availableItems);
 
     if (!availableItems?.length) {
       strapi.log.debug("No available products");
@@ -62,9 +63,26 @@ module.exports = {
     }
 
     const knex = strapi.connections.default;
+    strapi.log.debug("Checking promocode");
+    const promocodeCheckData = await strapi.services.promocode.check(
+      promo_code,
+      userFromContext,
+      knex
+    );
 
     try {
       return await knex.transaction(async (transacting) => {
+        if (promo_code && promocodeCheckData?.statusCode === 200) {
+          await strapi.query("promocode").update(
+            { id: promocodeCheckData.data.id },
+            {
+              used_by: userFromContext.id,
+            },
+            { transacting }
+          );
+          strapi.log.debug("updated promo code usage info");
+        }
+
         if (!userFromContext?.phone && phone) {
           // update user
 

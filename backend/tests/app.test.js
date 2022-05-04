@@ -29,5 +29,6 @@ it("strapi is defined", () => {
 });
 
 require("./user");
+require("./promocode");
 require("./order");
 require("./brand");
