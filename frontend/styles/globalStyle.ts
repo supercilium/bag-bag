@@ -21,7 +21,7 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.black};
     cursor: pointer;
   }
-  i {
+  i, em {
     font-family: 'New York Extra Large', -apple-system-ui-serif, ui-serif, 'Georgia', serif;
     font-weight: 400;
   }

@@ -20,7 +20,7 @@ export const MenuIconRoot = styled.button<{
     width: ${({ $isOpen }) => ($isOpen ? "17px" : "24px")};
     height: ${({ $isOpen }) => ($isOpen ? "17px" : "24px")};
     display: grid;
-    grid-template-rows: repeat(2, 1px);
+    grid-template-rows: repeat(2, 2px);
     grid-gap: ${({ $isOpen }) => ($isOpen ? "0" : "8px")};
     padding: 0;
     align-content: center;
@@ -28,7 +28,7 @@ export const MenuIconRoot = styled.button<{
 
     & > span {
       display: inline-block;
-      height: 1px;
+      height: 2px;
       width: ${({ $isOpen }) => ($isOpen ? "21.5px" : "100%")};
       background-color: ${({ theme }) => theme.colors.black};
       transition: transform ${TRANSITION}, background-color ${TRANSITION},

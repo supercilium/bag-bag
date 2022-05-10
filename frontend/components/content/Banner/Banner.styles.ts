@@ -13,7 +13,7 @@ export const TitleText = styled(ReactMarkdown)`
 
   & p {
     margin: 0;
-  }
+  } 
 `
 
 export const BannerContainer = styled.div`
@@ -127,6 +127,9 @@ export const BrandsLine = styled.div`
 
   & sup {
     font-style: italic;
+    font-family: 'New York Extra Large';
+    text-transform: uppercase;
+    font-weight: 400;
     font-size: 1.8rem;
     letter-spacing: 0.03em;
     position: absolute;

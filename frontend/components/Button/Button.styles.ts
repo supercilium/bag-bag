@@ -11,7 +11,7 @@ const BUTTON_SIZE: Record<ButtonProps["$size"], string> = {
 
 const BUTTON_PADDINGS: Record<ButtonProps["$size"], string> = {
   l: ".4rem 6.9rem 1.2rem",
-  s: ".4rem 6.9rem 1.2rem",
+  s: ".5rem 6.9rem 1.1rem",
   m: ".8rem 6.9rem 1.9rem",
 };
 

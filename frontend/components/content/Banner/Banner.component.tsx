@@ -142,8 +142,7 @@ export const Banner: React.FC<BannerProps> = ({
                 passHref
               >
                 <BrandItem $preview={brand?.preview?.thumbnail?.url}>
-                  {brand.name}
-                  {brand.products > 0 && <sup>{brand.products}</sup>}
+                  {brand.name} <sup>{brand.products}</sup>
                 </BrandItem>
               </Link>
             ))}
