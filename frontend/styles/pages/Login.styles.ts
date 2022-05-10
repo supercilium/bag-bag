@@ -1,16 +1,26 @@
 import styled from "styled-components";
 import { Button } from "../../components/Button";
+import { device } from "../constants";
 import { buttonText } from "../typography";
 
 export const FormBlock = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 3.6rem;
-  width: 90.6rem;
-  padding: 4rem 6rem;
+  padding: 18px;
+  width: 100%;
+  
+  @media ${device.laptopL} {
+    width: 90.6rem;
+    padding: 4rem 6rem;
+  }
 `;
 
 export const LoginRoot = styled.div`
-  margin: 9rem 0 22rem;
+ margin: 9rem 18px 22rem;
+
+@media ${device.laptopL} {
+    margin: 9rem 0 22rem;
+  }
 `;
 
 export const Tabs = styled.div`

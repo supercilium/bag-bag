@@ -30,6 +30,7 @@ export const FooterRoot = styled.footer`
     justify-content: space-between;
     text-align: left;
     height: 50.4rem;
+    margin-top: 120px;
 
     address {
       white-space: pre-line;

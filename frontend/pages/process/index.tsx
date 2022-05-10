@@ -456,7 +456,7 @@ const Process = () => {
             </SummaryRow>
             <ButtonsBlock>
               {activeTab === "shipping" && (
-                <Button onClick={handleClickNextButton} type="button" $size="s">
+                <Button onClick={handleClickNextButton} type="button" $size="m">
                   далее
                 </Button>
               )}

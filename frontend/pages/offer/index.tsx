@@ -38,6 +38,7 @@ import { REGEXP_EMAIL } from "../../constants/regex";
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { InputMask } from "../../components/InputMask";
 import { validateFile, validatePhone } from "../../utils/validation";
+import { Loader } from "../../components/Loader";
 
 interface OfferProps {
   filters: Filters;
@@ -261,7 +262,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
             />
           </Box>
           <MobileButtons>
-            <Button onClick={handleClickNextButton} type="button" $size="s">
+            <Button onClick={handleClickNextButton} type="button" $size="m">
               далее
             </Button>
           </MobileButtons>
@@ -436,6 +437,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
             </Box>
           </div>
         )}
+        {isLoading && <Loader />}
       </OrderContainer>
     </div>
   );

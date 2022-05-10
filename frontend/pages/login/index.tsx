@@ -97,7 +97,7 @@ const Login = () => {
           content="Войти или зарегистрироваться | (ex)bags"
         />
       </Head>
-      <LoginRoot className="align-center m32">
+      <LoginRoot className="align-center">
         <FormBlock>
           <Tabs>
             <Tab $isActive={activeTabLogin} onClick={() => setActiveTab(true)}>
