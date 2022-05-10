@@ -47,7 +47,7 @@ export const CatalogButton = styled.button<{ $isOpen: boolean }>`
     transform: rotate(${({ $isOpen }) => $isOpen ? '-90deg' : '90deg'});
     padding: 3px;
     margin-left: 6px;
-    margin-top: 1px;
+    margin-top: 3px;
   }
 `
 

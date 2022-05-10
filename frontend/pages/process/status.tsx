@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import useUser from "../../hooks/useUser";
 import { StyledHeader } from "../../styles/layout";
 import { updateOrder } from "../../utils/api";
+import { toastSuccess } from "../../utils/toasts";
 
 const Page = () => {
   const { query, push } = useRouter();
@@ -18,6 +19,12 @@ const Page = () => {
       })();
     }
   }, [user, id]);
+
+  useEffect(() => {
+    if (status === "success") {
+      toastSuccess("Товар успешно оплачен. Ожидайте звонка менеджера.");
+    }
+  }, [status]);
 
   if (typeof window !== "undefined" && (!status || !id)) {
     push("/404");

@@ -63,9 +63,9 @@ export const Footer = () => {
         <Link passHref href="/">
           <FooterLink>{ready ? t("shipping") : ""}</FooterLink>
         </Link>
-        <Link passHref href="/">
+        {/* <Link passHref href="/">
           <FooterLink>{ready ? t("support") : ""}</FooterLink>
-        </Link>
+        </Link> */}
         <NextImage src="/visa-footer.png" alt="visa" height="20" width="62" />
         <NextImage
           src="/mastercard-footer.png"

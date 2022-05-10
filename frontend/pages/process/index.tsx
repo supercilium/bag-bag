@@ -56,9 +56,10 @@ import { validatePhone } from "../../utils/validation";
 
 const Process = () => {
   const router = useRouter();
-  const { user, mutateUser } = useUser();
+  const { user } = useUser();
   const [promocodeString, setPromocodeString] = useState("");
   const [activeTab, setActiveTab] = useState<ActiveTab>("shipping");
+  const [isLoading, setLoadingStatus] = useState(false);
 
   const [totalSum, totalDiscount] = getTotalSumAndDiscount(
     user?.shopping_bag?.products
@@ -142,6 +143,7 @@ const Process = () => {
 
   const onSubmit = async (values: OrderFormValues) => {
     try {
+      setLoadingStatus(true);
       const order = await createOrder({
         ...values,
         shipping_date: new Date(
@@ -149,7 +151,8 @@ const Process = () => {
         ),
         phone: formatPhone(values.phone),
       });
-      if ("id" in order) {
+      setLoadingStatus(false);
+      if ("formUrl" in order) {
         // await mutateUser();
         // toastSuccess("Товар успешно оплачен. Ожидайте звонка менеджера.");
         router.replace(order.formUrl);
@@ -158,6 +161,7 @@ const Process = () => {
         toastError(order.message);
       }
     } catch (err) {
+      setLoadingStatus(false);
       toastError(err?.message);
     }
   };
@@ -386,7 +390,7 @@ const Process = () => {
                   </PriceSummary>
                 </ProcessRow>
                 <Button
-                  // disabled={!isValid}
+                  disabled={isLoading}
                   onClick={handleSubmit(onSubmit)}
                   $size="s"
                 >

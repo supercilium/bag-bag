@@ -142,13 +142,15 @@ module.exports = {
             process.env.PAYMENT_USERNAME
           }&password=${process.env.PAYMENT_PASSWORD}&orderNumber=${
             entity?.id
-          }&amount=${total * 100}&returnUrl=${
+          }&amount=${(total - discount) * 100}&returnUrl=${
             process.env.PAYMENT_RETURN_URL
           }&id=${entity.id}&failUrl=${process.env.PAYMENT_FAIL_URL}&id=${
             entity.id
           }`,
           method: "POST",
         };
+        // strapi.log.debug("option for processing ", options);
+
         // orderId Номер заказа в платежной системе.
         // formUrl URL-адрес платёжной формы, на который нужно перенаправить браузер клиента.
         // errorCode Код ошибки. Может отсутствовать, если результат не привёл к ошибке.

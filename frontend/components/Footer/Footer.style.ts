@@ -150,5 +150,6 @@ export const InfoBlock = styled.div`
 
 export const TelegramIcon = styled(Telegram)`
   position: relative;
-  left: -3px;
+  left: -5px;
+  top: 4px;
 `
