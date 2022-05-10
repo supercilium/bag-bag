@@ -114,6 +114,10 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
 
+  .Toastify__close-button {
+    align-self: center;
+  }
+
   .banner {
     /* padding: 1.4rem; */
     display: flex;

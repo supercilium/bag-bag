@@ -35,6 +35,11 @@ export const FooterRoot = styled.footer`
       white-space: pre-line;
       color: ${({ theme }) => theme.colors.white};
       margin: 0;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 150%;
+      letter-spacing: 0.02em;
     }
   }
 `;
@@ -144,6 +149,7 @@ export const InfoBlock = styled.div`
 
     & > a {
       font-size: 4.8rem;
+      line-height: 6.4rem;
     }
   }
 `;
