@@ -140,12 +140,16 @@ export const NavbarMainLink = styled.a<{ $selected: boolean }>`
   }
 
   & > svg {
-    opacity: ${({ $selected }) => $selected ? '1' : '0'};
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    transition: opacity ${TRANSITION};
+    
+    & path {
+      transition: stroke-dashoffset .5s ease-in-out;
+      stroke-dasharray: 450;
+      stroke-dashoffset: 450;
+    }
   }
 
   &:nth-child(even) > svg {
@@ -153,7 +157,7 @@ export const NavbarMainLink = styled.a<{ $selected: boolean }>`
     right: 18px;
   }
 
-  &:hover > svg {
-    opacity: 1;
+  &:hover > svg path {
+    stroke-dashoffset: 0;
   }
 `
