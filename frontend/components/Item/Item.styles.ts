@@ -4,8 +4,10 @@ import { PreviousPrice, subtitle } from "../../styles/typography";
 import { PurchaseButtons } from "../PurchaseButtons";
 
 export const HidingPurchaseButtons = styled(PurchaseButtons)`
-  display: none;
-  margin-top: 21px;
+  overflow: hidden;
+  max-height: 0;
+  padding-top: 0;
+  transition: all ${TRANSITION};
 `;
 
 export const ItemRoot = styled.div`
@@ -20,11 +22,13 @@ export const ItemRoot = styled.div`
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  transition: all ${TRANSITION};
 
   /* mouse, touch pad */
   @media (hover: hover) and (pointer: fine) {
     &:hover ${HidingPurchaseButtons} {
-      display: flex;
+      padding-top: 21px;
+      max-height: 70px;
     }
   }
 
