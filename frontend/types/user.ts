@@ -16,4 +16,5 @@ export interface User {
 export interface AuthResponse {
     jwt: string;
     user: User;
+    message?: Array<{ messages: Array<Record<string, string>> }>
 }

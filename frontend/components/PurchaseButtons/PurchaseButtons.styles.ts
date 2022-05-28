@@ -9,6 +9,9 @@ export const ButtonsBlock = styled.div`
     flex-grow: 1;
     padding-left: 0;
     padding-right: 0;
+    min-height: 5.4rem;
+    padding-top: 0.4rem;
+    padding-bottom: 1rem;
   }
 
   & svg {

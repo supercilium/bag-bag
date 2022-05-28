@@ -109,20 +109,21 @@ export const BagContainer = styled.a`
     display: flex;
     align-items: center;
     justify-content: center;
-    bottom: 3px;
-    right: 1px;
+    bottom: 1px;
+    right: 0;
     font-weight: 600;
     font-size: 12px;
     color: ${({ theme }) => theme.colors.green};
+    background-color: ${({ theme }) => theme.colors.white};
   }
 
   @media ${device.laptopL} {
     & b {
-      width: 16px;
-      height: 16px;
-      line-height: 16px;
-      bottom: 5px;
-      right: 2px;
+      width: 19px;
+      height: 19px;
+      line-height: 30px;
+      bottom: 2px;
+      right: -2px;
       font-size: 21px;
     }
   }

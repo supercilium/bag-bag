@@ -27,8 +27,8 @@ export const ItemRoot = styled.div`
   /* mouse, touch pad */
   @media (hover: hover) and (pointer: fine) {
     &:hover ${HidingPurchaseButtons} {
-      padding-top: 21px;
-      max-height: 70px;
+      padding: 21px 0 9px;
+      max-height: calc(5.4rem + 21px);
     }
   }
 

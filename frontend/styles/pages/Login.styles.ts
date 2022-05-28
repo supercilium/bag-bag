@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button } from "../../components/Button";
 import { device } from "../constants";
-import { buttonText } from "../typography";
+import { buttonText, primaryText } from "../typography";
 
 export const FormBlock = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.black};
@@ -58,3 +58,8 @@ export const FormRoot = styled.form`
     margin-top: 6rem;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  ${primaryText}
+  color: ${({ theme }) => theme.colors.red};
+`

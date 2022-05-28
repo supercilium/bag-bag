@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../../components/Input";
 import useUser from "../../hooks/useUser";
@@ -16,6 +16,7 @@ import {
   SmallButton,
   Tab,
   Tabs,
+  ErrorMessage,
 } from "../../styles/pages/Login.styles";
 import {
   VALIDATION_EMAIL_FORMAT,
@@ -38,19 +39,30 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginFormInterface>({
     shouldFocusError: false,
   });
 
+  const [email, password, lastName] = watch(["email", "password", "last_name"]);
+
+  useEffect(() => {
+    setErrorMsg("");
+  }, [activeTabLogin, email, password, lastName]);
+
   const onSubmit: SubmitHandler<LoginFormInterface> = async (data) => {
     try {
-      mutateUser(
-        await login({
-          identifier: data.email,
-          password: data.password,
-        })
-      );
+      const response = await login({
+        identifier: data.email,
+        password: data.password,
+      });
+      console.log(response);
+      if ("messages" in response) {
+        setErrorMsg(response.messages[0].message);
+        return;
+      }
+      mutateUser(response);
     } catch (error) {
       if (error instanceof FetchError) {
         setErrorMsg(error.data.message);
@@ -131,7 +143,10 @@ const Login = () => {
                 })}
                 error={errors?.password?.message}
               />
-              <SmallButton type="submit">войти</SmallButton>
+              <SmallButton disabled={!!errorMsg} type="submit">
+                войти
+              </SmallButton>
+              <ErrorMessage>{errorMsg}</ErrorMessage>
             </FormRoot>
           ) : (
             <FormRoot onSubmit={handleSubmit(onSubmitRegister)} noValidate>
@@ -159,7 +174,10 @@ const Login = () => {
                 })}
                 error={errors?.password?.message}
               />
-              <SmallButton type="submit">зарегистрироваться</SmallButton>
+              <SmallButton disabled={!!errorMsg} type="submit">
+                зарегистрироваться
+              </SmallButton>
+              <ErrorMessage>{errorMsg}</ErrorMessage>
             </FormRoot>
           )}
         </FormBlock>

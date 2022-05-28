@@ -176,12 +176,15 @@ interface LoginParams {
 
 export const login = async (body: LoginParams) => {
   const {
-    user, jwt
+    user, jwt, message
   } = (await fetchAPI<AuthResponse>("/auth/local", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   }) as AuthResponse);
+  if (message) {
+    return message[0];
+  }
   setCookie(null, 'token', jwt, {
     maxAge: 30 * 24 * 60 * 60,
     path: '/',
