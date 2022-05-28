@@ -124,13 +124,13 @@ export const LabelCondition = styled.label<{ $selected: boolean }>`
   }
 `
 
-export const SortFieldset = styled(CatalogFieldset)`
+export const SortFieldset = styled(CatalogFieldset) <{ $width?: number }>`
   margin-top: 22px;
 
   @media ${device.laptopL} {
       margin-top: 0;
       justify-content: flex-end;
-      grid-template-columns: 36rem;
+      grid-template-columns: ${({ $width }) => `${$width}px` || '36rem'};
   }
 `
 
@@ -159,21 +159,23 @@ export const InputField = styled.label`
 export const PriceRow = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
 
 
     @media ${device.laptopL} {
-        flex-direction: row;
+      flex-direction: row;
       margin-left: 36rem;
   }
 `
 
 export const BrandsFilters = styled.div`
+  margin-bottom: 143px;
   & ${InputField} {
     font-weight: 400;
   }
 
   @media ${device.laptopL} {
+    margin-bottom: 0;
     display: grid;
     grid-template-columns: repeat(4, 32rem);
     grid-gap: 3.8rem;
@@ -191,12 +193,16 @@ export const KeyTitle = styled.div`
   font-weight: 500;
 `
 
-export const MobileSubmitButton = styled(Button)`
+export const MobileSubmitButtons = styled.div`
   position: fixed;
   left: 18px;
   right: 18px;
   bottom: 18px;
   z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #fff;
 `
 
 export const LaptopSubmitButton = styled.div`
@@ -212,5 +218,6 @@ export const LaptopSubmitButton = styled.div`
     right: 0;
     bottom: 0;
     border-radius: 3.5rem;
+    gap: 16px;
   }
 `

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import get from "lodash-es/get";
 // import debounce from "lodash-es/debounce";
 import { useDimensions } from "../../hooks/useDimensions";
@@ -15,7 +15,7 @@ import {
   KeyTitle,
   LabelCondition,
   LaptopSubmitButton,
-  MobileSubmitButton,
+  MobileSubmitButtons,
   PriceRow,
   SelectedFilters,
   SortBy,
@@ -39,6 +39,7 @@ import pick from "lodash-es/pick";
 import { formatSum } from "../../utils/formatters";
 import useLoading from "../../hooks/useLoader";
 import { Loader } from "../Loader";
+import { ParsedUrlQuery } from "querystring";
 
 export interface FiltersProps {
   filters: Filters;
@@ -76,6 +77,15 @@ const QUERY_KEYS: Array<keyof FilterObjInterface> = [
   "_sort",
 ];
 
+const INITIAL_FILTER_VALUES: FilterObjInterface = {
+  "brand-id": null,
+  "category-id": null,
+  condition: "",
+  price_gte: null,
+  price_lte: null,
+  _sort: "views:DESC",
+};
+
 export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
   const { width } = useDimensions();
   const { query, push } = useRouter();
@@ -85,6 +95,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
     shouldFocusError: false,
   });
   const { isLoading } = useLoading();
+  const sortRef = useRef<HTMLButtonElement>();
 
   useEffect(() => {
     // https://stackoverflow.com/a/64307087/15152568
@@ -167,15 +178,20 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
   };
 
   useEffect(() => {
-    if (!isWideScreen) {
-      if (openedMenu) {
-        document.getElementById("layout").classList.add("layout-fixed");
-      } else {
-        document.getElementById("layout").classList.remove("layout-fixed");
-        setOpenedFilter(null);
-      }
+    if (isWideScreen) {
+      document.getElementById("layout").classList.remove("layout-fixed");
+      setOpenedFilter(null);
+      setOpenedMenu(null);
+      return;
     }
-  }, [isWideScreen, openedMenu]);
+    if (openedMenu) {
+      document.getElementById("layout").classList.add("layout-fixed");
+    } else {
+      document.getElementById("layout").classList.remove("layout-fixed");
+      setOpenedFilter(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isWideScreen]);
 
   return (
     <>
@@ -222,6 +238,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
               <Arrow height="22" width="22" />
             </CatalogButton>
             <SortBy
+              ref={sortRef}
               $isOpen={openedFilter === "sort"}
               onClick={() =>
                 setOpenedFilter((prev) => (prev === "sort" ? null : "sort"))
@@ -362,10 +379,19 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
                     <Button $size="s" type="submit">
                       показать
                     </Button>
+                    <Button
+                      $size="s"
+                      type="button"
+                      onClick={() => reset(INITIAL_FILTER_VALUES)}
+                    >
+                      очистить
+                    </Button>
                   </PriceRow>
                 )}
                 {openedFilter === "sort" && (
-                  <SortFieldset>
+                  <SortFieldset
+                    $width={sortRef?.current.getBoundingClientRect().width}
+                  >
                     {Object.keys(SORT_OPTIONS).map((key) => (
                       <LabelCondition
                         key={key}
@@ -596,9 +622,18 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
                   </menu>
                 </MobileMenuRoot>
                 {(openedFilter || openedMenu === "sort") && (
-                  <MobileSubmitButton $size="s" type="submit">
-                    показать
-                  </MobileSubmitButton>
+                  <MobileSubmitButtons>
+                    <Button
+                      $size="m"
+                      type="button"
+                      onClick={() => reset(INITIAL_FILTER_VALUES)}
+                    >
+                      очистить
+                    </Button>
+                    <Button $size="m" type="submit">
+                      показать
+                    </Button>
+                  </MobileSubmitButtons>
                 )}
               </>
             )}
@@ -606,6 +641,13 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
               <LaptopSubmitButton>
                 <Button $size="s" type="submit">
                   показать
+                </Button>
+                <Button
+                  $size="s"
+                  type="button"
+                  onClick={() => reset(INITIAL_FILTER_VALUES)}
+                >
+                  очистить
                 </Button>
               </LaptopSubmitButton>
             )}
