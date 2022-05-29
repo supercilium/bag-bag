@@ -35,6 +35,7 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     text-transform: lowercase;
     cursor: pointer;
+    color: ${({ theme }) => theme.colors.black};
   }
   h1, .h1 {
     font-weight: 500;

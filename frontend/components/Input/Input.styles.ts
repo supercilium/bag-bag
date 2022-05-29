@@ -11,6 +11,8 @@ export const InputRoot = styled.input`
   border-radius: 0;
   height: 6.3rem;
   font-size: 18px;
+  padding-left: 0;
+  padding-right: 0;
 
   &[type="date" i], &[type="time" i] {
     font-size: 18px;

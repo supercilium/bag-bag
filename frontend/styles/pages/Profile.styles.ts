@@ -15,10 +15,20 @@ export const ProfileRoot = styled.form`
 `;
 
 export const StyledProfileHeader = styled(StyledHeader)`
+  button {
+    height: 100%;
+    align-items: flex-end;
+  }
+
   @media ${device.laptopL} {
     h1 {
       padding-left: calc(47.1rem - 0.07em);
       justify-content: flex-start;
+    }
+
+    button {
+      height: auto;
+      align-items: center;
     }
   }
 `

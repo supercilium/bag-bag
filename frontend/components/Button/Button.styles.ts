@@ -47,16 +47,18 @@ export const StyledButton = styled.button<{
     border-color ${TRANSITION};
   background-color: ${({ theme }) => theme.colors.white};
 
-  &:not([disabled]):hover {
-    background-color: ${({ theme }) => theme.colors.green};
-    border-color: ${({ theme }) => theme.colors.green};
-    color: ${({ theme }) => theme.colors.white};
-  }
+  @media (hover: hover) and (pointer: fine) {
+    &:not([disabled]):hover {
+      background-color: ${({ theme }) => theme.colors.green};
+      border-color: ${({ theme }) => theme.colors.green};
+      color: ${({ theme }) => theme.colors.white};
+    }
 
-  &:not([disabled]):active {
-    background-color: ${({ theme }) => theme.colors.black};
-    border-color: ${({ theme }) => theme.colors.black};
-    color: ${({ theme }) => theme.colors.white};
+    &:not([disabled]):active {
+      background-color: ${({ theme }) => theme.colors.black};
+      border-color: ${({ theme }) => theme.colors.black};
+      color: ${({ theme }) => theme.colors.white};
+    }
   }
 
   &[disabled] {

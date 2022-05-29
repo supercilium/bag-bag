@@ -10,6 +10,9 @@ export const InputRoot = styled.input`
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   height: 6.3rem;
   font-size: 18px;
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
 
   &:focus-visible {
     outline: none;
