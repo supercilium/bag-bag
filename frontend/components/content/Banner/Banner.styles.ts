@@ -89,7 +89,7 @@ export const BannerDot = styled.li<{ active: boolean }>`
 
 export const BrandsBlock = styled.div`
   position: relative;
-  height: 66.3rem;
+  max-height: 66.3rem;
   padding: 19rem 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
   max-width: 100%;
@@ -97,17 +97,15 @@ export const BrandsBlock = styled.div`
 
 export const BrandsLine = styled.div`
   text-transform: uppercase;
-  white-space: nowrap;
+  text-align: center;
+  font-size: 32px;
+  color: ${({ theme }) => theme.colors.green};
+  padding: 0 18px;
 
   & span {
-    position: relative;
     cursor: pointer;
     transition: color ${TRANSITION};
     letter-spacing: 0.07em;
-  }
-
-  & span:hover {
-    color: ${({ theme }) => theme.colors.green};
   }
 
   & span:nth-child(odd) {
@@ -121,8 +119,8 @@ export const BrandsLine = styled.div`
     font-family: New York Extra Large, serif;
     font-style: italic;
     font-weight: 400;
-    font-size: 7.2rem;
-    line-height: 140.5%;
+    font-size: 48px;
+    line-height: 67px;
   }
 
   & sup {
@@ -132,9 +130,29 @@ export const BrandsLine = styled.div`
     font-weight: 400;
     font-size: 1.8rem;
     letter-spacing: 0.03em;
-    position: absolute;
-    top: 0;
+    position: relative;
+    top: -8px;
     line-height: 1;
+  }
+
+  @media ${device.laptopL} {
+    font-size: 4.8rem;
+    white-space: nowrap;
+    padding: 0;
+
+    & span {
+      color: ${({ theme }) => theme.colors.black};
+    }
+
+    & span:hover {
+      color: ${({ theme }) => theme.colors.green};
+    }
+
+    & span:after {
+      font-size: 7.2rem;
+      line-height: 140.5%;
+    }
+
   }
 `;
 

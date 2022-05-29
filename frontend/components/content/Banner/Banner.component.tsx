@@ -89,7 +89,7 @@ export const Banner: React.FC<BannerProps> = ({
   );
 
   const brandRows = useMemo(
-    () => chunk(brandsWithCounts, Math.ceil(brandsWithCounts.length / 3)),
+    () => brandsWithCounts.filter((item) => item.products > 0),
     [brandsWithCounts]
   );
 
@@ -133,21 +133,20 @@ export const Banner: React.FC<BannerProps> = ({
         </BannerContainer>
       </BannerRoot>
       <BrandsBlock>
-        {brandRows.map((row, i) => (
-          <BrandsLine key={i} className="h3">
-            {row?.map((brand) => (
-              <Link
-                href={`/catalogue?brand.id=${brand.id}&_sort=views:DESC`}
-                key={brand.id}
-                passHref
-              >
-                <BrandItem $preview={brand?.preview?.thumbnail?.url}>
-                  {brand.name} <sup>{brand.products}</sup>
-                </BrandItem>
-              </Link>
-            ))}
-          </BrandsLine>
-        ))}
+        <BrandsLine className="h3">
+          {brandRows?.map((brand) => (
+            <Link
+              href={`/catalogue?brand.id=${brand.id}&_sort=views:DESC`}
+              key={brand.id}
+              passHref
+            >
+              <BrandItem $preview={brand?.preview?.thumbnail?.url}>
+                {brand.name}
+                <sup>{brand.products}</sup>
+              </BrandItem>
+            </Link>
+          ))}
+        </BrandsLine>
       </BrandsBlock>
     </Root>
   );
