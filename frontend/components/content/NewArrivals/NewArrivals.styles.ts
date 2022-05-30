@@ -54,6 +54,12 @@ export const Carousel = styled.div`
     scroll-snap-align: start;
   }
 
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+    background: transparent;
+  }
+
   @media ${device.laptopL} {
     margin: 5rem 0 6rem;
     padding: 0 18px;

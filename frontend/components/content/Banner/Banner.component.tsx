@@ -135,16 +135,18 @@ export const Banner: React.FC<BannerProps> = ({
       <BrandsBlock>
         <BrandsLine className="h3">
           {brandRows?.map((brand) => (
-            <Link
-              href={`/catalogue?brand.id=${brand.id}&_sort=views:DESC`}
-              key={brand.id}
-              passHref
-            >
-              <BrandItem $preview={brand?.preview?.thumbnail?.url}>
-                {brand.name}
-                <sup>{brand.products}</sup>
-              </BrandItem>
-            </Link>
+            <>
+              <Link
+                href={`/catalogue?brand.id=${brand.id}&_sort=views:DESC`}
+                key={brand.id}
+                passHref
+              >
+                <BrandItem $preview={brand?.preview?.thumbnail?.url}>
+                  {brand.name}
+                  <sup>{brand.products}</sup>
+                </BrandItem>
+              </Link>{" "}
+            </>
           ))}
         </BrandsLine>
       </BrandsBlock>

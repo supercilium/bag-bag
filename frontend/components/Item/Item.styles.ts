@@ -11,7 +11,7 @@ export const HidingPurchaseButtons = styled(PurchaseButtons)`
 `;
 
 export const ItemRoot = styled.div`
-  min-width: 339px;
+  min-width: 309px;
   height: 63rem;
   border: 1px solid #1d1d1b;
   box-sizing: border-box;
