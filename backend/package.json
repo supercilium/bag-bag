@@ -15,6 +15,7 @@
     "eslint": "^7.30.0",
     "jest": "^28.0.3",
     "sqlite3": "^5.0.6",
+    "strapi-provider-email-mock": "^1.0.1",
     "supertest": "^6.2.3"
   },
   "dependencies": {

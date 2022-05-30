@@ -170,6 +170,20 @@
       "default": "new",
       "required": true,
       "private": false
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true,
+      "maxLength": 11,
+      "minLength": 10,
+      "regex": "^\\d*$"
     }
   }
 }

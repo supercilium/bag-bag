@@ -1,4 +1,16 @@
-const { makeHTML } = require("./emailTemplateHTML");
+// const { makeHTML } = require("./emailTemplateHTML");
+
+const mapStatusToDescription = {
+  new: "Ожидает оплаты",
+  paid: "Оплачен",
+  processing: "Готовится к отправке",
+  pending_issuance: "Ожидает выдачи",
+  delivering: "Выдан курьеру",
+  return: "Возврат",
+  cancelled: "Отменен",
+  done: "Выполнен",
+};
+
 /**
  *
  * @param {string} email - user email
@@ -6,18 +18,31 @@ const { makeHTML } = require("./emailTemplateHTML");
  */
 const getSubscriberGreetingEmail = (email) => {
   return {
-    to: email,
-    // bcc: process.env.EMAIL_ADDRESS_FROM,
     from:
-      `(Ex)Bags ${process.env.EMAIL_ADDRESS_FROM}` ||
-      "(Ex)Bags <lovedbag@bagbag.guru>",
-    subject: "Subscription | (Ex)Bags",
-    text: `Hey @${email}, Thanks for subscribing to our NewsLetter`,
-    // html: makeHTML({
-    //   title: "Welcome to Lovedbag!",
-    //   buttonTitle: "Visit out store",
-    //   buttonUrl: process.env.FRONTEND_URL,
-    // }),
+      `${process.env.COMPANY_NAME} ${process.env.EMAIL_ADDRESS_FROM}` ||
+      `${process.env.COMPANY_NAME} <${process.env.EMAIL_ADDRESS_FROM}>`,
+    bcc: process.env.EMAIL_ADDRESS_FROM,
+    subject: `Благодарим за подписку | ${process.env.COMPANY_NAME}`,
+    text: `@${email}, добро пожаловать в клуб ${process.env.COMPANY_NAME}`,
+  };
+};
+
+/**
+ *
+ * @param {string} email - user email
+ * @param {string} orderId - if of order
+ * @param {number} total - amount of order
+ * @returns
+ */
+const getOrderCreationEmail = (email, orderId, total) => {
+  return {
+    to: email,
+    from:
+      `${process.env.COMPANY_NAME} ${process.env.EMAIL_ADDRESS_FROM}` ||
+      `${process.env.COMPANY_NAME} <${process.env.EMAIL_ADDRESS_FROM}>`,
+    bcc: process.env.EMAIL_ADDRESS_FROM,
+    subject: `Ваш заказ #${orderId} | ${process.env.COMPANY_NAME}`,
+    text: `Ваш заказ #${orderId} на сумму ${total} создан.`,
   };
 };
 
@@ -25,58 +50,45 @@ const getSubscriberGreetingEmail = (email) => {
  *
  * @param {string} email - user email
  * @param {string} orderId - user email
+ * @param {string} status - order status
  * @returns
  */
-const getOrderCreationEmail = (email, orderId) => {
+const getOrderChangedStatusEmail = (email, orderId, status) => {
   return {
     to: email,
     from:
-      `Lovedbag ${process.env.EMAIL_ADDRESS_FROM}` ||
-      "Lovedbag <lovedbag@bagbag.guru>",
+      `${process.env.COMPANY_NAME} ${process.env.EMAIL_ADDRESS_FROM}` ||
+      `${process.env.COMPANY_NAME} <${process.env.EMAIL_ADDRESS_FROM}>`,
     bcc: process.env.EMAIL_ADDRESS_FROM,
-    subject: `Order #${orderId} | LovedBag`,
-    text: `Your order has been successfully paid and accepted for processing
-    Your order has been successfully paid
-    Your order has been successfully paid and accepted for processing.
-    We will pass the order on to the delivery service and provide a shipping number in the near future.
-    Thank you for your purchase.`,
-    // html: `<h2>Hey, Thanks for purchase in Lovedbag store!</h2>
-    // <p>We've got your order #${orderId}. You'll receive shipping info soon.</p>
-    // <p>Information about order and its' status can be found in profile ${process.env.FRONTEND_URL}/profile
-    // Sincerely, Lovedbag store</p>`,
-    html: makeHTML({
-      title: `Your order has been successfully paid and accepted for processing`,
-      text: "Your order has been successfully paid\nYour order has been successfully paid and accepted for processing.\nWe will pass the order on to the delivery service and provide a shipping number in the near future.\nThank you for your purchase.",
-    }),
+    subject: `Заказ #${orderId} ${mapStatusToDescription[status]} | ${process.env.COMPANY_NAME}`,
+    text: `Ваш заказ #${orderId} ${mapStatusToDescription[status]}.`,
   };
 };
 
 /**
  *
- * @param {string} email - user email
- * @param {string} orderId - user email
- * @param {string} shippingId - user email
+ * @param {string} email - sellers email
+ * @param {string} requestId - id of request
+ * @param {string} name - sellers name
+ * @param {string} phone - sellers phone
  * @returns
  */
-const getOrderShippingEmail = (email, orderId, shippingId) => {
+const getRequestCreationEmail = (email, requestId, name, phone) => {
   return {
-    to: email,
+    to: process.env.MANAGERS_EMAIL,
     from:
-      `Lovedbag ${process.env.EMAIL_ADDRESS_FROM}` ||
-      "Lovedbag <lovedbag@bagbag.guru>",
+      `${process.env.COMPANY_NAME} ${process.env.EMAIL_ADDRESS_FROM}` ||
+      `${process.env.COMPANY_NAME} <${process.env.EMAIL_ADDRESS_FROM}>`,
     bcc: process.env.EMAIL_ADDRESS_FROM,
-    subject: `Order #${orderId} | LovedBag`,
-    text: `Hello @${email}, your order is delivering
-    Shipping order number ${shippingId}, you can check your shipping status on DHL website.
-    Sincerely, Lovedbag store`,
-    html: `<h2>Hello @${email}, your order is delivering</h2>
-    <p>Shipping order number ${shippingId}, you can check your shipping status on DHL website.
-    Sincerely, Lovedbag store</p>`,
+    subject: `Новая заявка на продажу #${requestId} | ${process.env.COMPANY_NAME}`,
+    text: `Поступила новая заявка на продажу сумки #${requestId} от ${name} e-mail: ${email}, номер телефона ${phone}.
+      Посмотреть детали заявки можно по ссылке ${process.env.MY_HEROKU_URL}/admin/plugins/content-manager/collectionType/application::request.request/${requestId}`,
   };
 };
 
 module.exports = {
   getSubscriberGreetingEmail,
   getOrderCreationEmail,
-  getOrderShippingEmail,
+  getOrderChangedStatusEmail,
+  getRequestCreationEmail,
 };

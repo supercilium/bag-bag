@@ -297,3 +297,36 @@ it("should update order", async () => {
   expect(user.orders.length).toBe(1);
   expect(user.orders[0].status).toBe("paid");
 });
+
+it("should cancel order", async () => {
+  console.info("should cancel order");
+  httpRequest.mockReturnValueOnce({
+    orderStatus: 3,
+    actionCode: 0,
+    actionCodeDescription: "actionCodeDescription",
+  });
+
+  let user = await strapi.plugins["users-permissions"].services.user.fetch({
+    email: SUCCESS_USER.email,
+    username: SUCCESS_USER.username,
+  });
+
+  const jwt = strapi.plugins["users-permissions"].services.jwt.issue({
+    id: user.id,
+  });
+
+  await request(strapi.server) // app server is an instance of Class: http.Server
+    .put(`/orders/1`)
+    .set("accept", "application/json")
+    .set("Content-Type", "application/json")
+    .set("Authorization", "Bearer " + jwt)
+    .expect(204);
+
+  user = await strapi.plugins["users-permissions"].services.user.fetch({
+    email: SUCCESS_USER.email,
+    username: SUCCESS_USER.username,
+  });
+
+  expect(user.orders.length).toBe(1);
+  expect(user.orders[0].status).toBe("cancelled");
+});

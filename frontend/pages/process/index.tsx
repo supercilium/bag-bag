@@ -53,6 +53,7 @@ import { toastError, toastSuccess } from "../../utils/toasts";
 import { InputMask } from "../../components/InputMask";
 import { DELIVERY_COST, SHIPPING_ADDRESS } from "../../constants/order";
 import { validatePhone } from "../../utils/validation";
+import { Loader } from "../../components/Loader";
 
 const Process = () => {
   const router = useRouter();
@@ -512,6 +513,7 @@ const Process = () => {
           </ProcessGrid>
         </div>
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 };

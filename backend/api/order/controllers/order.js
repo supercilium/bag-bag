@@ -191,9 +191,9 @@ module.exports = {
 
         strapi.log.debug("cleared shopping bag");
         if (entity) {
-          entity = sanitizeEntity(entity, "order");
+          entity = sanitizeEntity(entity, { model: strapi.models.order });
+          ctx.body = { ...entity, formUrl: paymentData.formUrl };
         }
-        ctx.body = { ...entity, formUrl: paymentData.formUrl };
       });
     } catch (error) {
       strapi.log.error(error);
