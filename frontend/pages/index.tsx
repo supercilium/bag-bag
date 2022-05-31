@@ -17,7 +17,7 @@ import { Subscribe } from "../components/content/Subscribe";
 // import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import { ProductInterface } from "../types/product";
-import { BrandWithCount } from "../types/brand";
+// import { BrandWithCount } from "../types/brand";
 import { CollectionInterface } from "../types/collection";
 // import { SSRConfig } from "next-i18next";
 import { PromotionInterface } from "../types/promotion";
@@ -25,7 +25,6 @@ import "react-multi-carousel/lib/styles.css";
 
 const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   products,
-  brandsWithCounts,
   collections,
   promotions,
 }) => {
@@ -36,7 +35,7 @@ const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <meta property="og:description" content="Ресейл сумок | (ex)bags" />
         <meta property="og:title" content="Ресейл сумок | (ex)bags" />
       </Head>
-      <Banner promotions={promotions} brandsWithCounts={brandsWithCounts} />
+      <Banner promotions={promotions} />
       <NewArrivals products={products} />
       <Collections items={collections} />
       <Sell />
@@ -49,7 +48,6 @@ const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 // interface HomePageInterface extends SSRConfig {
 interface HomePageInterface {
   products: ProductInterface[];
-  brandsWithCounts: BrandWithCount[];
   collections: CollectionInterface[];
   promotions: PromotionInterface[];
 }
@@ -57,7 +55,10 @@ interface HomePageInterface {
 export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
   locale,
 }) => {
-  const products = await getProducts();
+  const products = await getProducts({
+    _limit: "8",
+    _sort: "created_at:DESC",
+  });
   const collections = await getCollections({
     _limit: "3",
     _sort: "created_at:DESC",
@@ -66,14 +67,12 @@ export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
     _limit: "4",
     _sort: "created_at:DESC",
   });
-  const brandsWithCounts = await getBrandsWithCounts();
   // const locales = await serverSideTranslations(locale, [
   // "common", "footer"
   // ]);
   return {
     props: {
       products,
-      brandsWithCounts,
       collections,
       promotions,
       // ...locales,

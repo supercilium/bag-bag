@@ -13,10 +13,7 @@ import { GRID_TEMPLATES } from "../../constants/catalogueGridTemplate";
 import { StyledHeader } from "../../styles/layout";
 import { FiltersMenu } from "../../components/Filters";
 
-const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
-  products,
-  filters,
-}) => {
+const Catalogue: FC<{ products: ProductInterface[] }> = ({ products }) => {
   return (
     <div>
       <Head>
@@ -31,7 +28,7 @@ const Catalogue: FC<{ products: ProductInterface[]; filters: Filters }> = ({
           </h1>
         </StyledHeader>
 
-        <FiltersMenu filters={filters} />
+        <FiltersMenu />
         <CatalogueGrid>
           {products.map((item, i) => (
             <CatalogueItem key={item.id} $gridArea={GRID_TEMPLATES[i]}>

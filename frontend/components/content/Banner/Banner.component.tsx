@@ -13,14 +13,13 @@ import {
 } from "./Banner.styles";
 import { Button } from "../../Button";
 import Arrow from "../../icons/arrow-big-right.svg";
-import { BrandWithCount } from "../../../types/brand";
 import Link from "next/link";
 import { PromotionInterface } from "../../../types/promotion";
 import MultiCarousel, { CarouselInternalState } from "react-multi-carousel";
-import { chunk } from "lodash-es";
+// import { chunk } from "lodash-es";
+import useBrandsWithProducts from "../../../hooks/useBrandsWithProducts";
 
 export interface BannerProps {
-  brandsWithCounts: BrandWithCount[];
   promotions: PromotionInterface[];
 }
 
@@ -55,10 +54,8 @@ const CustomDot: FC<CarouselDotProps> = ({ onClick, active, index }) => {
   );
 };
 
-export const Banner: React.FC<BannerProps> = ({
-  brandsWithCounts,
-  promotions,
-}) => {
+export const Banner: React.FC<BannerProps> = ({ promotions }) => {
+  const { brandsWithCounts } = useBrandsWithProducts();
   const BannerButtons: FC<CarouselButtonGroupProps> = useCallback(
     ({ next, previous, ...rest }) => {
       const {
@@ -89,7 +86,7 @@ export const Banner: React.FC<BannerProps> = ({
   );
 
   const brandRows = useMemo(
-    () => brandsWithCounts.filter((item) => item.products > 0),
+    () => brandsWithCounts?.filter((item) => item.products > 0),
     [brandsWithCounts]
   );
 

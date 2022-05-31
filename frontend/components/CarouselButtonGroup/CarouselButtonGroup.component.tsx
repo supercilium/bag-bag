@@ -22,7 +22,7 @@ export const CarouselButtonGroup: React.FC<CarouselButtonGroupProps> = ({
   return (
     <ButtonsContainer>
       <div>
-        {totalItems > BUTTONS_VISIBLE_ITEMS_MIN_LENGTH && (
+        {totalItems >= BUTTONS_VISIBLE_ITEMS_MIN_LENGTH && (
           <>
             <Button
               $round

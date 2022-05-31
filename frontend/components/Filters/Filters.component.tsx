@@ -27,7 +27,6 @@ import Close from "../icons/close.svg";
 import { Button } from "../Button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { Filters } from "../../types/common";
 import {
   ButtonBack,
   MobileMenuRoot,
@@ -39,11 +38,7 @@ import pick from "lodash-es/pick";
 import { formatSum } from "../../utils/formatters";
 import useLoading from "../../hooks/useLoader";
 import { Loader } from "../Loader";
-import { ParsedUrlQuery } from "querystring";
-
-export interface FiltersProps {
-  filters: Filters;
-}
+import useFilters from "../../hooks/useFilters";
 
 export type OpenedFilter =
   | "brand"
@@ -86,7 +81,7 @@ const INITIAL_FILTER_VALUES: FilterObjInterface = {
   _sort: "views:DESC",
 };
 
-export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
+export const FiltersMenu: React.FC = () => {
   const { width } = useDimensions();
   const { query, push } = useRouter();
   const [openedMenu, setOpenedMenu] = useState<"filters" | "sort">(null);
@@ -96,6 +91,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
   });
   const { isLoading } = useLoading();
   const sortRef = useRef<HTMLButtonElement>();
+  const { filters } = useFilters();
 
   useEffect(() => {
     // https://stackoverflow.com/a/64307087/15152568
@@ -141,7 +137,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
 
   const filtersByAlphabet = useMemo(
     () =>
-      filters.brands.reduce((acc, item) => {
+      filters?.brands.reduce((acc, item) => {
         const firstLetter = item.name[0].toLowerCase();
         if (acc[firstLetter]) {
           acc[firstLetter] = [...acc[firstLetter], item];
@@ -150,7 +146,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
         }
         return acc;
       }, {}),
-    [filters.brands]
+    [filters?.brands]
   );
 
   // const handleSubmitByDebounce = useCallback(
@@ -272,7 +268,7 @@ export const FiltersMenu: React.FC<FiltersProps> = ({ filters }) => {
           </FilterButtons>
         )}
 
-        {(openedFilter || openedMenu) && (
+        {(openedFilter || openedMenu) && filters && (
           <FiltersForm onSubmit={handleSubmit(onSubmit)}>
             {isWideScreen ? (
               <>

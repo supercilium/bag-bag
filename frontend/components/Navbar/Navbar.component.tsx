@@ -17,7 +17,6 @@ import ContactsBorder from "../icons/hover_zigzag.svg";
 import Profile from "../icons/profile.svg";
 import Bag from "../icons/bag.svg";
 import useUser from "../../hooks/useUser";
-import { Filters } from "../../types/common";
 import { MenuIcon } from "../MenuIcon";
 import { LaptopLVisible, MobileVisible } from "../../styles/layout";
 import { useRouter } from "next/router";
@@ -25,11 +24,7 @@ import { MobileMenu } from "./MobileMenu.component";
 import LogoImg from "../icons/logo.svg";
 import { useTranslation } from "next-i18next";
 
-export interface NavbarProps {
-  filters: Filters;
-}
-
-export const Navbar = ({ filters }) => {
+export const Navbar = () => {
   const { user } = useUser();
   const { query, route } = useRouter();
   const [isOpen, setOpenedState] = useState(false);
@@ -103,7 +98,7 @@ export const Navbar = ({ filters }) => {
         </NavbarContainer>
       </NavbarRoot>
       <MobileVisible>
-        <MobileMenu filters={filters} isOpen={isOpen} />
+        <MobileMenu isOpen={isOpen} />
       </MobileVisible>
     </>
   );

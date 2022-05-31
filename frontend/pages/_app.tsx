@@ -2,7 +2,7 @@ import App, { AppContext, AppProps } from "next/app";
 import Head from "next/head";
 import { SWRConfig } from "swr";
 import { Layout } from "../components/Layout";
-import { fetchJson, getFilters } from "../utils/api";
+import { fetchJson } from "../utils/api";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/index.css";
 import { THEME } from "../styles/theme";
@@ -33,7 +33,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         />
 
         <GlobalStyle />
-        <Layout filters={pageProps.filters}>
+        <Layout>
           <Head>
             <meta
               name="viewport"
@@ -84,11 +84,11 @@ MyApp.getInitialProps = async (ctx: AppContext) => {
   // Calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(ctx);
   // Fetch global site settings from Strapi
-  const filters = await getFilters();
+  // const filters = await getFilters();
   // Pass the data to our page via props
   return {
     ...appProps,
-    pageProps: { filters, path: ctx.ctx.pathname },
+    pageProps: { path: ctx.ctx.pathname },
   };
 };
 

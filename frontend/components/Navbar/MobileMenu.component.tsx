@@ -13,15 +13,14 @@ import Arrow from "../icons/arrow-simple-right.svg";
 import { useEffect, useState } from "react";
 import { size } from "../../styles/constants";
 import { InfoBlock } from "../InfoBlock";
-import { Filters } from "../../types/common";
 import { MenuItem } from "../MobileMenu/components";
 import { useDimensions } from "../../hooks/useDimensions";
 import useLoading from "../../hooks/useLoader";
 import { Loader } from "../Loader";
+import useFilters from "../../hooks/useFilters";
 
 export interface MobileMenuProps {
   isOpen: boolean;
-  filters: Filters;
 }
 
 export interface ScreenSize {
@@ -29,11 +28,12 @@ export interface ScreenSize {
   height: number;
 }
 
-export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, filters }) => {
+export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
   const [isSubMenuOpened, setSubMenuState] = useState(false);
   const screenSize = useDimensions();
   const isWideScreen = screenSize.width >= size.laptop;
   const { isLoading } = useLoading();
+  const { filters } = useFilters();
 
   useEffect(() => {
     if (!isWideScreen) {
