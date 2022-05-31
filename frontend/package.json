@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "start-server": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "i18next-chained-backend": "^3.0.2",

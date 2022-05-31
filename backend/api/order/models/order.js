@@ -1,6 +1,5 @@
 "use strict";
 const {
-  getOrderCreationEmail,
   getOrderChangedStatusEmail,
 } = require("../../../config/functions/emailTemplates");
 
@@ -11,23 +10,6 @@ const {
 
 module.exports = {
   lifecycles: {
-    async afterCreate(data) {
-      strapi.log.debug("afterCreate order data ", data?.id);
-      // sqlite caused problems with working parallel with transaction
-      if (process.env.NODE_ENV !== "test") {
-        try {
-          const { email } = await strapi.plugins[
-            "users-permissions"
-          ].services.user.fetch({ id: data.user.id });
-          strapi.log.debug("afterCreate sending email to ", email);
-          await strapi.plugins["email"].services.email.send(
-            getOrderCreationEmail(email, data.id, data.total)
-          );
-        } catch (error) {
-          strapi.log.error(error);
-        }
-      }
-    },
     async beforeUpdate(params, data) {
       strapi.log.debug("beforeUpdate order data ", data);
       strapi.log.debug("beforeUpdate order params ", params);

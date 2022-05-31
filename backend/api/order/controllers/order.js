@@ -1,6 +1,9 @@
 "use strict";
 const { sanitizeEntity } = require("strapi-utils");
 const { httpRequest } = require("../../../config/functions/request");
+const {
+  getOrderCreationEmail,
+} = require("../../../config/functions/emailTemplates");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -192,6 +195,14 @@ module.exports = {
         strapi.log.debug("cleared shopping bag");
         if (entity) {
           entity = sanitizeEntity(entity, { model: strapi.models.order });
+          strapi.log.debug("afterCreate sending email to ", email);
+          await strapi.plugins["email"].services.email.send(
+            getOrderCreationEmail(
+              email,
+              entity.id,
+              entity.total - total.discount
+            )
+          );
           ctx.body = { ...entity, formUrl: paymentData.formUrl };
         }
       });
