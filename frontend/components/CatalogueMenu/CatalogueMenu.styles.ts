@@ -64,6 +64,12 @@ export const CategoryTitlePreview = styled.div`
     letter-spacing: 0.02em;
     text-transform: uppercase;
 
+    & svg {
+        position: absolute;
+        right: 30px;
+        top: -30px;
+    }
+
     @media (hover: hover) and (pointer: fine) {
         &:not([disabled]):hover {
         background-color: ${({ theme }) => theme.colors.green};

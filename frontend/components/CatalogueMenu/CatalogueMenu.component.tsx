@@ -11,6 +11,7 @@ import {
   PreviewColumn,
 } from "./CatalogueMenu.styles";
 import NextImage from "../Image";
+import Star from "../icons/star.svg";
 
 export interface CatalogueMenuProps {
   isOpen: boolean;
@@ -38,7 +39,9 @@ export const CatalogueMenu: React.FC<CatalogueMenuProps> = ({ isOpen }) => {
                     objectFit="cover"
                   />
                 )}
+
                 <CategoryTitlePreview>
+                  <Star height="60" width="60" />
                   {superUsefulLink.name}
                 </CategoryTitlePreview>
               </ImageContainer>
