@@ -35,13 +35,15 @@ import { InfoBlock } from "../../components/InfoBlock";
 import { PreviousPrice } from "../../styles/typography";
 import { FC, useMemo } from "react";
 import { ProductInterface } from "../../types/product";
-import { LaptopLVisible } from "../../styles/layout";
+import { LaptopLVisible, StyledHeader } from "../../styles/layout";
 import { useDimensions } from "../../hooks/useDimensions";
 import { size } from "../../styles/constants";
 import chunk from "lodash-es/chunk";
 import { CarouselButtonGroup } from "../../components/CarouselButtonGroup";
 import { CarouselButtonGroupProps } from "../../components/CarouselButtonGroup/CarouselButtonGroup.component";
 import { Button } from "../../components/Button";
+import useRecommendProducts from "../../hooks/useProducts";
+import { Loader } from "../../components/Loader";
 
 const responsive = {
   desktop: {
@@ -59,7 +61,6 @@ const mobile = {
 
 interface ProductPageInterface {
   product: ProductInterface;
-  recommended: ProductInterface[];
 }
 
 const ButtonGroup: React.FC<CarouselButtonGroupProps> = ({
@@ -93,143 +94,167 @@ const ButtonGroup: React.FC<CarouselButtonGroupProps> = ({
   );
 };
 
-const ProductPage: FC<ProductPageInterface> = ({ product, recommended }) => {
+const ProductPage: FC<ProductPageInterface> = ({ product }) => {
   const screenSize = useDimensions();
   const isWideScreen = screenSize.width >= size.laptop;
+  const { products, isLoading } = useRecommendProducts();
   const carouselItems = useMemo(() => {
-    if (isWideScreen && recommended && recommended?.length >= 0) {
-      return chunk(recommended, 4);
+    if (isWideScreen && products && products?.length >= 0) {
+      return chunk(products, 4);
     }
-  }, [recommended, isWideScreen]);
+  }, [products, isWideScreen]);
 
-  if (!product) {
-    return <div>Not found</div>;
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
     <div>
       <Head>
-        <title>{product.title} | (ex)bags</title>
-        <meta
-          property="og:image"
-          content={product.images?.[0]?.formats?.thumbnail?.url}
-        />
-        <meta property="og:description" content={product.description} />
-        <meta
-          property="og:title"
-          content={`${product.title} by ${product.brand.name} | ex(Bag) Online Store`}
-        />
+        <title>{product?.title || "Сумка не найдена"} | (ex)bags</title>
+        {product && (
+          <meta
+            property="og:image"
+            content={product.images?.[0]?.formats?.thumbnail?.url}
+          />
+        )}
+        {product && (
+          <meta property="og:description" content={product.description} />
+        )}
+        {product && (
+          <meta
+            property="og:title"
+            content={`${product.title} by ${product.brand.name} | ex(Bag) Online Store`}
+          />
+        )}
       </Head>
-      <ProductsRoot>
-        {isWideScreen ? (
-          <ImageContainer>
-            {product.images &&
-              product.images.map((image) => (
-                <NextImage key={image.id} media={image} />
-              ))}
-          </ImageContainer>
-        ) : (
-          <>
-            <h2>{product.brand.name}</h2>
-            <PriceRow>
-              {formatSum(getActualSum(product.price, product.discount), "₽")}
-              {product.discount && (
-                <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
-              )}
-            </PriceRow>
-
-            <MultiCarousel
-              swipeable={true}
-              responsive={mobile}
-              draggable={false}
-              showDots={false}
-              ssr={true} // means to render carousel on server-side.
-              infinite={false}
-              autoPlay={false}
-              autoPlaySpeed={100000}
-              keyBoardControl={true}
-              transitionDuration={500}
-              partialVisible={false}
-              minimumTouchDrag={10}
-              arrows={false}
-              customButtonGroup={<ButtonGroup />}
-            >
+      {!product || !product?.is_available ? (
+        <div className="container m32">
+          <StyledHeader>
+            <h1>Страница не найдена</h1>
+          </StyledHeader>
+        </div>
+      ) : (
+        <ProductsRoot>
+          {isWideScreen ? (
+            <ImageContainer>
               {product.images &&
                 product.images.map((image) => (
-                  <ImageContainer key={image.id}>
-                    <NextImage media={image} objectFit="cover" layout="fill" />
-                  </ImageContainer>
+                  <NextImage key={image.id} media={image} />
                 ))}
-            </MultiCarousel>
-          </>
-        )}
-
-        <ItemDescriptionContainer>
-          <div>
-            <LaptopLVisible>
+            </ImageContainer>
+          ) : (
+            <>
               <h2>{product.brand.name}</h2>
-            </LaptopLVisible>
-            <DescriptionTitle>{product.title}</DescriptionTitle>
-            <Description>{product.description}</Description>
-
-            <PriceRow>
-              <LaptopLVisible>
+              <PriceRow>
                 {formatSum(getActualSum(product.price, product.discount), "₽")}
                 {product.discount && (
                   <PreviousPrice>{formatSum(product.price, "₽")}</PreviousPrice>
                 )}
-              </LaptopLVisible>
-            </PriceRow>
-          </div>
+              </PriceRow>
 
-          <PurchaseButtons productId={product.id} />
-          <DescriptionBlock>
-            <DescriptionRow>
-              <Attribute>Цвет</Attribute>
-              <span>{product.color.name}</span>
-            </DescriptionRow>
-            <DescriptionRow>
-              <Attribute>Размер</Attribute>
-              <span>{formatDimensions(product)}</span>
-            </DescriptionRow>
-            <DescriptionRow>
-              <Attribute>Тип</Attribute>
-              <span>{product.category.name}</span>
-            </DescriptionRow>
-            <DescriptionRow>
-              <Attribute>Год</Attribute>
-              <span>{product.year}</span>
-            </DescriptionRow>
-          </DescriptionBlock>
-          <InfoBlock
-            title={
-              <AccordionTitle>
-                <Pay width="36" height="36" />
-                Информация по оплате
-              </AccordionTitle>
-            }
-            content="К оплате принимаются банковские карты Visa, Master Card и МИР. Пожалуйста, обратите внимание, что заказы, оплаченные банковским переводом, будут отправлены после поступления денежных средств на расчётный счёт компании."
-          />
-          <InfoBlock
-            title={
-              <AccordionTitle>
-                <Delivery width="36" height="36" />
-                Доставка
-              </AccordionTitle>
-            }
-            content="Для Москвы и Санкт-Петербурга, доступна доставка курьером в рабочие дни на условии предоплаты или самовывоз из ближайшего магазина. Доставка по всей территории РФ осуществляется по почте и курьерскими службами."
-          />
-          <InfoBlock
-            title={
-              <AccordionTitle>
-                <Return width="36" height="36" />
-                Возврат
-              </AccordionTitle>
-            }
-            content="Возврат изделия производится при условии сохранения его товарного вида и потребительских свойств, оригинальной упаковки и документа, подтверждающего факт покупки."
-          />
-        </ItemDescriptionContainer>
-      </ProductsRoot>
+              <MultiCarousel
+                swipeable={true}
+                responsive={mobile}
+                draggable={false}
+                showDots={false}
+                ssr={true} // means to render carousel on server-side.
+                infinite={false}
+                autoPlay={false}
+                autoPlaySpeed={100000}
+                keyBoardControl={true}
+                transitionDuration={500}
+                partialVisible={false}
+                minimumTouchDrag={10}
+                arrows={false}
+                customButtonGroup={<ButtonGroup />}
+              >
+                {product.images &&
+                  product.images.map((image) => (
+                    <ImageContainer key={image.id}>
+                      <NextImage
+                        media={image}
+                        objectFit="cover"
+                        layout="fill"
+                      />
+                    </ImageContainer>
+                  ))}
+              </MultiCarousel>
+            </>
+          )}
+
+          <ItemDescriptionContainer>
+            <div>
+              <LaptopLVisible>
+                <h2>{product.brand.name}</h2>
+              </LaptopLVisible>
+              <DescriptionTitle>{product.title}</DescriptionTitle>
+              <Description>{product.description}</Description>
+
+              <PriceRow>
+                <LaptopLVisible>
+                  {formatSum(
+                    getActualSum(product.price, product.discount),
+                    "₽"
+                  )}
+                  {product.discount && (
+                    <PreviousPrice>
+                      {formatSum(product.price, "₽")}
+                    </PreviousPrice>
+                  )}
+                </LaptopLVisible>
+              </PriceRow>
+            </div>
+
+            <PurchaseButtons productId={product.id} />
+            <DescriptionBlock>
+              <DescriptionRow>
+                <Attribute>Цвет</Attribute>
+                <span>{product.color.name}</span>
+              </DescriptionRow>
+              <DescriptionRow>
+                <Attribute>Размер</Attribute>
+                <span>{formatDimensions(product)}</span>
+              </DescriptionRow>
+              <DescriptionRow>
+                <Attribute>Тип</Attribute>
+                <span>{product.category.name}</span>
+              </DescriptionRow>
+              <DescriptionRow>
+                <Attribute>Год</Attribute>
+                <span>{product.year}</span>
+              </DescriptionRow>
+            </DescriptionBlock>
+            <InfoBlock
+              title={
+                <AccordionTitle>
+                  <Pay width="36" height="36" />
+                  Информация по оплате
+                </AccordionTitle>
+              }
+              content="К оплате принимаются банковские карты Visa, Master Card и МИР. Пожалуйста, обратите внимание, что заказы, оплаченные банковским переводом, будут отправлены после поступления денежных средств на расчётный счёт компании."
+            />
+            <InfoBlock
+              title={
+                <AccordionTitle>
+                  <Delivery width="36" height="36" />
+                  Доставка
+                </AccordionTitle>
+              }
+              content="Для Москвы и Санкт-Петербурга, доступна доставка курьером в рабочие дни на условии предоплаты или самовывоз из ближайшего магазина. Доставка по всей территории РФ осуществляется по почте и курьерскими службами."
+            />
+            <InfoBlock
+              title={
+                <AccordionTitle>
+                  <Return width="36" height="36" />
+                  Возврат
+                </AccordionTitle>
+              }
+              content="Возврат изделия производится при условии сохранения его товарного вида и потребительских свойств, оригинальной упаковки и документа, подтверждающего факт покупки."
+            />
+          </ItemDescriptionContainer>
+        </ProductsRoot>
+      )}
       <ContentBlock $hidePaddings={true}>
         <div className="container">
           <h2 className="h2">рекомендуем</h2>
@@ -262,7 +287,7 @@ const ProductPage: FC<ProductPageInterface> = ({ product, recommended }) => {
               </MultiCarousel>
             ) : (
               <Carousel>
-                {recommended?.map((item) => (
+                {products?.map((item) => (
                   <Item {...item} key={item.id} />
                 ))}
               </Carousel>
@@ -279,8 +304,7 @@ export default ProductPage;
 export async function getStaticProps({ params }) {
   try {
     const product = await getProduct(params.slug);
-    const recommended = await getProducts({ _sort: "created_at:DESC" });
-    return { props: { product, recommended } };
+    return { props: { product } };
   } catch (error) {
     return {
       props: {

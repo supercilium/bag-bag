@@ -13,11 +13,19 @@ module.exports = {
     await strapi
       .query("product")
       .model.query((qb) => {
-        qb.where("slug", slug);
+        qb.where({ slug, is_available: true });
         qb.increment("views", 1);
       })
       .fetch();
-    const entity = await strapi.services.product.findOne({ slug });
+    const entity = await strapi.services.product.findOne({
+      slug,
+      is_available: true,
+    });
+
+    return sanitizeEntity(entity, { model: strapi.models.product });
+  },
+  async find() {
+    const entity = await strapi.query("product").find({ is_available: true });
 
     return sanitizeEntity(entity, { model: strapi.models.product });
   },
