@@ -15,7 +15,7 @@ export const CatalogueMenuRoot = styled.div<{ $isOpen: boolean }>`
     transition: transform ${TRANSITION}, box-shadow 0.1s ease-out .2s;
     position: fixed;
     top: 9rem;
-    z-index: 1;
+    z-index: 2;
     
     @media ${device.laptopL} {
         display: grid;
