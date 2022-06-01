@@ -23,15 +23,18 @@ import { useRouter } from "next/router";
 import { MobileMenu } from "./MobileMenu.component";
 import LogoImg from "../icons/logo.svg";
 import { useTranslation } from "next-i18next";
+import { CatalogueMenu } from "../CatalogueMenu";
 
 export const Navbar = () => {
   const { user } = useUser();
   const { query, route } = useRouter();
   const [isOpen, setOpenedState] = useState(false);
   const { t, ready } = useTranslation("common");
+  const [isCatalogueOpen, setCatalogueOpenedState] = useState(false);
 
   useEffect(() => {
     setOpenedState(false);
+    setCatalogueOpenedState(false);
   }, [query]);
 
   return (
@@ -48,12 +51,13 @@ export const Navbar = () => {
             </Logo>
           </Link>
           <NavbarLinks>
-            <Link href="/catalogue?_sort=views:DESC" passHref>
-              <NavbarMainLink $selected={route === "/catalogue"}>
-                <CatalogueBorder />
-                {ready ? t("catalog") : ""}
-              </NavbarMainLink>
-            </Link>
+            <NavbarMainLink
+              onClick={() => setCatalogueOpenedState((state) => !state)}
+              $selected={route === "/catalogue"}
+            >
+              <CatalogueBorder />
+              {ready ? t("catalog") : ""}
+            </NavbarMainLink>
             <Link href="/offer" passHref>
               <NavbarMainLink $selected={route === "/offer"}>
                 <OfferBorder />
@@ -100,6 +104,7 @@ export const Navbar = () => {
       <MobileVisible>
         <MobileMenu isOpen={isOpen} />
       </MobileVisible>
+      <CatalogueMenu isOpen={isCatalogueOpen} />
     </>
   );
 };

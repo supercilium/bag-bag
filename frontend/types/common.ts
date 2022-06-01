@@ -1,3 +1,4 @@
+import { Image } from './image';
 export interface CommonProps {
     id: number;
     name: string;
@@ -6,9 +7,13 @@ export interface CommonProps {
     updated_at: string;
 }
 
+export interface CategoryInterface extends CommonProps {
+    preview: Image;
+}
+
 export interface Filters {
     brands: CommonProps[];
-    categories: CommonProps[];
+    categories: CategoryInterface[];
     collections: CommonProps[];
 }
 
