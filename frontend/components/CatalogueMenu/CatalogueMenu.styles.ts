@@ -29,10 +29,10 @@ export const ImageContainer = styled.div`
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
     linear-gradient(0deg, rgba(143, 153, 189, 0.31), rgba(143, 153, 189, 0.31)),
     linear-gradient(0deg, rgba(167, 213, 239, 0.17), rgba(167, 213, 239, 0.17));
-    border-radius: 3.6rem;
+    border-radius: 3rem;
 
     & img {
-        border-radius: 3.6rem;
+        border-radius: 3rem;
     }
 `
 
