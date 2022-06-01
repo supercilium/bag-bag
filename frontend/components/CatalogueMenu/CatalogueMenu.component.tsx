@@ -38,7 +38,9 @@ export const CatalogueMenu: React.FC<CatalogueMenuProps> = ({ isOpen }) => {
                     objectFit="cover"
                   />
                 )}
-                <CategoryTitlePreview>Сумки</CategoryTitlePreview>
+                <CategoryTitlePreview>
+                  {superUsefulLink.name}
+                </CategoryTitlePreview>
               </ImageContainer>
             </PreviewColumn>
           </Link>

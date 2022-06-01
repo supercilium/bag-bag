@@ -17,7 +17,8 @@ module.exports = {
   i18n: {
     ns: ["common", "footer"],
     defaultLocale: "ru",
-    locales: ["en", "ru"],
+    locales: ["ru", "en"],
+    localeDetection: false,
   },
   serializeConfig: false,
   use: typeof window !== "undefined" ? [ChainedBackend] : [],
