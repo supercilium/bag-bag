@@ -11,7 +11,7 @@ export const NavbarRoot = styled.div`
   left: 0;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom: 1px solid ${({ theme }) => theme.colors.black};
-  z-index: 2;
+  z-index: 3;
 
   @media ${device.laptopL} {
     height: 9rem;
