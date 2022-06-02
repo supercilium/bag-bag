@@ -21,7 +21,6 @@ import { RequestBagInterface } from "../../types/request";
 import { FC, useEffect, useState } from "react";
 import { Select } from "../../components/Select";
 import { createRequest } from "../../utils/api";
-import { Filters } from "../../types/common";
 import { Breadcrumbs } from "../../components/Breadcrumbs";
 import { ButtonText } from "../../components/ButtonText";
 import Arrow from "../../components/icons/arrow-simple-right.svg";
@@ -39,16 +38,14 @@ import { toastError, toastSuccess } from "../../utils/toasts";
 import { InputMask } from "../../components/InputMask";
 import { validateFile, validatePhone } from "../../utils/validation";
 import { Loader } from "../../components/Loader";
+import useFilters from "../../hooks/useFilters";
 
-interface OfferProps {
-  filters: Filters;
-}
-
-const Offer: FC<OfferProps> = ({ filters }) => {
+const Offer: FC = () => {
   const { user } = useUser();
   const [activeTab, setActiveTab] = useState<TabName>("common");
   const { width } = useDimensions();
   const [isLoading, setIsLoading] = useState(false);
+  const { filters, isLoading: isFiltersLoading } = useFilters();
 
   const {
     register,
@@ -171,7 +168,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
                     {...field}
                     label="Бренд"
                     placeholder="Выберите бренд"
-                    options={filters.brands.map((brand) => ({
+                    options={filters?.brands.map((brand) => ({
                       value: "" + brand.id,
                       label: brand.name,
                     }))}
@@ -397,7 +394,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
             <Box>
               <ResultRow>
                 {
-                  filters.brands?.find(
+                  filters?.brands?.find(
                     ({ id }) => id === +values?.data?.brand?.value
                   )?.name
                 }

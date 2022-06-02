@@ -2,7 +2,13 @@
 
 const fs = require("fs");
 
-const { categories, products, brands } = require("../../data/data");
+const {
+  categories,
+  products,
+  brands,
+  promotions,
+  collections,
+} = require("../../data/data");
 const {
   public: publicPermissions,
   authenticated: authenticatedPermissions,
@@ -128,9 +134,137 @@ const createSeedData = async (files) => {
     }
   });
 
+  const promotionsPromises = promotions.map(async (promo) => {
+    const banner = handleFiles({ slug: "dummy-promo" });
+
+    const entry = await strapi.query("promotion").create(promo);
+    await strapi.entityService.uploadFiles(
+      entry,
+      { banner },
+      {
+        model: "promotion",
+      }
+    );
+  });
+
+  const collectionsPromises = collections.map(async (collection) => {
+    await strapi.query("collection").create(collection);
+  });
+
   await Promise.all(categoriesPromises);
   await Promise.all(brandsPromises);
   await Promise.all(productsPromises);
+  await Promise.all(promotionsPromises);
+  await Promise.all(collectionsPromises);
+
+  const brandsEntities = await strapi.query("brand").find();
+  const preview = handleFiles({ slug: "dummy-brand" });
+  if (preview) {
+    await strapi.entityService.uploadFiles(
+      brandsEntities[0],
+      { preview },
+      {
+        model: "brand",
+      }
+    );
+  }
+  const knex = strapi.connections.default;
+  const [previewImage] = await knex("upload_file")
+    .where("name", "dummy-brand.png")
+    .select("id");
+
+  const updateBrandsPromises = brandsEntities.slice(1).map(async (entry) => {
+    try {
+      if (!previewImage?.id) {
+        const preview = handleFiles({ slug: "dummy-brand" });
+        console.log(preview);
+        const files = {
+          preview,
+        };
+        if (files) {
+          await strapi.entityService.uploadFiles(entry, files, {
+            model: "brand",
+          });
+        }
+      } else {
+        await knex
+          .insert({
+            upload_file_id: previewImage.id,
+            related_id: entry.id,
+            related_type: "brands",
+            field: "preview",
+            order: 1,
+          })
+          .into("upload_file_morph");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  });
+
+  await Promise.all(updateBrandsPromises);
+
+  const categoriesEntities = await strapi.query("category").find();
+  const categoryPreview = handleFiles({ slug: "dummy-category" });
+  if (categoryPreview) {
+    await strapi.entityService.uploadFiles(
+      categoriesEntities[0],
+      { preview: categoryPreview },
+      {
+        model: "category",
+      }
+    );
+  }
+  const [previewCategoryImage] = await knex("upload_file")
+    .where("name", "dummy-category.png")
+    .select("id");
+
+  const updateCategoryPromises = categoriesEntities
+    .slice(1)
+    .map(async (entry) => {
+      try {
+        if (!previewCategoryImage?.id) {
+          const preview = handleFiles({ slug: "dummy-category" });
+          const files = {
+            preview,
+          };
+          if (files) {
+            await strapi.entityService.uploadFiles(entry, files, {
+              model: "category",
+            });
+          }
+        } else {
+          await knex
+            .insert({
+              upload_file_id: previewCategoryImage.id,
+              related_id: entry.id,
+              related_type: "categories",
+              field: "preview",
+              order: 1,
+            })
+            .into("upload_file_morph");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+  const updatedCollections = await strapi.query("collection").find();
+  Promise.all(
+    updatedCollections.map(async (item) => {
+      await knex
+        .insert({
+          upload_file_id: previewCategoryImage.id,
+          related_id: item.id,
+          related_type: "collections",
+          field: "preview",
+          order: 1,
+        })
+        .into("upload_file_morph");
+    })
+  );
+
+  await Promise.all(updateCategoryPromises);
 };
 
 // const updateProducts = async (files) => {
