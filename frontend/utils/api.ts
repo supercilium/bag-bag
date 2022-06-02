@@ -54,7 +54,7 @@ export const fetchWithToken: FetchType = async (input) => {
   const { token } = parseCookies();
   const requestInfo: RequestInfo = typeof input === 'string' ? getStrapiURL(input) : { ...input, url: getStrapiURL(input.url) };
 
-  const response = await fetch(requestInfo, { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } })
+  const response = await fetch(requestInfo, { headers: { "Content-Type": "application/json", Authorization: token ? `Bearer ${token}` : null } })
 
   // if the server replies, there's always some data in json
   // if there's a network error, it will throw at the previous line
@@ -122,8 +122,8 @@ export async function getCategory(slug: string) {
   return categories?.[0] as CommonProps[];
 }
 
-export async function getProducts(query?: ParsedUrlQuery) {
-  const querystring = getAsString(query)
+export async function getProducts(query?: ParsedUrlQuery | string) {
+  const querystring = typeof query === 'string' ? query : getAsString(query)
   const products = await fetchAPI<ProductInterface[]>(`/products${querystring}`);
   return products as ProductInterface[];
 }
@@ -148,14 +148,6 @@ export async function getPromotions(query?: ParsedUrlQuery) {
   const querystring = getAsString(query)
   const res = await fetchAPI<PromotionInterface[]>(`/promotions${querystring}`);
   return res as PromotionInterface[];
-}
-
-export async function getProfile(token: string) {
-  const profile = await fetchAPI<User>('/profile', {
-    method: "GET",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-  });
-  return profile;
 }
 
 export async function putProfile(id: number, profile: Partial<User & { password?: string }>) {
@@ -231,9 +223,9 @@ export const removeFromFavorite = async (id: number) => {
   return user
 }
 
-export const addToShoppingBag = async (id: number) => {
+export const addToShoppingBag = async (query: string) => {
   const { token } = parseCookies()
-  const user = await fetchAPI<User>(`/profile/add-to-shopping-bag?id=${id}`, {
+  const user = await fetchAPI<User>(`/profile/add-to-shopping-bag?${query}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
   });

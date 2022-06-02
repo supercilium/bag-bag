@@ -76,7 +76,7 @@ const Profile = () => {
 
   useEffect(() => {
     // https://stackoverflow.com/a/64307087/15152568
-    if (user) {
+    if (user?.id) {
       reset({
         last_name: user?.last_name,
         email: user?.email,

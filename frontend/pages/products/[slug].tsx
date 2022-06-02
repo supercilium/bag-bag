@@ -42,7 +42,7 @@ import chunk from "lodash-es/chunk";
 import { CarouselButtonGroup } from "../../components/CarouselButtonGroup";
 import { CarouselButtonGroupProps } from "../../components/CarouselButtonGroup/CarouselButtonGroup.component";
 import { Button } from "../../components/Button";
-import useRecommendProducts from "../../hooks/useProducts";
+import useProducts from "../../hooks/useProducts";
 import { Loader } from "../../components/Loader";
 
 const responsive = {
@@ -97,7 +97,7 @@ const ButtonGroup: React.FC<CarouselButtonGroupProps> = ({
 const ProductPage: FC<ProductPageInterface> = ({ product }) => {
   const screenSize = useDimensions();
   const isWideScreen = screenSize.width >= size.laptop;
-  const { products, isLoading } = useRecommendProducts();
+  const { products, isLoading } = useProducts("_sort=created_at:DESC");
   const carouselItems = useMemo(() => {
     if (isWideScreen && products && products?.length >= 0) {
       return chunk(products, 4);
