@@ -55,10 +55,7 @@ interface HomePageInterface {
 export const getStaticProps: GetStaticProps<HomePageInterface> = async ({
   locale,
 }) => {
-  const products = await getProducts({
-    _limit: "8",
-    _sort: "created_at:DESC",
-  });
+  const products = await getProducts("?_limit=8&_sort=created_at:DESC");
   const collections = await getCollections({
     _limit: "3",
     _sort: "created_at:DESC",

@@ -140,6 +140,10 @@ const Process = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [activeTab]);
 
+  if (!user?.id) {
+    router.push("/login?goto=cart");
+  }
+
   const { shopping_bag } = user || {};
 
   const onSubmit = async (values: OrderFormValues) => {

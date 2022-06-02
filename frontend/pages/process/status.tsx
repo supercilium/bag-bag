@@ -12,7 +12,7 @@ const Page = () => {
   const { status, id } = query;
 
   useEffect(() => {
-    if (user && id) {
+    if (user?.id && id) {
       (async () => {
         const order = await updateOrder(id as string);
         console.log(order);

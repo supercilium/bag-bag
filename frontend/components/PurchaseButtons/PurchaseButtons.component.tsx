@@ -11,6 +11,7 @@ import useUser from "../../hooks/useUser";
 import { User } from "../../types/user";
 import { ERROR_UNKNOWN } from "../../constants/errorMessages";
 import { toastError, toastSuccess } from "../../utils/toasts";
+import { destroyCookie, setCookie } from "nookies";
 
 export interface PurchaseButtonsProps
   extends React.DetailedHTMLProps<
@@ -29,8 +30,19 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
   onButtonClick,
 }) => {
   const { user, mutateUser } = useUser();
-
   const [isInFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    console.log(user?.shopping_bag);
+    if (!user?.shopping_bag) {
+      return;
+    }
+    if (!user?.id) {
+      setCookie(null, "shoppingBag", JSON.stringify(user?.shopping_bag));
+    } else {
+      destroyCookie(null, "shoppingBag");
+    }
+  }, [user?.shopping_bag, user?.id]);
 
   useEffect(() => {
     setIsFavorite(user?.favorites?.some((item) => item.id === productId));
@@ -54,22 +66,37 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
   };
 
   const onClickBuyButton = async () => {
-    try {
-      const data = await addToShoppingBag(productId);
-      if ("message" in data) {
+    if (user?.id) {
+      try {
+        const data = await addToShoppingBag(`id=${productId}`);
+        if ("message" in data) {
+          toastError(ERROR_UNKNOWN);
+        } else {
+          await mutateUser(data, false);
+          toastSuccess("Товар успешно добавлен в корзину");
+        }
+      } catch (err) {
         toastError(ERROR_UNKNOWN);
-      } else {
-        await mutateUser(data, false);
-        toastSuccess("Товар успешно добавлен в корзину");
       }
-    } catch (err) {
-      toastError(ERROR_UNKNOWN);
+    } else {
+      mutateUser(
+        {
+          shopping_bag: {
+            products: [
+              ...(user?.shopping_bag?.products || []),
+              { id: productId },
+            ],
+          },
+        } as User,
+        false
+      );
+      toastSuccess("Товар успешно добавлен в корзину");
     }
   };
 
   const isBagInCart = useMemo(
     () => user?.shopping_bag?.products?.some((item) => item?.id === productId),
-    [user, productId]
+    [user?.shopping_bag, productId]
   );
 
   return (
@@ -82,7 +109,7 @@ export const PurchaseButtons: React.FC<PurchaseButtonsProps> = ({
       >
         {buttonTitle || "Купить"}
       </Button>
-      {user && (
+      {user?.id && (
         <Button type="button" $size="s" $round onClick={onClick}>
           <LikeButton $isInFavorite={isInFavorite}>
             <Like />

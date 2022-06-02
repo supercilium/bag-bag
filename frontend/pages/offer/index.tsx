@@ -71,7 +71,7 @@ const Offer: FC<OfferProps> = ({ filters }) => {
 
   useEffect(() => {
     // https://stackoverflow.com/a/64307087/15152568
-    if (user) {
+    if (user?.id) {
       reset({
         data: {
           name: user.last_name,

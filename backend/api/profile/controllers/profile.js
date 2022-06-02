@@ -336,19 +336,20 @@ module.exports = {
       ]);
     }
 
-    const { id } = ctx.query;
     const knex = strapi.connections.default;
-    strapi.log.debug("adding to shopping_bag product id", id);
+    strapi.log.debug("adding to shopping_bag products ", ctx.query);
 
-    const product = await strapi.query("product").findOne({ id });
+    const products = await strapi
+      .query("product")
+      .find({ ...ctx.query, is_available: true });
 
-    if (!product) {
+    if (!products) {
       if (!userFromContext) {
         return ctx.badRequest("No products found");
       }
     }
     let shoppingBagId = userFromContext.shopping_bag?.id;
-    strapi.log.debug("sgopping bag ", userFromContext.shopping_bag);
+    strapi.log.debug("sgopping bag ", userFromContext.shopping_bag?.id);
 
     return await knex.transaction(async (transacting) => {
       if (typeof shoppingBagId === "undefined" || shoppingBagId === null) {
@@ -356,9 +357,7 @@ module.exports = {
         await strapi.query("user", "users-permissions").update(
           { id: userFromContext.id },
           {
-            shopping_bag: {
-              product_id: id,
-            },
+            shopping_bag: {},
           },
           { transacting }
         );
@@ -372,12 +371,29 @@ module.exports = {
         strapi.log.debug("created new shopping_bag ", shoppingBagId);
       }
 
-      await knex("components_shopping_bag_shopping_bags__products")
-        .transacting(transacting)
-        .insert({
+      let dataForInsert = null;
+      if (typeof ctx.query?.id !== undefined && ctx.query?.id !== null) {
+        dataForInsert = {
+          components_shopping_bag_shopping_bag_id: shoppingBagId,
+          product_id: ctx.query.id,
+        };
+      }
+      if (Array.isArray(ctx.query?.id_in) && ctx.query.id_in.length) {
+        dataForInsert = ctx.query.id_in.map((id) => ({
           components_shopping_bag_shopping_bag_id: shoppingBagId,
           product_id: id,
-        })
+        }));
+      }
+      if (typeof ctx.query?.id_in === "string") {
+        dataForInsert = {
+          components_shopping_bag_shopping_bag_id: shoppingBagId,
+          product_id: ctx.query.id_in,
+        };
+      }
+
+      await knex("components_shopping_bag_shopping_bags__products")
+        .transacting(transacting)
+        .insert(dataForInsert)
         .onConflict(["components_shopping_bag_shopping_bag_id", "product_id"])
         .ignore()
         .catch(transacting.rollback);

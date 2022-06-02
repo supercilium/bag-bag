@@ -27,12 +27,12 @@ import { Loader } from "../../components/Loader";
 import { useRouter } from "next/router";
 
 const Login = () => {
-  const { isFallback } = useRouter();
+  const { isFallback, query } = useRouter();
   const [activeTabLogin, setActiveTab] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   // here we just check if user is already logged in and redirect to profile
   const { mutateUser, isLoading, user } = useUser({
-    redirectTo: "/profile",
+    redirectTo: query?.goto ? (query.goto as string) : "/profile",
     redirectIfFound: true,
   });
 

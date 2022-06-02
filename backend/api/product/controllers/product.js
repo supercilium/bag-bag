@@ -24,8 +24,10 @@ module.exports = {
 
     return sanitizeEntity(entity, { model: strapi.models.product });
   },
-  async find() {
-    const entity = await strapi.query("product").find({ is_available: true });
+  async find(ctx) {
+    const entity = await strapi
+      .query("product")
+      .find({ ...ctx.query, is_available: true });
 
     return sanitizeEntity(entity, { model: strapi.models.product });
   },
