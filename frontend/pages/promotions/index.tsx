@@ -34,9 +34,9 @@ const Page: FC<{ promotions: PromotionInterface[] }> = ({ promotions }) => {
   return (
     <div>
       <Head>
-        <title>Акции (ex)bags</title>
-        <meta property="og:description" content="Акции | (ex)bags" />
-        <meta property="og:title" content="Акции | (ex)bags" />
+        <title>Акции BagBag</title>
+        <meta property="og:description" content="Акции | BagBag" />
+        <meta property="og:title" content="Акции | BagBag" />
       </Head>
       <div className="container m32">
         {promotions?.map((item) => (

@@ -136,12 +136,12 @@ const Offer: FC = () => {
   return (
     <div>
       <Head>
-        <title>Продать свою сумку (ex)bags</title>
+        <title>Продать свою сумку BagBag</title>
         <meta
           property="og:description"
-          content="Продать свою сумку | (ex)bags"
+          content="Продать свою сумку | BagBag"
         />
-        <meta property="og:title" content="Продать свою сумку | (ex)bags" />
+        <meta property="og:title" content="Продать свою сумку | BagBag" />
       </Head>
       <OfferTitle>
         <StyledHeader>

@@ -124,12 +124,12 @@ const Profile = () => {
   return (
     <div>
       <Head>
-        <title>Профиль (ex)bags</title>
+        <title>Профиль BagBag</title>
         <meta
           property="og:description"
-          content="Профиль пользователя | (ex)bags"
+          content="Профиль пользователя | BagBag"
         />
-        <meta property="og:title" content="Профиль пользователя | (ex)bags" />
+        <meta property="og:title" content="Профиль пользователя | BagBag" />
       </Head>
       <div className="container m32">
         <StyledProfileHeader $buttonPosition="right">

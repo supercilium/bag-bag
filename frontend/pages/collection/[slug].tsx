@@ -14,7 +14,7 @@ const Page: FC<{ collection: CollectionInterface }> = ({ collection }) => {
   return (
     <div>
       <Head>
-        <title>Коллекция (ex)bags</title>
+        <title>Коллекция BagBag</title>
         <meta
           property="og:image"
           content={collection?.preview?.formats?.thumbnail?.url}

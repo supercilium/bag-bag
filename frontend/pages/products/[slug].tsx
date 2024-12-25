@@ -111,7 +111,7 @@ const ProductPage: FC<ProductPageInterface> = ({ product }) => {
   return (
     <div>
       <Head>
-        <title>{product?.title || "Сумка не найдена"} | (ex)bags</title>
+        <title>{product?.title || "Сумка не найдена"} | BagBag</title>
         {product && (
           <meta
             property="og:image"

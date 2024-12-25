@@ -207,9 +207,9 @@ const Process = () => {
   return (
     <div>
       <Head>
-        <title>Оформление (ex)bags</title>
-        <meta property="og:description" content="Оформление | (ex)bags" />
-        <meta property="og:title" content="Оформление | (ex)bags" />
+        <title>Оформление BagBag</title>
+        <meta property="og:description" content="Оформление | BagBag" />
+        <meta property="og:title" content="Оформление | BagBag" />
       </Head>
       <div className="container">
         <div className="m32">

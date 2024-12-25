@@ -1,7 +1,6 @@
 import Head from "next/head";
 import React, { FC } from "react";
 import {
-  getBrandsWithCounts,
   getCollections,
   getProducts,
   getPromotions,
@@ -31,9 +30,9 @@ const HomePage: FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   return (
     <div>
       <Head>
-        <title>Ресейл (ex)bags</title>
-        <meta property="og:description" content="Ресейл сумок | (ex)bags" />
-        <meta property="og:title" content="Ресейл сумок | (ex)bags" />
+        <title>BagBag</title>
+        <meta property="og:description" content="Find your bag | BagBag" />
+        <meta property="og:title" content="Find your bag | BagBag" />
       </Head>
       <Banner promotions={promotions} />
       <NewArrivals products={products} />

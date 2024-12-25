@@ -99,14 +99,14 @@ const Login = () => {
   return (
     <div>
       <Head>
-        <title>Войти или зарегистрироваться (ex)bags</title>
+        <title>Войти или зарегистрироваться BagBag</title>
         <meta
           property="og:description"
-          content="Войти или зарегистрироваться | (ex)bags"
+          content="Войти или зарегистрироваться | BagBag"
         />
         <meta
           property="og:title"
-          content="Войти или зарегистрироваться | (ex)bags"
+          content="Войти или зарегистрироваться | BagBag"
         />
       </Head>
       <LoginRoot className="align-center">

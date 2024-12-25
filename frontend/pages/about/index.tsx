@@ -5,9 +5,9 @@ const About = () => {
   return (
     <div>
       <Head>
-        <title>О нас (ex)bags</title>
-        <meta property="og:description" content="О нас | (ex)bags" />
-        <meta property="og:title" content="О нас | (ex)bags" />
+        <title>О нас BagBag</title>
+        <meta property="og:description" content="О нас | BagBag" />
+        <meta property="og:title" content="О нас | BagBag" />
       </Head>
       <div className="container m32">
         <StyledHeader>

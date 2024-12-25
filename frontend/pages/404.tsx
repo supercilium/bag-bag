@@ -6,9 +6,9 @@ const Page: FC = () => {
   return (
     <div>
       <Head>
-        <title>404 (ex)bags</title>
-        <meta property="og:description" content="Ресейл сумок | (ex)bags" />
-        <meta property="og:title" content="Ресейл сумок | (ex)bags" />
+        <title>404 BagBag</title>
+        <meta property="og:description" content="Find your bag | BagBag" />
+        <meta property="og:title" content="Find your bag | BagBag" />
       </Head>
       <div className="container m32">
         <StyledHeader>

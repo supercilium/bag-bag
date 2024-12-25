@@ -35,18 +35,18 @@ const Page = () => {
       <Head>
         <title>{`${
           status === "success" ? "Заказ успешно оплачен" : "Ошибка оплаты"
-        } | (ex)bags`}</title>
+        } | BagBag`}</title>
         <meta
           property="og:description"
           content={`${
             status === "success" ? "Заказ успешно оплачен" : "Ошибка оплаты"
-          } | (ex)bags`}
+          } | BagBag`}
         />
         <meta
           property="og:title"
           content={`${
             status === "success" ? "Заказ успешно оплачен" : "Ошибка оплаты"
-          } | (ex)bags`}
+          } | BagBag`}
         />
       </Head>
       <div className="container m32">

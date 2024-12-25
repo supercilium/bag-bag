@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { FC } from "react";
 import { Item } from "../../components/Item";
-import { Filters } from "../../types/common";
 import { ProductInterface } from "../../types/product";
 import { getProducts } from "../../utils/api";
 import {
@@ -17,9 +16,9 @@ const Catalogue: FC<{ products: ProductInterface[] }> = ({ products }) => {
   return (
     <div>
       <Head>
-        <title>Каталог (ex)bags</title>
-        <meta property="og:description" content="Каталог | (ex)bags" />
-        <meta property="og:title" content="Каталог | (ex)bags" />
+        <title>Каталог BagBag</title>
+        <meta property="og:description" content="Каталог | BagBag" />
+        <meta property="og:title" content="Каталог | BagBag" />
       </Head>
       <div className="container m32">
         <StyledHeader>

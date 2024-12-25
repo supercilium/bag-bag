@@ -5,9 +5,9 @@ const Page = () => {
   return (
     <div>
       <Head>
-        <title>Контакты (ex)bags</title>
-        <meta property="og:description" content="Контакты | (ex)bags" />
-        <meta property="og:title" content="Контакты | (ex)bags" />
+        <title>Контакты BagBag</title>
+        <meta property="og:description" content="Контакты | BagBag" />
+        <meta property="og:title" content="Контакты | BagBag" />
       </Head>
       <div className="container m32">
         <StyledHeader>

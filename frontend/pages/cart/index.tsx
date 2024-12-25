@@ -115,9 +115,9 @@ const Cart = () => {
   return (
     <div>
       <Head>
-        <title>Корзина (ex)bags</title>
-        <meta property="og:description" content="Корзина | (ex)bags" />
-        <meta property="og:title" content="Корзина | (ex)bags" />
+        <title>Корзина BagBag</title>
+        <meta property="og:description" content="Корзина | BagBag" />
+        <meta property="og:title" content="Корзина | BagBag" />
       </Head>
       <div className="container m32">
         <StyledHeader $buttonPosition="right">

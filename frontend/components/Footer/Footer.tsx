@@ -10,22 +10,23 @@ import {
   TelegramIcon,
 } from "./Footer.style";
 import Link from "next/link";
-// import Instagram from "../icons/insta.svg";
-// import Facebook from "../icons/fb.svg";
+import Instagram from "../icons/insta.svg";
+import Facebook from "../icons/fb.svg";
 import { useTranslation } from "next-i18next";
 import { MobileVisible } from "../../styles/layout";
 import NextImage from "../Image";
 
 export const Footer = () => {
   const { t, ready } = useTranslation("footer");
+  const year = new Date().getFullYear();
 
   return (
     <FooterRoot>
       <FooterTop>
         <InfoBlock>
-          <a href="tel:+79993553535">+7 999 355-35-35</a>
-          <a href="mailto:hello@exbags.ru">
-            <i>hello@exbags.ru</i>
+          <a href="tel:+999999999999">+99 999 999-99-99</a>
+          <a href="mailto:hello@bagbag.ru">
+            <i>hello@bagbag.ru</i>
           </a>
         </InfoBlock>
         <address className="h4">{ready ? t("address") : ""}</address>
@@ -35,7 +36,7 @@ export const Footer = () => {
               <TelegramIcon />
             </SocialLink>
           </Link>
-          {/* <Link passHref href="/">
+          <Link passHref href="/">
             <SocialLink>
               <Instagram />
             </SocialLink>
@@ -44,10 +45,10 @@ export const Footer = () => {
             <SocialLink style={{ marginLeft: "3.6rem" }}>
               <Facebook />
             </SocialLink>
-          </Link> */}
+          </Link>
         </SocialContainer>
         <MobileVisible>
-          <Copyright>© (ex)bags 2021</Copyright>
+          <Copyright>© BagBag {year}</Copyright>
         </MobileVisible>
       </FooterTop>
       <FooterBottom>
@@ -73,7 +74,7 @@ export const Footer = () => {
           height="30"
           width="158"
         />
-        <Copyright>© (ex)bags 2021</Copyright>
+        <Copyright>© BagBag {year}</Copyright>
       </FooterBottom>
     </FooterRoot>
   );

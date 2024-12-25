@@ -141,9 +141,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
         </Link>
 
         <address>
-          <p>+7 999 355-35-35</p>
+          <p>+99 999 999-99-99</p>
           <p>
-            <i>hello@exbags.ru</i>
+            <i>hello@bagbag.ru</i>
           </p>
         </address>
       </MobileMenuFooter>
